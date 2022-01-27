@@ -12,7 +12,7 @@ tmp_folder=$(mktemp --directory /tmp/oberapk-XXXXXX)
 
 # Set Name and Version
 PKG_NAME=oberapk
-CODE_VERSION=$(grep 'export VERSION=' oberapk | cut -f 2 -d "=") #')
+CODE_VERSION=$(grep '^VERSION=' oberapk | cut -f 2 -d "'")
 PKG_VERSION=1
 
 # Create future tree
