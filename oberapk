@@ -8,7 +8,7 @@
 export PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin
 export LANG=C
 
-VERSION='0.3.3'
+VERSION='0.3.4'
 
 # Global variables
 export CONF_FILE=/etc/oberapk/oberapk.conf
@@ -64,13 +64,13 @@ function ober_list () {
       source ${pakaj}
    done
 
-   set | egrep '^oberpakaj_.*[[:space:]]()$' | cut -f 2- -d '_' | cut -f 1 -d ' ' | grep . | sort
+   set | egrep '^oberpakaj_.*[[:space:]]()$' | cut -f 2- -d '_' | cut -f 1 -d ' ' | grep . | sed -e 's/_/-/g;' | sort
    }
 
 ################################################################
 
 function ober_kit () {
-   egrep "^@[[:alpha:][:digit:]]*: " ${CONF_FILE} | cut -f 1 -d ':' | sed -e 's/^@//;' | grep . | sort
+   egrep "^@[[:alpha:][:digit:]]*: " ${CONF_FILE} | cut -f 1 -d ':' | sed -e 's/^@//;' | grep . | sort -u
    }
 
 ################################################################
@@ -104,12 +104,13 @@ case $1 in
          keep=3
       fi
       source ${PAKAJ_FOLDER}/${pakaj}.sh
-      oberpakaj_${pakaj} ${keep} ${distrib}
+      pakaj_code=$(echo "oberpakaj_${pakaj}" | sed -e 's/-/_/g;')
+      ${pakaj_code} ${keep} ${distrib}
       exit
       ;;
 
    upgrade)
-      for pakaj in $(grep "^@$2:" ${CONF_FILE} | cut -f 2- -d ':' | sort -R)
+      for pakaj in $(grep "^@$2:" ${CONF_FILE} | cut -f 2- -d ':' | sed -e 's/ /\n/g;' | grep . | sort -uR)
       do
          oberapk update ${pakaj}
       done
