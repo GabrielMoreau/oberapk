@@ -9,7 +9,7 @@ function oberpakaj_gestex {
    if [ ! -d "${HOME}/upload/gestex" ]
    then
       cd "${HOME}/upload/"
-      git clone https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/gestex.git
+      git clone https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/gestex.git
    fi
 
    if [ -d "${HOME}/upload/gestex/.git" ]
