@@ -18,7 +18,7 @@ then
 fi
 
 ################################################################
-# grep cut sort
+# cmd: grep cut sort sed cat
 
 # ober : make
 # pakaj : emballage
@@ -32,8 +32,9 @@ NAME
 SYNOPSIS
    oberapk help
    oberapk list
+   oberapk kit
    oberapk update pkg
-   oberapk upgrade key
+   oberapk upgrade kit
 
 AUTHOR
    Gabriel Moreau
@@ -56,9 +57,22 @@ function ober_list () {
    set | egrep '^oberpakaj_.*[[:space:]]()$' | cut -f 2- -d '_' | cut -f 1 -d ' ' | grep . | sort
    }
 
+################################################################
+
+function ober_kit () {
+   egrep "^@[[:alpha:][:digit:]]*: " ${CONF_FILE} | cut -f 1 -d ':' | sed -e 's/^@//;' | grep . | sort
+   }
+
+################################################################
+
 case $1 in
    list)
       ober_list
+      exit
+      ;;
+
+   kit)
+      ober_kit
       exit
       ;;
 
