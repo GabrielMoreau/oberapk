@@ -11,12 +11,20 @@ export LANG=C
 VERSION='0.3.1'
 
 # Global variables
-export CONF_FILE=./oberapk.conf
-export PAKAJ_FOLDER=./pakaj.d
+export CONF_FILE=/etc/oberapk/oberapk.conf
+if [ -e "$HOME/.config/oberapk/oberapk.conf" ]
+then
+   CONF_FILE=$HOME/.config/oberapk/oberapk.conf
+fi
+export PAKAJ_FOLDER=/usr/lib/oberapk/pakaj.d
 export REPREPRO=/srv/www/debian
 if [ -e '/etc/oberapk/oberapk.sh' ]
 then
    source /etc/oberapk/oberapk.sh
+fi
+if [ -e "$HOME/.config/oberapk/oberapk.sh" ]
+then
+   source "$HOME/.config/oberapk/oberapk.sh"
 fi
 
 ################################################################
