@@ -1,0 +1,104 @@
+#!/bin/bash
+#
+# 2018/08/30 Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
+# 2022/01/27 Gabriel Moreau : modulate
+#
+# oberapk
+
+export PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin
+export LANG=C
+
+# Global variables
+export CONF_FILE=./oberapk.conf
+export PAKAJ_FOLDER=./pakaj.d
+export REPREPRO=/srv/www/debian
+if [ -e '/etc/oberapk/oberapk.sh' ]
+then
+   source /etc/oberapk/oberapk.sh
+fi
+
+################################################################
+# grep cut sort
+
+# ober : make
+# pakaj : emballage
+# pakan : emballer
+
+function usage() {
+   cat <<END_USAGE
+NAME
+   oberapk - generate package
+
+SYNOPSIS
+   oberapk help
+   oberapk list
+   oberapk update pkg
+   oberapk upgrade key
+
+AUTHOR
+   Gabriel Moreau
+
+COPYRIGHT
+   Copyright (C) 2017-2022, LEGI UMR 5519 / CNRS UGA G-INP, Grenoble, France
+   Licence : GNU GPL version 2 or later
+END_USAGE
+   }
+
+
+################################################################
+
+function ober_list () {
+   for pakaj in ${PAKAJ_FOLDER}/*.sh
+   do
+      source ${pakaj}
+   done
+
+   set | egrep '^oberpakaj_.*[[:space:]]()$' | cut -f 2- -d '_' | cut -f 1 -d ' ' | grep . | sort
+   }
+
+case $1 in
+   list)
+      ober_list
+      exit
+      ;;
+
+   update)
+      pakaj=$2
+      if [ ! -e "${PAKAJ_FOLDER}/${pakaj}.sh" ]
+      then
+         echo "Error: no component ${pakaj}"
+         exit 2
+      fi
+      keep=$(grep "^${pakaj}:" ${CONF_FILE} | cut -f 2 -d ':')
+      distrib=$(grep "^${pakaj}:" ${CONF_FILE} | cut -f 3- -d ':')
+      if [ "${keep}" = '' ]
+      then
+         keep=3
+      fi
+      if ! echo "${keep}" | grep -q '^[[:digit:]]*$'
+      then
+         keep=3
+      fi
+      source ${PAKAJ_FOLDER}/${pakaj}.sh
+      oberpakaj_${pakaj} ${keep} ${distrib}
+      exit
+      ;;
+
+   upgrade)
+      for pakaj in $(grep "^@$2:" ${CONF_FILE} | cut -f 2- -d ':')
+      do
+         echo oberapk update ${pakaj}
+      done
+      exit
+      ;;
+
+   help|*)
+      usage
+      exit
+      ;;
+esac
+
+# No Command
+usage
+exit
+
