@@ -1,0 +1,68 @@
+#!/bin/bash
+#
+# 2022/01/27 Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
+
+trap '[ -n "${tmp_folder}" -a -d "${tmp_folder}" ] && rm -rf "${tmp_folder}"' QUIT
+
+export PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin
+export LANG=C
+
+tmp_folder=$(mktemp --directory /tmp/oberapk-XXXXXX)
+[ -n "${tmp_folder}" -a -d "${tmp_folder}" ] || exit 1
+
+# Set Name and Version
+PKG_NAME=oberapk
+CODE_VERSION=$(grep 'export VERSION=' oberapk | cut -f 2 -d "=") #')
+PKG_VERSION=1
+
+# Create future tree
+mkdir -p ${tmp_folder}/usr/bin
+#mkdir -p ${tmp_folder}/usr/share/man/man1
+mkdir -p ${tmp_folder}/usr/share/oberapk
+mkdir -p ${tmp_folder}/usr/lib/oberapk/pakaj.d
+mkdir -p ${tmp_folder}/etc/oberapk
+#mkdir -p ${tmp_folder}/etc/bash_completion.d
+cp oberapk                  ${tmp_folder}/usr/bin/
+#cp oberapk.1.gz             ${tmp_folder}/usr/share/man/man1/
+cp LICENSE.md              ${tmp_folder}/usr/share/oberapk/
+cp oberapk.sample.conf      ${tmp_folder}/usr/share/oberapk/
+cp oberapk.sample.sh       ${tmp_folder}/usr/share/oberapk/
+cp oberapk.sample.conf      ${tmp_folder}/etc/oberapk/
+cp oberapk.sample.sh     ${tmp_folder}/etc/oberapk/
+cp pakaj.d/*.sh           ${tmp_folder}/usr/lib/oberapk/pakaj.d/
+#cp oberapk.bash_completion  ${tmp_folder}/etc/bash_completion.d/
+chmod -R a+rx        ${tmp_folder}/usr/bin/oberapk
+chmod -R a+rX,go-w   ${tmp_folder}/usr
+chmod -R a+rX,go-w   ${tmp_folder}/etc
+
+# Data archive
+rm -f ${tmp_folder}/data.tar.gz
+(cd ${tmp_folder}; tar --owner root --group root -czf data.tar.gz ./usr ./etc)
+
+# Control file
+cat <<END > ${tmp_folder}/control
+Package: ${PKG_NAME}
+Version: ${CODE_VERSION}-${PKG_VERSION}
+Section: utils
+Tag: implemented-in::bash, interface::commandline, role::program
+Priority: optional
+Depends: bash, sed, grep, awk, wget, reprepro
+Architecture: all
+Installed-Size: $(du -ks ${tmp_folder}|cut -f 1)
+Maintainer: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
+Description: build simple Debian package and push on local reprepro 
+Homepage: https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/oberapk
+END
+
+# Control archive
+rm -f ${tmp_folder}/control.tar.gz
+(cd ${tmp_folder}; tar --owner root --group root -czf control.tar.gz control)
+
+# Format deb package
+echo 2.0 > ${tmp_folder}/debian-binary
+
+# Create package (control before data)
+ar -r ${PKG_NAME}_${CODE_VERSION}-${PKG_VERSION}_all.deb ${tmp_folder}/debian-binary ${tmp_folder}/control.tar.gz ${tmp_folder}/data.tar.gz
+      
+# Clean
+rm -rf ${tmp_folder}
