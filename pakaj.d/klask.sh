@@ -1,24 +1,24 @@
 # 2022/01/27
-# tssh
-# See also https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/tssh
+# klask
+# See also https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/klask
 
-function oberpakaj_tssh {
+function oberpakaj_klask {
    local keep=$1; shift
    local distrib=$*
 
-   if [ ! -d "${HOME}/upload/tssh" ]
+   if [ ! -d "${HOME}/upload/klask" ]
    then
       cd "${HOME}/upload/"
-      git clone https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/tssh.git
+      git clone https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/klask.git
    fi
 
-   if [ -d "${HOME}/upload/tssh/.git" ]
+   if [ -d "${HOME}/upload/klask/.git" ]
    then
-      cd "${HOME}/upload/tssh"
+      cd "${HOME}/upload/klask"
       git pull
 
       PKG_NAME=$(grep '^PKG_NAME=' make-package-debian | cut -f 2 -d "=")
-      CODE_VERSION=$(grep '^VERSION=' tssh | cut -f 2 -d "'")
+      CODE_VERSION=$(grep 'version->declare' klask | cut -f 2 -d "'")
       PKG_VERSION=$(grep '^PKG_VERSION=' make-package-debian | cut -f 2 -d "=")
       package=${PKG_NAME}_${CODE_VERSION}-${PKG_VERSION}_all.deb
 
@@ -36,9 +36,9 @@ function oberpakaj_tssh {
    fi
 
    # Clean old package - keep last 4 (put 4+1=5)
-   if [ -d "${HOME}/upload/tssh" ]
+   if [ -d "${HOME}/upload/klask" ]
    then
-      cd "${HOME}/upload/tssh"
-      ls -t tssh_*.deb | tail -n +${keep} | xargs -r rm -f
+      cd "${HOME}/upload/klask"
+      ls -t klask_*.deb | tail -n +${keep} | xargs -r rm -f
    fi
    }
