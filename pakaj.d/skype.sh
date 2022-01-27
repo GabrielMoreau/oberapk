@@ -13,7 +13,7 @@ function oberpakaj_skype {
    then
       package=$(basename ${url})
       
-      rm -f control control.tar.gz data.tar.xz debian-binary md5sums postinst
+      rm -f control control.tar.* data.tar.* debian-binary md5sums postinst
       ar -x ${package}
       tar xzf control.tar.gz
 
@@ -25,7 +25,7 @@ function oberpakaj_skype {
          # On ne rajoute pas le depot Microsoft sur la machine
          sed -i -e 's/nohup/# nohup/;' postinst
          tar --owner root --group root -czf control.tar.gz control md5sums postinst
-         ar -r $HOME/upload/skype/${pkg} debian-binary control.tar.gz data.tar.xz
+         ar -r $HOME/upload/skype/${pkg} debian-binary control.tar.* data.tar.*
 
          for dist in ${distrib}
          do
