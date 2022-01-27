@@ -111,7 +111,7 @@ case $1 in
    upgrade)
       for pakaj in $(grep "^@$2:" ${CONF_FILE} | cut -f 2- -d ':' | sort -R)
       do
-         echo oberapk update ${pakaj}
+         oberapk update ${pakaj}
       done
       exit
       ;;
