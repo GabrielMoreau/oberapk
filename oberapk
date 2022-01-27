@@ -8,7 +8,7 @@
 export PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin
 export LANG=C
 
-VERSION='0.3.2'
+VERSION='0.3.3'
 
 # Global variables
 export CONF_FILE=/etc/oberapk/oberapk.conf
@@ -109,7 +109,7 @@ case $1 in
       ;;
 
    upgrade)
-      for pakaj in $(grep "^@$2:" ${CONF_FILE} | cut -f 2- -d ':')
+      for pakaj in $(grep "^@$2:" ${CONF_FILE} | cut -f 2- -d ':' | sort -R)
       do
          echo oberapk update ${pakaj}
       done
