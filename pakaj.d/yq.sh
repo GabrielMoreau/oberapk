@@ -6,10 +6,6 @@ function oberpakaj_yq {
    local keep=$1; shift
    local distrib=$*
 
-   echo "KEEP $keep"
-   echo "DIS $distrib"
-   return
-
    mkdir -p "$HOME/upload/yq"
    [ -e "$HOME/upload/yq/version" ] || echo '0' > "$HOME/upload/yq/version"
    cd "$HOME/upload/yq"
@@ -106,6 +102,7 @@ END
          ( cd ${REPREPRO} ; reprepro dumpreferences ) | grep '/yq'
       fi
    fi
+
    # Clean old package - kept last 4 (put 4+1=5)
    ls -t yq_*.deb | tail -n +3 | xargs -r rm -f
    }
