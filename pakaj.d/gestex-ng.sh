@@ -26,7 +26,7 @@ function oberpakaj_gestex_ng {
       if [ ! -e "${PKG_NAME}_${CODE_VERSION}-${PKG_VERSION}_all.deb" ]
       then
          make
-         make pkg
+         make pkg-ng
 
          for dist in ${distrib}
          do
