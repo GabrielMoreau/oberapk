@@ -41,8 +41,8 @@ function oberpakaj_yadedaily {
       fi
 
    # Clean old package - kept last 4 (put 4+1=5)
-   ls -t libyadedaily_*.deb      | tail -n +4 | xargs -r rm -f
-   ls -t python3-yadedaily_*.deb | tail -n +4 | xargs -r rm -f
-   ls -t yadedaily_*.deb         | tail -n +4 | xargs -r rm -f
+   ls -t libyadedaily_*.deb      | tail -n +${keep} | xargs -r rm -f
+   ls -t python3-yadedaily_*.deb | tail -n +${keep} | xargs -r rm -f
+   ls -t yadedaily_*.deb         | tail -n +${keep} | xargs -r rm -f
    done
    }

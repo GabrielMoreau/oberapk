@@ -104,5 +104,5 @@ END
    fi
 
    # Clean old package - kept last 4 (put 4+1=5)
-   ls -t yq_*.deb | tail -n +3 | xargs -r rm -f
+   ls -t yq_*.deb | tail -n +${keep} | xargs -r rm -f
    }
