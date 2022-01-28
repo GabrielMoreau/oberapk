@@ -9,11 +9,11 @@ function oberpakaj_discord {
    cd "$HOME/upload/discord"
 
    PKG_VERSION=4
-   for index in $(seq 15 18)
+   for index in $(seq 16 19)
    do
       [ -s "discord-0.0.${index}-${PKG_VERSION}.deb" ] && continue
       url="https://dl.discordapp.net/apps/linux/0.0.${index}/discord-0.0.${index}.deb"
-      if wget --timestamping "${url}"
+      if wget --quiet --timestamping "${url}"
       then
          package=$(basename ${url} .deb)
 
