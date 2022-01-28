@@ -8,7 +8,7 @@
 export PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin
 export LANG=C
 
-VERSION='0.3.14'
+VERSION='0.3.15'
 
 # Global variables
 export CONF_FILE=/etc/oberapk/oberapk.conf
@@ -39,21 +39,21 @@ fi
 function usage() {
    cat <<END_USAGE
 NAME
-   oberapk - generate package
+ oberapk - generate package
 
 SYNOPSIS
-   oberapk help
-   oberapk list
-   oberapk kit
-   oberapk update pkg
-   oberapk upgrade kit
+ oberapk help
+ oberapk list
+ oberapk kit
+ oberapk update pkg
+ oberapk upgrade kit
 
 AUTHOR
-   Gabriel Moreau
+ Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
 
 COPYRIGHT
-   Copyright (C) 2017-2022, LEGI UMR 5519 / CNRS UGA G-INP, Grenoble, France
-   Licence : GNU GPL version 2 or later
+ Copyright (C) 2017-2022, LEGI UMR 5519 / CNRS UGA G-INP, Grenoble, France
+ Licence : GNU GPL version 2 or later
 END_USAGE
    }
 
