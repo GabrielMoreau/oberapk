@@ -17,12 +17,12 @@ Oberapk is made to help you manage this task, here are some reasons.
 * You develop user tools and system tools and you want
   to deploy them via your apt repository.
 
-oberapk allows you via a programmed task (cron) to update the packages
+Oberapk allows you via a programmed task (cron) to update the packages
 in `.deb` format locally on a computer,
 then to push them into your apt repository via the reprepro tool.
-Indeed, for the moment, oberapk only works with the reprepro service.
+Indeed, for the moment, Oberapk only works with the reprepro service.
 
-Please note that oberapk is not a tool for making packages.
+Please note that Oberapk is not a tool for making packages.
 It simply allows you to retrieve packages automatically
 and push them to your local repository.
 
@@ -34,13 +34,18 @@ A set of recipes to apply will be called `kit`.
 
 ```bash
 oberapk help
+oberapk avail
 oberapk list
 oberapk kit
 oberapk update pkg
 oberapk upgrade kit
 ```
 
-* The `list` command allows you to know all the available packaging.
+* The `avail` command allows you to know all the available packaging
+  in the Oberapk distribution.
+
+* The `list` command allows you to know all the configure packaging
+  defined  in your configuration file..
 
 * The `kit` command lets you know the packaging set
   defined in your configuration file.
@@ -108,6 +113,11 @@ If there is a problem in a kit, you can more easily tell which package
 it is in by filtering the output a bit.
 ```bash
 oberapk upgrade all 2>&1 | egrep -i '(error|info:)'
+```
+
+Upgrade quickly your own Oberapk version on your server
+```bash
+oberapk update oberapk; sudo apt update; sudo apt upgrade
 ```
 
 A file `/etc/cron.d/oberapk` in the cron folder will update a set of
