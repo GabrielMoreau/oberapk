@@ -43,6 +43,7 @@ NAME
 
 SYNOPSIS
  oberapk help
+ oberapk avail
  oberapk list
  oberapk kit
  oberapk update pkg
@@ -75,13 +76,19 @@ function get_pakaj () {
 
 ################################################################
 
-function cmd_list () {
+function cmd_avail () {
    for pakaj in ${PAKAJ_FOLDER}/*.sh
    do
       source ${pakaj}
    done
 
    set | egrep '^oberpakaj_.*[[:space:]]()$' | cut -f 2- -d '_' | cut -f 1 -d ' ' | sed -e 's/_/-/g;' | egrep '^[[:alpha:]][[:alpha:][:digit:]-]*$' | sort -u
+   }
+
+################################################################
+
+function cmd_list () {
+   egrep "^[[:alpha:]][[:alpha:][:digit:]-]*:[[:digit:]]*:" ${CONF_FILE} | cut -f 1 -d ':' | sort -u
    }
 
 ################################################################
@@ -93,6 +100,11 @@ function cmd_kit () {
 ################################################################
 
 case $1 in
+   avail)
+      cmd_avail
+      exit
+      ;;
+
    list)
       cmd_list
       exit
