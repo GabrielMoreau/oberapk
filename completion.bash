@@ -1,12 +1,12 @@
 # bash completion for oberapk
 
 _oberapk() {
-   #local cur prev
+   local cur prev
 
    COMPREPLY=()
    #_get_comp_words_by_ref cur prev
-   #cur="${COMP_WORDS[COMP_CWORD]}"
-   #prev="${COMP_WORDS[COMP_CWORD-1]}"
+   cur="${COMP_WORDS[COMP_CWORD]}"
+   prev="${COMP_WORDS[COMP_CWORD-1]}"
 
    if [[ $COMP_CWORD -gt 1 ]]
    then
