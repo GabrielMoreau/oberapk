@@ -15,19 +15,21 @@ function oberpakaj_netdata {
          if [ -e 'Packages.gz' ]
          then
             pool=$(zgrep 'netdata/netdata_'$(zgrep '^Version:' Packages.gz |awk '{print $2}' | sort -V | tail -1) Packages.gz | awk '{print $2}')
-            netdata=$(basename ${pool})
+            package=$(basename ${pool})
 
             if wget --timestamping "https://packagecloud.io/netdata/netdata-edge/debian/${pool}"
             then
-               if [ -e "${netdata}" ]
+               if [ -e "${package}" ]
                then
                   # Upload package
-                  ( cd ${REPREPRO} ; reprepro includedeb ${dist} $HOME/upload/netdata/${dist}/${netdata} )
-                  ( cd ${REPREPRO} ; reprepro dumpreferences ) | grep '/netdata'
+                  ( cd ${REPREPRO} ; reprepro dumpreferences )  2>/dev/null | grep -q "^${dist}|.*/${package}" || \
+                     ( cd ${REPREPRO} ; reprepro includedeb ${dist} $HOME/upload/netdata/${dist}/${package} )
+                  ( cd ${REPREPRO} ; reprepro dumpreferences ) | grep "^${dist}|.*/netdata"
                fi
             fi
          fi
       fi
+
       # Clean old package - kept last 4 (put 4+1=5)
       ls -t netdata_*.deb | tail -n +${keep} | xargs -r rm -f
    done
