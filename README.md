@@ -99,17 +99,21 @@ A simple usage is to upgrade all the packaging.
 oberapk upgrade all
 ```
 
+It's possible to just run just a packaging, for example `grv`.
+```bash
+oberapk update grv
+```
+
 In case of problem, you can more easily in which packaging is this one.
 ```bash
 oberapk  upgrade all 2>&1  |egrep -i '(error|info:)'
 ```
 
 A file `/etc/cron.d/oberapk` in the cron folder will update a set of
-packages. A file in the cron folder will update a set of packages (kit).
-It's up to you to define the kit because there is no predefined cron
-for the moment.
-You have to choose a user.
-Be careful, oberapk should never normally be run by the `root` user.
+packages (`kit`). It's up to you to define it because there is no
+predefined cron file and daily kit for the moment.
+You also have to choose a user.
+Be careful, Oberapk should never normally be run by the `root` user.
 ```
 9:33 23 * * *  adm  test -x $(which oberapk) && oberapk upgrade all 2>&1 | logger -t oberap
 ```
