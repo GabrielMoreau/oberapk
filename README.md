@@ -106,7 +106,7 @@ oberapk update grv
 
 In case of problem, you can more easily in which packaging is this one.
 ```bash
-oberapk  upgrade all 2>&1  |egrep -i '(error|info:)'
+oberapk upgrade all 2>&1 | egrep -i '(error|info:)'
 ```
 
 A file `/etc/cron.d/oberapk` in the cron folder will update a set of
