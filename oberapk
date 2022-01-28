@@ -8,7 +8,7 @@
 export PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin
 export LANG=C
 
-VERSION='0.3.13'
+VERSION='0.3.14'
 
 # Global variables
 export CONF_FILE=/etc/oberapk/oberapk.conf
@@ -55,34 +55,49 @@ COPYRIGHT
 END_USAGE
    }
 
+################################################################
+
+function get_pakaj () {
+   kit=$1
+   echo "${kit}" | egrep -q '^[[:alpha:]][[:alpha:][:digit:]-]*$' || return
+   while read pakaj
+   do
+      if echo "${pakaj}" | grep -q "^@"
+      then
+         get_pakaj "${pakaj/@}"
+      else
+         echo "${pakaj}" | egrep '^[[:alpha:]][[:alpha:][:digit:]-]*$'
+      fi
+   done < <(grep "^@${kit}:" ${CONF_FILE} | cut -f 2- -d ':' | sed -e 's/ /\n/g;' | grep .) | sort -uR
+   }
 
 ################################################################
 
-function ober_list () {
+function cmd_list () {
    for pakaj in ${PAKAJ_FOLDER}/*.sh
    do
       source ${pakaj}
    done
 
-   set | egrep '^oberpakaj_.*[[:space:]]()$' | cut -f 2- -d '_' | cut -f 1 -d ' ' | grep . | sed -e 's/_/-/g;' | sort
+   set | egrep '^oberpakaj_.*[[:space:]]()$' | cut -f 2- -d '_' | cut -f 1 -d ' ' | sed -e 's/_/-/g;' | egrep '^[[:alpha:]][[:alpha:][:digit:]-]*$' | sort -u
    }
 
 ################################################################
 
-function ober_kit () {
-   egrep "^@[[:alpha:][:digit:]]*: " ${CONF_FILE} | cut -f 1 -d ':' | sed -e 's/^@//;' | grep . | sort -u
+function cmd_kit () {
+   egrep "^@[[:alpha:]][[:alpha:][:digit:]-]*: " ${CONF_FILE} | cut -f 1 -d ':' | sed -e 's/^@//;' | grep . | sort -u
    }
 
 ################################################################
 
 case $1 in
    list)
-      ober_list
+      cmd_list
       exit
       ;;
 
    kit)
-      ober_kit
+      cmd_kit
       exit
       ;;
 
@@ -110,7 +125,8 @@ case $1 in
       ;;
 
    upgrade)
-      for pakaj in $(grep "^@$2:" ${CONF_FILE} | cut -f 2- -d ':' | sed -e 's/ /\n/g;' | grep . | sort -uR)
+      kit=$2
+      for pakaj in $(get_pakaj "${kit}")
       do
          echo ''
          echo "Info: begin update package ${pakaj}"
