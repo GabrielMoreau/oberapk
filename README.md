@@ -104,7 +104,8 @@ It's possible to just run just a packaging, for example `grv`.
 oberapk update grv
 ```
 
-In case of problem, you can more easily in which packaging is this one.
+If there is a problem in a kit, you can more easily tell which package
+it is in by filtering the output a bit.
 ```bash
 oberapk upgrade all 2>&1 | egrep -i '(error|info:)'
 ```
