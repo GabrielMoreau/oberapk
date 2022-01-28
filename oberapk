@@ -30,9 +30,11 @@ fi
 ################################################################
 # cmd: grep cut sort sed cat
 
-# ober : make
-# pakaj : emballage
-# pakan : emballer
+# breton / francais  / english
+# -------------------------------
+# ober   / contruire / make
+# pakaj  / emballage / packaging
+# stroll / ensemble  / kit
 
 function usage() {
    cat <<END_USAGE
