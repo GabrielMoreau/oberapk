@@ -8,7 +8,7 @@
 export PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin
 export LANG=C
 
-VERSION='0.3.17'
+VERSION='0.3.18'
 
 # Global variables
 export CONF_FILE=/etc/oberapk/oberapk.conf
@@ -108,6 +108,8 @@ function cmd_update () {
       echo "Error: no component ${pakaj}"
       exit 2
    fi
+
+   # Conf file parameter by pakaj
    keep=$(grep "^${pakaj}:" ${CONF_FILE} | cut -f 2 -d ':')
    distrib=$(grep "^${pakaj}:" ${CONF_FILE} | cut -f 3- -d ':')
    if [ "${keep}" = '' ]
@@ -118,8 +120,11 @@ function cmd_update () {
    then
       keep=3
    fi
+
    source ${PAKAJ_FOLDER}/${pakaj}.sh
    pakaj_code=$(echo "oberpakaj_${pakaj}" | sed -e 's/-/_/g;')
+
+   # Launch bash function
    ${pakaj_code} ${keep} ${distrib}
    }
 
@@ -159,12 +164,13 @@ case $1 in
 
    source)
       pakaj=$2
-      cmd_source ${packaj}
+      cmd_source ${pakaj}
+      exit
       ;;
 
    update)
       pakaj=$2
-      cmd_update ${packaj}
+      cmd_update ${pakaj}
       exit
       ;;
 
