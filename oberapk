@@ -8,7 +8,7 @@
 export PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin
 export LANG=C
 
-VERSION='0.3.20'
+VERSION='0.3.21'
 
 # Global variables
 export CONF_FILE=/etc/oberapk/oberapk.conf
@@ -89,7 +89,15 @@ function cmd_avail () {
 ################################################################
 
 function cmd_list () {
-   egrep "^[[:alpha:]][[:alpha:][:digit:]-]*:[[:digit:]]*:" ${CONF_FILE} | cut -f 1 -d ':' | sort -u
+   while read pakaj
+   do
+      if [ -e "${PAKAJ_FOLDER}/${pakaj}.sh" ]
+   then
+      echo "${pakaj}"
+   else
+      echo "${pakaj} # Error: no component"
+   fi
+   done < <(egrep "^[[:alpha:]][[:alpha:][:digit:]-]*:[[:digit:]]*:" ${CONF_FILE} | cut -f 1 -d ':' | sort -u)
    }
 
 ################################################################
