@@ -74,17 +74,21 @@ END
 
          # Create package (control before data)
          ar -r ${package} ${tmp_folder}/debian-binary ${tmp_folder}/control.tar.xz ${tmp_folder}/data.tar.xz \
-            && touch timestamp.sig
+            && echo "${package}" > timestamp.sig
 
          # Clean
          rm -rf ${tmp_folder}
+      fi
 
          # Upload package
+      if [ -e "$(cat timestamp.sig)" ]
+      then
          for dist in ${distrib}
          do
-            ( cd ${REPREPRO} ; reprepro includedeb ${dist} $HOME/upload/firefox-latest/${package} )
+            ( cd ${REPREPRO} ; reprepro dumpreferences )  2>/dev/null | grep -q "^${dist}|.*/${package}" || \
+               ( cd ${REPREPRO} ; reprepro includedeb ${dist} $HOME/upload/firefox-latest/${package} )
+            ( cd ${REPREPRO} ; reprepro dumpreferences ) | grep "^${dist}|.*/firefox-latest"
          done
-         ( cd ${REPREPRO} ; reprepro dumpreferences ) | grep -i 'firefox-latest'
       fi
 
       # Clean old package - kept last 4 (put 4+1=5)
