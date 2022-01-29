@@ -48,6 +48,7 @@ SYNOPSIS
  oberapk kit
  oberapk update pkg
  oberapk upgrade kit
+ oberapk source pkg
 
 AUTHOR
  Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
@@ -99,6 +100,22 @@ function cmd_kit () {
 
 ################################################################
 
+function cmd_source () {
+   pakaj=$1
+
+   if [ ! -e "${PAKAJ_FOLDER}/${pakaj}.sh" ]
+   then
+      echo "# Error: no component ${pakaj}"
+      exit 2
+   fi
+
+   echo "# eval this result"
+   echo "export REPREPRO=${REPREPRO}"
+   echo "source ${PAKAJ_FOLDER}/${pakaj}.sh"
+   }
+
+################################################################
+
 case $1 in
    avail)
       cmd_avail
@@ -113,6 +130,11 @@ case $1 in
    kit)
       cmd_kit
       exit
+      ;;
+
+   source)
+      pakaj=$2
+      cmd_source ${packaj}
       ;;
 
    update)

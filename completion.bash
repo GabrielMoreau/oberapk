@@ -11,7 +11,7 @@ _oberapk() {
    if [[ $COMP_CWORD -gt 1 ]]
    then
       case "${COMP_WORDS[1]}" in
-         update)
+         update|source)
             COMPREPLY=($(compgen -W "$($(which oberapk || echo /usr/bin/oberapk) list|xargs echo -n)" -- "$cur"))
             ;;
          upgrade)
