@@ -17,7 +17,7 @@ function oberpakaj_firefox_latest {
          tmp_folder=$(mktemp --directory /tmp/firefox-latest-XXXXXX)
          (cd ${tmp_folder}
             mkdir -p usr/lib/firefox-latest
-            (cd usr/lib/firefox-latest; tar xvjf "$HOME/upload/firefox-latest/index.html?product=firefox-latest&os=linux64&lang=en-US")
+            (cd usr/lib/firefox-latest; tar xjf "$HOME/upload/firefox-latest/index.html?product=firefox-latest&os=linux64&lang=en-US")
 
             # Set Version
             CODE_VERSION=$(grep ^Version= usr/lib/firefox-latest/firefox/application.ini|cut -f 2 -d '=')
@@ -25,7 +25,7 @@ function oberpakaj_firefox_latest {
             package="firefox-latest_${CODE_VERSION}-${PKG_VERSION}_amd64.deb"
 
             # Data archive
-            tar --preserve-permissions --owner root --group root cvzf data.tar.gz ./usr
+            tar --preserve-permissions --owner root --group root -cJf data.tar.xz ./usr
 
             # Control file
             cat <<END > control
@@ -62,14 +62,14 @@ END
             chmod a+rx postinst prerm
 
             # Control archive
-            tar --owner root --group root czvf control.tar.gz ./control ./postinst ./prerm
+            tar --owner root --group root -cJf control.tar.xz ./control ./postinst ./prerm
 
             # Format deb package
             echo 2.0 > debian-binary
             )
 
          # Create package (control before data)
-         ar -r ${package} ${tmp_folder}/debian-binary ${tmp_folder}/control.tar.gz ${tmp_folder}/data.tar.gz
+         ar -r ${package} ${tmp_folder}/debian-binary ${tmp_folder}/control.tar.xz ${tmp_folder}/data.tar.xz
 
          # Timestamp
          touch timestamp.sig
