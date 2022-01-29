@@ -1,5 +1,6 @@
-# 2020/04/28
-# zoom
+## Date: 2020/04/28
+## Pakaj: zoom
+## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
 
 function oberpakaj_zoom {
    local keep=$1; shift
@@ -7,6 +8,8 @@ function oberpakaj_zoom {
 
    mkdir -p "$HOME/upload/zoom"
    cd "$HOME/upload/zoom"
+   [ -e "timestamp.sig" ] \
+      || touch -t $(date +%Y)01010000 timestamp.sig
 
    PKG_VERSION=1
    url="https://zoom.us/client/latest/zoom_amd64.deb"
@@ -46,18 +49,25 @@ END
          )
 
       # Create package (control before data)
-      ar -r ${package}_${VERSION}_amd64.deb ${tmp_folder}/debian-binary ${tmp_folder}/control.tar.xz ${tmp_folder}/data.tar.xz
- 
+      ar -r ${package}_${VERSION}_amd64.deb ${tmp_folder}/debian-binary ${tmp_folder}/control.tar.xz ${tmp_folder}/data.tar.xz \
+         && echo "${package}" > timestamp.sig
+
       # Clean
       rm -rf ${tmp_folder}
+   fi
 
+   # Upload package
+   package="$(cat timestamp.sig)"
+   if [ -e "${package}" ]
+   then
       for dist in ${distrib}
       do
-         # Upload package
-         ( cd ${REPREPRO} ; reprepro includedeb ${dist} $HOME/upload/zoom/${package}_${VERSION}_amd64.deb )
+         ( cd ${REPREPRO} ; reprepro dumpreferences )  2>/dev/null | grep -q "^${dist}|.*/${package}" || \
+            ( cd ${REPREPRO} ; reprepro includedeb ${dist} $HOME/upload/zoom/${package} )
+         ( cd ${REPREPRO} ; reprepro dumpreferences ) | grep "^${dist}|.*/zoom"
       done
-      ( cd ${REPREPRO} ; reprepro dumpreferences ) | grep '/zoom'
    fi
+
    # Clean old package - kept last 4 (put 4+1=5)
    ls -t zoom_*.deb | tail -n +${keep} | xargs -r rm -f
    }
