@@ -8,15 +8,16 @@ function oberpakaj_firefox_latest {
 
    mkdir -p "$HOME/upload/firefox-latest"
    cd "$HOME/upload/firefox-latest"
-   [ -e "firefox-bin.sig" ] \
-      || touch -t $(date +%Y)01010000 "firefox-bin.sig"
+   [ -e "timestamp.sig" ] \
+      || touch -t $(date +%Y)01010000 timestamp.sig
    if wget --timestamping "https://download.mozilla.org/?product=firefox-latest&os=linux64&lang=en-US"
    then
-      if [ $(stat -c '%Y' "index.html?product=firefox-latest&os=linux64&lang=en-US") -gt $(stat -c '%Y' "firefox-bin.sig") ]
+      if [ $(stat -c '%Y' "index.html?product=firefox-latest&os=linux64&lang=en-US") -gt $(stat -c '%Y' "timestamp.sig") ]
       then
          tmp_folder=$(mktemp --directory /tmp/firefox-latest-XXXXXX)
          (cd ${tmp_folder}
-            tar xvjf "$HOME/upload/firefox-latest/index.html?product=firefox-latest&os=linux64&lang=en-US")
+            mkdir -p usr/lib/firefox-latest
+            (cd usr/lib/firefox-latest; tar xvjf "$HOME/upload/firefox-latest/index.html?product=firefox-latest&os=linux64&lang=en-US")
 
             # Set Version
             CODE_VERSION=$(grep ^Version= usr/lib/firefox-latest/firefox/application.ini|cut -f 2 -d '=')
@@ -69,9 +70,9 @@ END
 
          # Create package (control before data)
          ar -r ${package} ${tmp_folder}/debian-binary ${tmp_folder}/control.tar.gz ${tmp_folder}/data.tar.gz
-         
+
          # Timestamp
-         touch "firefox-bin.sig"
+         touch timestamp.sig
  
          # Upload package
          for dist in ${distrib}
