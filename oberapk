@@ -8,7 +8,7 @@
 export PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin
 export LANG=C
 
-VERSION='0.3.16'
+VERSION='0.3.17'
 
 # Global variables
 export CONF_FILE=/etc/oberapk/oberapk.conf
@@ -100,6 +100,31 @@ function cmd_kit () {
 
 ################################################################
 
+function cmd_update () {
+   pakaj=$1
+
+   if [ ! -e "${PAKAJ_FOLDER}/${pakaj}.sh" ]
+   then
+      echo "Error: no component ${pakaj}"
+      exit 2
+   fi
+   keep=$(grep "^${pakaj}:" ${CONF_FILE} | cut -f 2 -d ':')
+   distrib=$(grep "^${pakaj}:" ${CONF_FILE} | cut -f 3- -d ':')
+   if [ "${keep}" = '' ]
+   then
+      keep=3
+   fi
+   if ! echo "${keep}" | grep -q '^[[:digit:]]*$'
+   then
+      keep=3
+   fi
+   source ${PAKAJ_FOLDER}/${pakaj}.sh
+   pakaj_code=$(echo "oberpakaj_${pakaj}" | sed -e 's/-/_/g;')
+   ${pakaj_code} ${keep} ${distrib}
+   }
+
+################################################################
+
 function cmd_source () {
    pakaj=$1
 
@@ -139,24 +164,7 @@ case $1 in
 
    update)
       pakaj=$2
-      if [ ! -e "${PAKAJ_FOLDER}/${pakaj}.sh" ]
-      then
-         echo "Error: no component ${pakaj}"
-         exit 2
-      fi
-      keep=$(grep "^${pakaj}:" ${CONF_FILE} | cut -f 2 -d ':')
-      distrib=$(grep "^${pakaj}:" ${CONF_FILE} | cut -f 3- -d ':')
-      if [ "${keep}" = '' ]
-      then
-         keep=3
-      fi
-      if ! echo "${keep}" | grep -q '^[[:digit:]]*$'
-      then
-         keep=3
-      fi
-      source ${PAKAJ_FOLDER}/${pakaj}.sh
-      pakaj_code=$(echo "oberpakaj_${pakaj}" | sed -e 's/-/_/g;')
-      ${pakaj_code} ${keep} ${distrib}
+      cmd_update ${packaj}
       exit
       ;;
 
