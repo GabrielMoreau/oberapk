@@ -1,6 +1,7 @@
-# 2019/08/21
-# netdata
-# See also https://github.com/netdata/netdata and https://packagecloud.io/netdata/netdata-edge/install#manual-deb
+## Date: 2019/08/21
+## Pakaj: netdata
+## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
+## See-Also: https://github.com/netdata/netdata and https://packagecloud.io/netdata/netdata-edge/install#manual-deb
 
 function oberpakaj_netdata {
    local keep=$1; shift

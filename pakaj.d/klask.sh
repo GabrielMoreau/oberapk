@@ -1,6 +1,7 @@
-# 2022/01/27
-# klask
-# See also https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/klask
+## Date: 2022/01/27
+## Pakaj: klask
+## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
+## See-Also: https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/klask
 
 function oberpakaj_klask {
    local keep=$1; shift

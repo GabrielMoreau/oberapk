@@ -1,5 +1,6 @@
-# 2020/09/15
-# teams
+## Date: 2020/09/15
+## Pakaj: teams
+## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
 
 function oberpakaj_teams {
    local keep=$1; shift
