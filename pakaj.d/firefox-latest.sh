@@ -1,6 +1,7 @@
-# 2018/03/28
-# firefox
-# See also https://stackoverflow.com/questions/48943416/bash-npm-command-not-found-in-debian-9-3
+## Date: 2018/03/28
+## Pakaj: firefox-latex
+## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
+## See-Also: https://stackoverflow.com/questions/48943416/bash-npm-command-not-found-in-debian-9-3
 
 function oberpakaj_firefox_latest {
    local keep=$1; shift
@@ -10,6 +11,7 @@ function oberpakaj_firefox_latest {
    cd "$HOME/upload/firefox-latest"
    [ -e "timestamp.sig" ] \
       || touch -t $(date +%Y)01010000 timestamp.sig
+
    if wget --timestamping "https://download.mozilla.org/?product=firefox-latest&os=linux64&lang=en-US"
    then
       if [ $(stat -c '%Y' "index.html?product=firefox-latest&os=linux64&lang=en-US") -gt $(stat -c '%Y' "timestamp.sig") ]
@@ -80,8 +82,9 @@ END
          rm -rf ${tmp_folder}
       fi
 
-         # Upload package
-      if [ -e "$(cat timestamp.sig)" ]
+      # Upload package
+      package="$(cat timestamp.sig)"
+      if [ -e "${package}" ]
       then
          for dist in ${distrib}
          do
