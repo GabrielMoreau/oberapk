@@ -14,15 +14,19 @@ function oberpakaj_firefox_latest {
    then
       if [ $(stat -c '%Y' "index.html?product=firefox-latest&os=linux64&lang=en-US") -gt $(stat -c '%Y' "timestamp.sig") ]
       then
+         rm -rf ./firefox
+         tar xjf "$HOME/upload/firefox-latest/index.html?product=firefox-latest&os=linux64&lang=en-US" firefox/application.ini
+         # Set Version
+         CODE_VERSION=$(grep '^Version=' firefox/application.ini|cut -f 2 -d '=')
+         PKG_VERSION=2
+         package="firefox-latest_${CODE_VERSION}-${PKG_VERSION}_amd64.deb"
+
          tmp_folder=$(mktemp --directory /tmp/firefox-latest-XXXXXX)
          (cd ${tmp_folder}
             mkdir -p usr/lib/firefox-latest
-            (cd usr/lib/firefox-latest; tar xjf "$HOME/upload/firefox-latest/index.html?product=firefox-latest&os=linux64&lang=en-US")
-
-            # Set Version
-            CODE_VERSION=$(grep ^Version= usr/lib/firefox-latest/firefox/application.ini|cut -f 2 -d '=')
-            PKG_VERSION=2
-            package="firefox-latest_${CODE_VERSION}-${PKG_VERSION}_amd64.deb"
+            (cd usr/lib/firefox-latest
+               tar xjf "$HOME/upload/firefox-latest/index.html?product=firefox-latest&os=linux64&lang=en-US"
+               )
 
             # Data archive
             tar --preserve-permissions --owner root --group root -cJf data.tar.xz ./usr
@@ -69,17 +73,18 @@ END
             )
 
          # Create package (control before data)
-         ar -r ${package} ${tmp_folder}/debian-binary ${tmp_folder}/control.tar.xz ${tmp_folder}/data.tar.xz
+         ar -r ${package} ${tmp_folder}/debian-binary ${tmp_folder}/control.tar.xz ${tmp_folder}/data.tar.xz \
+            && touch timestamp.sig
 
-         # Timestamp
-         touch timestamp.sig
- 
+         # Clean
+         rm -rf ${tmp_folder}
+
          # Upload package
          for dist in ${distrib}
          do
             ( cd ${REPREPRO} ; reprepro includedeb ${dist} $HOME/upload/firefox-latest/${package} )
          done
-         ( cd ${REPREPRO} ; reprepro dumpreferences ) | grep -i firefox-latest
+         ( cd ${REPREPRO} ; reprepro dumpreferences ) | grep -i 'firefox-latest'
       fi
 
       # Clean old package - kept last 4 (put 4+1=5)
