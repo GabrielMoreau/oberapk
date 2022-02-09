@@ -47,6 +47,7 @@ graph LR;
  
     idc[Conf - pkg/dists]
     ido((Oberapk))
+    ids>Server]
   end
 
   subgraph APT web service
@@ -77,7 +78,8 @@ graph LR;
   idclient1 -- apt --> idr
   idclient2 -- apt --> idr
 
-  ido -- auto update --> idr
+  ids -- run --> ido
+  ids -- auto update --> idr
 ```
 
 ## Commands
