@@ -59,16 +59,16 @@ graph LR;
   idclient2>Computer 2]
 
   ids -- run --> ido
-  ids -- apt / auto update --> idr
+  ids -- apt-get / auto update --> idr
 
   idc -- choice pkg --> ido
 
-  ido --> idmx
+  ido -- recipe --> idmx
   ido --> idml
   ido --> idmi
   ido --> idmo
 
-  idsx -. wget .-> idmx
+  idsx <-. wget .- idmx
   idsl -. wget .-> idml
   idsi -. wget .-> idmi
   idso -. wget .-> idmo
@@ -83,8 +83,8 @@ graph LR;
   idmi -. push .-> idr
   idmo -. push .-> idr
 
-  idclient1 -- apt --> idr
-  idclient2 -- apt --> idr
+  idclient1 -- apt-get --> idr
+  idclient2 -- apt-get --> idr
 ```
 
 ## Commands
