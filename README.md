@@ -36,12 +36,14 @@ graph TD;
     idsx[Soft-XYZ]
     idsl[Soft-LMN]
     idsi[...]
+    idso[Soft-Oberapk]
   end
 
   subgraph Oberapk service
     idmx(Pakaj Soft-XYZ)
     idml(Pakaj Soft-LMN)
     idmi(Pakaj ...)
+    idmo(Pakaj Soft-Oberapk)
  
     idc[Conf - pkg/dists]
     ido((Oberapk))
@@ -58,18 +60,24 @@ graph TD;
   ido --> idmx
   ido --> idml
   ido --> idmi
-  idsx -. wget.-> idmx
-  idsl -. wget.-> idml
-  idsi -. wget.-> idmi
+  ido --> idmo
+  idsx -. wget .-> idmx
+  idsl -. wget .-> idml
+  idsi -. wget .-> idmi
+  idso -. wget .-> idmo
   idmx -- rebuild deb --> idmx
   idml -- rebuild deb --> idml
   idmi -- rebuild deb --> idmi
+  idmo -- rebuild deb --> idmo
   idmx -. push .-> idr
   idml -. push .-> idr
   idmi -. push .-> idr
+  idmo -. push .-> idr
 
   idclient1 -- apt --> idr
   idclient2 -- apt --> idr
+
+  ido -- auto update --> idr
 ```
 
 ## Commands
