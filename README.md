@@ -58,20 +58,20 @@ graph LR;
   idclient1>Computer 1]
   idclient2>Computer 2]
 
+  idsx -. wget .-> idmx
+  idsl -. wget .-> idml
+  idsi -. wget .-> idmi
+  idso -. wget .-> idmo
+
   ids -- run --> ido
   ids -- apt-get / auto update --> idr
 
   idc -- choice pkg --> ido
 
-  ido -- recipe --> idmx
+  ido --> idmx
   ido --> idml
   ido --> idmi
   ido --> idmo
-
-  idsx <-. wget .- idmx
-  idsl -. wget .-> idml
-  idsi -. wget .-> idmi
-  idso -. wget .-> idmo
 
   idmx -- rebuild deb --> idmx
   idml -- rebuild deb --> idml
