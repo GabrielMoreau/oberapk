@@ -33,18 +33,26 @@ A set of recipes to apply will be called `kit`.
 ```mermaid
 graph TD;
   ido((Oberapk))
-  idm(Pakaj Soft-XYZ)
-  idl(Pakaj Soft-LMN)
-  idl(Pakaj ...)
-  ids[Soft-XYZ]
+  idmx(Pakaj Soft-XYZ)
+  idml(Pakaj Soft-LMN)
+  idmi(Pakaj ...)
+  idsx[Soft-XYZ]
+  idsl[Soft-LMN]
+  idsi[...]
   idr[(Local Reprepro)]
 
-  ido --> idm
-  ido --> idl
-  ido --> idx
-  ids -. wget.-> idm
-  idm -- rebuild deb --> idm
-  idm -. push .-> idr
+  ido --> idmx
+  ido --> idml
+  ido --> idmi
+  idsx -. wget.-> idmx
+  idsl -. wget.-> idml
+  idsi -. wget.-> idmi
+  idmx -- rebuild deb --> idmx
+  idml -- rebuild deb --> idml
+  idmi -- rebuild deb --> idmi
+  idmx -. push .-> idr
+  idml -. push .-> idr
+  idmi -. push .-> idr
 ```
 
 ## Commands
