@@ -32,19 +32,23 @@ A set of recipes to apply will be called `kit`.
 
 ```mermaid
 graph TD;
-  subgraph internet
+  subgraph Internet software repository
     idsx[Soft-XYZ]
     idsl[Soft-LMN]
     idsi[...]
   end
 
+  subgraph Oberapk service
   idmx(Pakaj Soft-XYZ)
   idml(Pakaj Soft-LMN)
   idmi(Pakaj ...)
  
   ido((Oberapk))
-  
+  end
+
+  subgraph APT web service
   idr[(Local Reprepro)]
+  end
 
   ido --> idmx
   ido --> idml
