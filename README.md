@@ -40,14 +40,15 @@ graph LR;
   end
 
   subgraph Oberapk service
+    ids>Server]
+    idc[Conf - pkg/dists]
+
+    ido((Oberapk))
+    
     idmx(Pakaj Soft-XYZ)
     idml(Pakaj Soft-LMN)
     idmi(Pakaj ...)
     idmo(Pakaj Soft-Oberapk)
- 
-    idc[Conf - pkg/dists]
-    ido((Oberapk))
-    ids>Server]
   end
 
   subgraph APT web service
@@ -57,19 +58,26 @@ graph LR;
   idclient1>Computer 1]
   idclient2>Computer 2]
 
+  ids -- run --> ido
+  ids -- apt / auto update --> idr
+
   idc -- choice pkg --> ido
+
   ido --> idmx
   ido --> idml
   ido --> idmi
   ido --> idmo
+
   idsx -. wget .-> idmx
   idsl -. wget .-> idml
   idsi -. wget .-> idmi
   idso -. wget .-> idmo
+
   idmx -- rebuild deb --> idmx
   idml -- rebuild deb --> idml
   idmi -- rebuild deb --> idmi
   idmo -- rebuild deb --> idmo
+
   idmx -. push .-> idr
   idml -. push .-> idr
   idmi -. push .-> idr
@@ -77,9 +85,6 @@ graph LR;
 
   idclient1 -- apt --> idr
   idclient2 -- apt --> idr
-
-  ids -- run --> ido
-  ids -- auto update --> idr
 ```
 
 ## Commands
