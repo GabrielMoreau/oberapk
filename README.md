@@ -30,6 +30,23 @@ In order to distinguish a package from its recipe, in Oberapk,
 the recipes are called `packaging`.
 A set of recipes to apply will be called `kit`.
 
+```mermaid
+graph TD;
+  ido((Oberapk))
+  idm(Pakaj Soft-XYZ)
+  idl(Pakaj Soft-LMN)
+  idl(Pakaj ...)
+  ids[Soft-XYZ]
+  idr[(Local Reprepro)]
+
+  ido --> idm
+  ido --> idl
+  ido --> idx
+  ids -. wget.-> idm
+  idm -- rebuild deb --> idm
+  idm -. push .-> idr
+```
+
 ## Commands
 
 ```bash
