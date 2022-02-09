@@ -32,13 +32,16 @@ A set of recipes to apply will be called `kit`.
 
 ```mermaid
 graph TD;
-  ido((Oberapk))
-  idmx(Pakaj Soft-XYZ)
-  idml(Pakaj Soft-LMN)
-  idmi(Pakaj ...)
   idsx[Soft-XYZ]
   idsl[Soft-LMN]
   idsi[...]
+
+  idmx(Pakaj Soft-XYZ)
+  idml(Pakaj Soft-LMN)
+  idmi(Pakaj ...)
+ 
+  ido((Oberapk))
+  
   idr[(Local Reprepro)]
 
   ido --> idmx
