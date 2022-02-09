@@ -52,7 +52,7 @@ graph TD;
   end
 
   idclient1>Computer 1]
-  idclient1>Computer 2]
+  idclient2>Computer 2]
 
   idc -- choice pkg --> ido
   ido --> idmx
@@ -69,7 +69,7 @@ graph TD;
   idmi -. push .-> idr
 
   idclient1 -- apt --> idr
-  idclient1 -- apt --> idr
+  idclient2 -- apt --> idr
 ```
 
 ## Commands
