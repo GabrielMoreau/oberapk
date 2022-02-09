@@ -32,9 +32,11 @@ A set of recipes to apply will be called `kit`.
 
 ```mermaid
 graph TD;
-  idsx[Soft-XYZ]
-  idsl[Soft-LMN]
-  idsi[...]
+  subgraph internet
+    idsx[Soft-XYZ]
+    idsl[Soft-LMN]
+    idsi[...]
+  end
 
   idmx(Pakaj Soft-XYZ)
   idml(Pakaj Soft-LMN)
