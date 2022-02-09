@@ -31,7 +31,7 @@ the recipes are called `packaging`.
 A set of recipes to apply will be called `kit`.
 
 ```mermaid
-graph TD;
+graph LR;
   subgraph Internet software repository
     idsx[Soft-XYZ]
     idsl[Soft-LMN]
