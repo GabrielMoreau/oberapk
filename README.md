@@ -43,7 +43,7 @@ graph TD;
   idml(Pakaj Soft-LMN)
   idmi(Pakaj ...)
  
-  idc[Conf: pkg/dists]
+  idc[Conf - pkg/dists]
   ido((Oberapk))
   end
 
