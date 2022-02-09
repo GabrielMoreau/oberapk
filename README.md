@@ -39,17 +39,19 @@ graph TD;
   end
 
   subgraph Oberapk service
-  idmx(Pakaj Soft-XYZ)
-  idml(Pakaj Soft-LMN)
-  idmi(Pakaj ...)
+    idmx(Pakaj Soft-XYZ)
+    idml(Pakaj Soft-LMN)
+    idmi(Pakaj ...)
  
-  idc[Conf - pkg/dists]
-  ido((Oberapk))
+    idc[Conf - pkg/dists]
+    ido((Oberapk))
   end
 
   subgraph APT web service
-  idr[(Local Reprepro)]
+    idr[(Local Reprepro)]
   end
+
+  idclient>Computer]
 
   idc -- choice pkg --> ido
   ido --> idmx
@@ -64,6 +66,8 @@ graph TD;
   idmx -. push .-> idr
   idml -. push .-> idr
   idmi -. push .-> idr
+
+  idclient -- apt --> idr
 ```
 
 ## Commands
