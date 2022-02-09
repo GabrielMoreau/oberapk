@@ -51,7 +51,7 @@ graph TD;
   idr[(Local Reprepro)]
   end
 
-  idc - choice pkg -> ido
+  idc -- choice pkg --> ido
   ido --> idmx
   ido --> idml
   ido --> idmi
