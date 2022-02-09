@@ -43,6 +43,7 @@ graph TD;
   idml(Pakaj Soft-LMN)
   idmi(Pakaj ...)
  
+  idc[Conf: pkg/dists]
   ido((Oberapk))
   end
 
@@ -50,6 +51,7 @@ graph TD;
   idr[(Local Reprepro)]
   end
 
+  idc - choice pkg -> ido
   ido --> idmx
   ido --> idml
   ido --> idmi
