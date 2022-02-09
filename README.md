@@ -63,7 +63,7 @@ graph LR;
   idsi -. wget .-> idmi
   idso -. wget .-> idmo
 
-  ids -- run --> ido
+  ids -- daily cron --> ido
   ids -- apt-get / auto update --> idr
 
   idc -- choice pkg --> ido
