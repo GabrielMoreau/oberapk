@@ -51,7 +51,8 @@ graph TD;
     idr[(Local Reprepro)]
   end
 
-  idclient>Computer]
+  idclient1>Computer 1]
+  idclient1>Computer 2]
 
   idc -- choice pkg --> ido
   ido --> idmx
@@ -67,7 +68,8 @@ graph TD;
   idml -. push .-> idr
   idmi -. push .-> idr
 
-  idclient -- apt --> idr
+  idclient1 -- apt --> idr
+  idclient1 -- apt --> idr
 ```
 
 ## Commands
