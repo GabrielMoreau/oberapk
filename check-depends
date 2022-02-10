@@ -1,0 +1,35 @@
+#!/bin/bash
+#
+# check-depends
+# 2022/02/10 Gabriel.Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
+
+
+# hash table
+declare -A binok
+declare -A fphash
+
+while read binary
+do
+   while read pkg fullpath
+   do
+     if egrep -q "^Depends:.*\b${pkg/:}\b" make-package-debian
+     then
+       # keep already define binary in a pkg
+       binok["${binary}"]="${pkg}"
+     else
+       # other case, package not already defined
+       fphash["${fullpath}"]="${pkg}"
+     fi
+   done < <(apt-file search "bin/${binary}" | grep "/${binary}$")
+done < <(grep -h '^# bin:' pakaj.d/*.sh | cut -f 2 -d ':' | sed 's/\s/\n/g;' | sort -u | grep .)
+
+
+for fullpath in ${!fphash[*]}
+do
+  # check if binary is in another pkg
+  binary=$(echo ${fullpath} | sed 's#.*/##;')
+  echo ${!binok[*]} | grep -q "\b${binary}\b" && continue
+  
+  # print new dep to add (be careful with virtual package like awk)
+  echo "${fphash[${fullpath}]} ${fullpath}"
+done
