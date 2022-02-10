@@ -1,7 +1,7 @@
-# 2022/01/27
-# tssh
-# See also https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/tssh
-# bin: ls tail xargs reprepro git grep cut make pod2man
+## Date: 2022/01/27
+## Pakaj: tssh
+## See-Also: https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/tssh
+## Binaries: ls tail xargs reprepro git grep cut make pod2man
 
 function oberpakaj_tssh {
    local keep=$1; shift

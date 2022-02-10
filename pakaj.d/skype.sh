@@ -1,5 +1,6 @@
-# 2020/09/15
-# skype
+## Date: 2020/09/15
+## Pakaj: skype
+## Binaries: ls tail xargs rm reprepro grep mkdir wget ar tar awk basename sed
 
 function oberpakaj_skype {
    local keep=$1; shift

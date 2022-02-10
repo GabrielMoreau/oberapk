@@ -46,7 +46,7 @@ Version: ${CODE_VERSION}-${PKG_VERSION}
 Section: utils
 Tag: implemented-in::bash, interface::commandline, role::program
 Priority: optional
-Depends: bash, coreutils, findutils, binutils, tar, sed, grep, awk, wget, reprepro, git, make, perl
+Depends: bash, coreutils, findutils, binutils, tar, sed, grep, awk, wget, curl, reprepro, git, make, perl, gzip, unzip
 Architecture: all
 Installed-Size: $(du -ks ${tmp_folder}|cut -f 1)
 Maintainer: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>

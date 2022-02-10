@@ -1,6 +1,7 @@
-# 2022/01/25
-# yq
-# See also https://github.com/mikefarah/yq
+## Date: 2022/01/25
+## Pakaj: yq
+## See-Also: https://github.com/mikefarah/yq
+## Binaries: ls tail xargs rm reprepro grep mkdir cat wget awk mktemp tar gzip ar chmod
 
 function oberpakaj_yq {
    local keep=$1; shift

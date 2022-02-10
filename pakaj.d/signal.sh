@@ -1,5 +1,6 @@
-# 2021/08/19
-# signal
+## Date: 2021/08/19
+## Pakaj: signal
+## Binaries: ls tail xargs rm reprepro wget head awk basename grep
 
 function oberpakaj_signal {
    local keep=$1; shift

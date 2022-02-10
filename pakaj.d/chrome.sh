@@ -1,6 +1,6 @@
-# 2021/06/19
-# chrome
-# bin: ls tail xargs reprepro wget head awk basename cut mktemp du sed tar ar rm grep
+## Date: 2021/06/19
+## Pakaj: chrome
+## Binaries: ls tail xargs reprepro wget head awk basename cut mktemp du sed tar ar rm grep
 
 function oberpakaj_chrome {
    local keep=$1; shift

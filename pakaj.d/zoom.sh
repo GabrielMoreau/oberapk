@@ -1,6 +1,7 @@
 ## Date: 2020/04/28
 ## Pakaj: zoom
 ## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
+## Binaries: ls tail xargs rm reprepro grep mkdir touch basename wget stat mktemp ar tar chmod md5sum du cut
 
 function oberpakaj_zoom {
    local keep=$1; shift

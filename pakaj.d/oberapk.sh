@@ -1,6 +1,7 @@
-# 2022/01/27
-# oberapk
-# See also https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/oberapk
+## Date: 2022/01/27
+## Pakaj: oberapk
+## See-Also: https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/oberapk
+## Binaries: ls tail xargs rm reprepro grep mkdir git cut pod2man mktemp cut chmod tar ar
 
 function oberpakaj_oberapk {
    local keep=$1; shift
@@ -24,7 +25,6 @@ function oberpakaj_oberapk {
 
       if [ ! -e "${package}" ]
       then
-         #pod2man oberapk | gzip > oberapk.1.gz
          ./make-package-debian
 
          for dist in ${distrib}
