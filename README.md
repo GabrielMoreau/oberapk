@@ -30,6 +30,63 @@ In order to distinguish a package from its recipe, in Oberapk,
 the recipes are called `packaging`.
 A set of recipes to apply will be called `kit`.
 
+```mermaid
+graph LR;
+  subgraph Internet software repository
+    idsx[Soft-XYZ]
+    idsl[Soft-LMN]
+    idsi[...]
+    idso[Soft-Oberapk]
+  end
+
+  subgraph Oberapk service
+    ids>Server]
+    idc[Conf - pkg/dists]
+
+    ido((Oberapk))
+    
+    idmx(Pakaj Soft-XYZ)
+    idml(Pakaj Soft-LMN)
+    idmi(Pakaj ...)
+    idmo(Pakaj Soft-Oberapk)
+  end
+
+  subgraph APT web service
+    idr[(Local Reprepro)]
+  end
+
+  idclient1>Computer 1]
+  idclient2>Computer 2]
+
+  idsx -. wget .-> idmx
+  idsl -. wget .-> idml
+  idsi -. wget .-> idmi
+  idso -. wget .-> idmo
+
+  ids -- daily cron --> ido
+  ids -- apt-get / auto update --> idr
+
+  idc -- choice pkg --> ido
+
+  ido --> idmx
+  ido --> idml
+  ido --> idmi
+  ido --> idmo
+
+  idmx -- rebuild deb --> idmx
+  idml -- rebuild deb --> idml
+  idmi -- rebuild deb --> idmi
+  idmo -- rebuild deb --> idmo
+
+  idmx -. push .-> idr
+  idml -. push .-> idr
+  idmi -. push .-> idr
+  idmo -. push .-> idr
+
+  idclient1 -- apt-get --> idr
+  idclient2 -- apt-get --> idr
+```
+
 ## Commands
 
 ```bash
