@@ -8,7 +8,7 @@
 export PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin
 export LANG=C
 
-VERSION='0.3.23'
+VERSION='0.3.24'
 
 # Global variables
 export CONF_FILE=/etc/oberapk/oberapk.conf
@@ -17,7 +17,7 @@ then
    CONF_FILE=$HOME/.config/oberapk/oberapk.conf
 fi
 export PAKAJ_FOLDER=/usr/lib/oberapk/pakaj.d
-export REPREPRO=/srv/www/debian
+export REPREPRO=/var/www/debian
 if [ -e '/etc/oberapk/oberapk.sh' ]
 then
    source /etc/oberapk/oberapk.sh
@@ -25,6 +25,19 @@ fi
 if [ -e "$HOME/.config/oberapk/oberapk.sh" ]
 then
    source "$HOME/.config/oberapk/oberapk.sh"
+fi
+
+# Not run as root
+if [ $(id --user) -eq 0 ]
+then
+   if [[ -n "${RUN_USER}" && $(id --user "${RUN_USER}" 2> /dev/null) -gt 0 ]]
+   then
+      exec su - "${RUN_USER}" --command "$0 $*"
+   fi
+   echo 'Error: do not run oberapk as user root'
+   echo ''
+   usage
+   exit 1
 fi
 
 ################################################################

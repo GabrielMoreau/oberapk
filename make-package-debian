@@ -21,6 +21,8 @@ mkdir -p ${tmp_folder}/usr/bin
 mkdir -p ${tmp_folder}/usr/share/oberapk
 mkdir -p ${tmp_folder}/usr/lib/oberapk/pakaj.d
 mkdir -p ${tmp_folder}/etc/oberapk
+mkdir -p ${tmp_folder}/etc/cron.daily
+mkdir -p ${tmp_folder}/etc/cron.weekly
 mkdir -p ${tmp_folder}/etc/bash_completion.d
 cp oberapk                ${tmp_folder}/usr/bin/
 #cp oberapk.1.gz          ${tmp_folder}/usr/share/man/man1/
@@ -29,6 +31,8 @@ cp oberapk.sample.conf    ${tmp_folder}/usr/share/oberapk/
 cp oberapk.sample.sh      ${tmp_folder}/usr/share/oberapk/
 cp oberapk.sample.conf    ${tmp_folder}/etc/oberapk/
 cp oberapk.sample.sh      ${tmp_folder}/etc/oberapk/
+cp cron.daily.sh          ${tmp_folder}/etc/cron.daily/oberapk
+cp cron.weekly.sh         ${tmp_folder}/etc/cron.weekly/oberapk
 cp pakaj.d/*.sh           ${tmp_folder}/usr/lib/oberapk/pakaj.d/
 cp completion.bash        ${tmp_folder}/etc/bash_completion.d/oberapk
 chmod -R a+rx        ${tmp_folder}/usr/bin/oberapk
@@ -46,7 +50,7 @@ Version: ${CODE_VERSION}-${PKG_VERSION}
 Section: utils
 Tag: implemented-in::bash, interface::commandline, role::program
 Priority: optional
-Depends: bash, coreutils, findutils, binutils, tar, sed, grep, awk, wget, curl, reprepro, git, make, perl, gzip, unzip
+Depends: bash, coreutils, findutils, binutils, debianutils, tar, sed, grep, awk, wget, curl, reprepro, git, make, perl, gzip, unzip
 Architecture: all
 Installed-Size: $(du -ks ${tmp_folder}|cut -f 1)
 Maintainer: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
