@@ -178,6 +178,8 @@ Upgrade quickly your own Oberapk version on your server
 oberapk update oberapk; sudo apt update; sudo apt upgrade
 ```
 
+### Cron job
+
 One cron job is placed in the daily folder
 and another in the weekly cron folder.
 These tasks do not run as root, but switch to the `RUN_USER` account,
