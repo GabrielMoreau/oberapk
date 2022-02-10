@@ -152,6 +152,7 @@ They can be under `/etc/oberapk` folder or under `$HOME/.local/oberapk`.
   #CONF_FILE=/etc/oberapk/oberapk.conf
   #PAKAJ_FOLDER=/usr/share/oberapk/pakaj.d
   REPREPRO=/var/www/debian
+  RUN_USER=www-data
   ```
 
 ### Usage
@@ -177,11 +178,23 @@ Upgrade quickly your own Oberapk version on your server
 oberapk update oberapk; sudo apt update; sudo apt upgrade
 ```
 
-A file `/etc/cron.d/oberapk` in the cron folder will update a set of
-packages (`kit`). It's up to you to define it because there is no
-predefined cron file and daily kit for the moment.
-You also have to choose a user.
-Be careful, Oberapk should never normally be run by the `root` user.
+One cron job is placed in the daily folder
+and another in the weekly cron folder.
+These tasks do not run as root, but switch to the `RUN_USER` account,
+if and only if you have defined it.
+These tasks run the daily and weekly kits,
+so consider if you need to define `@daily` and `@weekly`
+in your configuration file,
+along with the associated software you want to update.
+
+You can also define your own `/etc/cron.d/oberapk` file in the cron
+folder which will update a set of packages (`kit`) you want,
+at a time you want...
+It is then up to you to define it because the predefined cron files
+(daily and weekly...) are launched at a time fixed
+by your system configuration.
+Beware, Oberapk should never and refuses to be launched
+by the user `root`.
 ```
 9:33 23 * * *  adm  test -x $(which oberapk) && oberapk upgrade all 2>&1 | logger -t oberap
 ```
