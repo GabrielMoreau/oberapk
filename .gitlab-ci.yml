@@ -10,7 +10,7 @@ pages:
   script:
     - mkdir -p public/download
     - $(wget --no-check-certificate ${CI_PAGES_URL}/download.tar.gz -O download.tar.gz || exit 0)
-    - '[ -s download.tar.gz ] && tar -xzf download.tar.gz public/download/'
+    - '[ -s download.tar.gz ] && tar -xzf download.tar.gz public/download/ || echo "tar error"'
     - make pages
     - tar -czf public/download.tar.gz public/download/
   artifacts:
