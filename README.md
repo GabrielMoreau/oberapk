@@ -28,13 +28,23 @@ in `.deb` format locally on a computer,
 then to push them into your apt repository via the reprepro tool.
 Indeed, for the moment, Oberapk only works with the reprepro service.
 
-Please note that Oberapk is not a tool for making packages.
+Please note that Oberapk is not a tool for making packages
+(unless they are really simple without compiling or downloading
+any additional files).
 It simply allows you to retrieve packages automatically
 and push them to your local repository.
 
 In order to distinguish a package from its recipe, in Oberapk,
 the recipes are called `packaging`.
 A set of recipes to apply will be called `kit`.
+
+ | Breton | Français  | English   |
+ |--------|-----------|-----------|
+ | ober   | contruire | make      |
+ | pakaj  | emballage | packaging |
+ | stroll | ensemble  | kit       |
+
+## Schematic diagram of how it works
 
 ```mermaid
 graph LR;
