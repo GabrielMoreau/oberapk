@@ -1,8 +1,13 @@
 # Oberapk - Make/Build/Copy local Apt/Debian Package
 
-## Download Debian package
+## Download / Ready-made package
 
+Up-to-date Debian packages can be found at
 https://legi.gricad-pages.univ-grenoble-alpes.fr/soft/trokata/oberapk/download/
+
+Please note that the Debian packages are very simple
+and certainly do not check all the Debian Policy rules and quality.
+They are however functional and in production at LEGI.
 
 ## Description
 
@@ -168,7 +173,7 @@ They can be under `/etc/oberapk` folder or under `$HOME/.local/oberapk`.
   #CONF_FILE=/etc/oberapk/oberapk.conf
   #PAKAJ_FOLDER=/usr/share/oberapk/pakaj.d
   REPREPRO=/var/www/debian
-  RUN_USER=www-data
+  RUN_USER=lambda
   ```
 
 ### Usage
@@ -212,7 +217,52 @@ It is then up to you to define it because the predefined cron files
 (daily and weekly...) are launched at a time fixed
 by your system configuration.
 Beware, Oberapk should never and refuses to be launched
-by the user `root`.
+by the user `root` (here `lambda`).
 ```
-9:33 23 * * *  adm  test -x $(which oberapk) && oberapk upgrade all 2>&1 | logger -t oberap
+9:33 23 * * *  lambda  test -x $(which oberapk) && oberapk upgrade all 2>&1 | logger -t oberapk
+```
+It may not be a good idea to run it under the `www-data` account.
+However, Apache (or Nginx) must have access to the folders
+where Reprepro stores the packages that Oberapk pushes.
+
+## Repository / Contribute
+
+### Source
+
+The whole code is under **free license**.
+The script in ```bash``` is under GPL version 2 or more recent (http://www.gnu.org/licenses/gpl.html).
+All the source code is available on the forge of the Grenoble campus:
+https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/oberapk
+The sources are managed via Git (GitLab).
+It is very easy to stay synchronized with these sources.
+
+* The initial recovery
+  ```bash
+  git clone https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/oberapk
+  ```
+* The updates afterwards
+  ```bash
+  git pull
+  ```
+* Contribute.
+  It is possible to contribute by proposing pull requests,
+  merge requests or simply old fashioned patches.
+
+### Patch
+
+It is possible to have a writing access to the project on the forge
+on motivated request to [Gabriel Moreau](mailto:Gabriel.Moreau _A_ legi.grenoble-inp.fr).
+For questions of administration time and security,
+the project is not directly accessible in writing without authorization.
+For questions of decentralization of the web, of autonomy
+and non-allegiance to the ambient (and North American) centralism,
+we use the forge of the university campus of Grenoble...
+
+You can propose a patch by email of a particular file via the ```diff``` command:
+```bash
+diff -u oberapk.org oberapk.new > oberapk.patch
+```
+The patch is applied (after reading and rereading it) via the command:
+```bash
+patch -p0 < oberapk.patch
 ```
