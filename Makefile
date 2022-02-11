@@ -2,6 +2,7 @@ SHELL:=/bin/bash
 
 SOFT:=oberapk
 VERSION:=$(shell grep '^VERSION=' $(SOFT) | cut -f 2 -d "'")
+PATCH:=$(shell grep '^PKG_VERSION=' make-package-debian | cut -f 2 -d '=')
 
 
 .PHONY: all help pkg version pages
@@ -19,11 +20,11 @@ pages: pkg
 	@#cp -p *.html       public/
 	@#cp -p podstyle.css public/
 	@cp -p LICENSE.md  public/
-	@echo -n $(VERSION) > public/version.txt
+	@echo -n "$(VERSION)-$(PATCH)" > public/version.txt
 	@cp -p --no-clobber $(SOFT)_*_all.deb  public/download/
 	@#cd public; ln -sf $(SOFT).html index.html
 	@cd public/download
-	@echo '<html><body><h1>Oberapk Debian Package</h1><ul>' > index.html
+	@echo '<html><body><h1>Oberapk Debian Package (Latest version: $(VERSION)-$(PATCH))</h1><ul>' > index.html
 	@(while read file; do printf '<li><a href="%s">%s</a> (%s)</li>\n' $$file $$file $$(stat -c %y $$file | cut -f 1 -d ' '); done < <(ls -1t *.deb) >> index.html)
 	@echo '</ul></body></html>' >> index.html
 
