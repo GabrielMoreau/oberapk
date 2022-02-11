@@ -251,7 +251,7 @@ It is very easy to stay synchronized with these sources.
 ### Patch
 
 It is possible to have a writing access to the project on the forge
-on motivated request to [Gabriel Moreau](mailto:Gabriel.Moreau _A_ legi.grenoble-inp.fr).
+on motivated request to [Gabriel Moreau](mailto:Gabriel.Moreau_A_legi.grenoble-inp.fr).
 For questions of administration time and security,
 the project is not directly accessible in writing without authorization.
 For questions of decentralization of the web, of autonomy
