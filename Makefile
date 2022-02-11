@@ -1,32 +1,30 @@
 SHELL:=/bin/bash
 
-DESTDIR=
+SOFT:=oberapk
+VERSION:=$(shell grep '^VERSION=' $(SOFT) | cut -f 2 -d "'")
 
-BINDIR=/usr/sbin
-MANDIR=/usr/share/man/man1
-SHAREDIR=/usr/share/oberapk
-LIBDIR=/usr/lib/oberapk
-CRONDIR=/etc/cron.d
-ETCDIR=/etc/oberapk
-COMPDIR=/etc/bash_completion.d
 
-.PHONY: all help pkg pages
+.PHONY: all help pkg version pages
 
 all:
-	#pod2man oberapk | gzip > oberapk.1.gz
-	#pod2html --css podstyle.css --index --header oberapk > oberapk.html
+	#pod2man $(SOFT) | gzip > $(SOFT).1.gz
+	#pod2html --css podstyle.css --index --header $(SOFT) > $(SOFT).html
 
 pkg:
 	./make-package-debian
+	
+version:
+	@echo -n $(VERSION)
 
 pages: pkg
 	mkdir -p public/download
 	#cp -p *.html       public/
 	#cp -p podstyle.css public/
 	cp -p LICENSE.md  public/
-	cp -p --no-clobber oberapk_*_all.deb  public/download/
-	#cd public; ln -sf oberapk.html index.html
-	echo '<html><body><h1>Klask Debian Package</h1><ul>' > public/download/index.html
+	make version > public/version.txt
+	cp -p --no-clobber $(SOFT)_*_all.deb  public/download/
+	#cd public; ln -sf $(SOFT).html index.html
+	echo '<html><body><h1>Oberapk Debian Package</h1><ul>' > public/download/index.html
 	(cd public/download; while read file; do printf '<li><a href="%s">%s</a> (%s)</li>\n' $$file $$file $$(stat -c %y $$file | cut -f 1 -d ' '); done < <(ls -1t *.deb) >> index.html)
 	echo '</ul></body></html>' >> public/download/index.html
 
