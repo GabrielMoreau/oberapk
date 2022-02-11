@@ -152,6 +152,9 @@ They can be under `/etc/oberapk` folder or under `$HOME/.local/oberapk`.
   @free: grv vscodium nodejs
   @non-free: discord teams teamviewer
   
+  @daily: @free teams
+  @weekly: teamviewer
+  
   grv:4:        bullseye buster stretch
   vscodium:3:   bullseye buster
   nodejs:3:              buster stretch
