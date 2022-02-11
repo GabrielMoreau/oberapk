@@ -1,0 +1,20 @@
+---
+image: debian:latest
+
+before_script:
+  - apt-get update -yqq
+  - apt-get install -yqq perl make binutils findutils tar gzip wget
+
+pages:
+  stage: build
+  script:
+    - mkdir -p public/download
+    - $(wget --no-check-certificate ${CI_PAGES_URL}/download.tar.gz -O download.tar.gz || exit 0)
+    - '[ -s download.tar.gz ] && tar -xzf download.tar.gz public/download/'
+    - make pages
+    - tar -czf public/download.tar.gz public/download/
+  artifacts:
+    paths:
+      - public
+  only:
+    - master
