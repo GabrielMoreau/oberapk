@@ -224,3 +224,60 @@ esac
 usage
 exit
 
+
+################################################################
+# Documentation in POD format (like Perl)
+################################################################
+
+=head1 NAME
+
+oberapk - web get rebuild and push package
+
+=head1 SYNOPSIS
+
+ oberapk help
+ oberapk avail
+ oberapk list
+ oberapk kit
+ oberapk update pkg
+ oberapk upgrade kit
+ oberapk source pkg
+ oberapk binaries
+
+=head1 DESCRIPTION
+
+Oberapk is a tool to automate the uploading of Debian packages
+to a local Reprepro repository.
+The goal is to simplify the provision of software on a local park
+without having them fetch the packages on remote sites.
+For each package, there is a specific recipe to get the latest version,
+if any, and then push it to the right Debian distribution(s)
+that your Reprepro instance manages locally.
+
+
+=head1 SEE ALSO
+
+reprepro
+
+Own project ressources:
+
+=over
+
+=item * L<Web site|https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/oberapk>
+
+=item * L<Online Manual|https://legi.gricad-pages.univ-grenoble-alpes.fr/soft/trokata/oberapk/>
+
+=item * L<Download package (Debian)|https://legi.gricad-pages.univ-grenoble-alpes.fr/soft/trokata/oberapk/download/>
+
+=back
+
+
+=head1 AUTHORS
+
+Written by Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>, Grenoble - France
+
+
+=head1 COPYRIGHT
+
+Copyright (C) 2017-2022, LEGI UMR 5519 / CNRS UGA G-INP, Grenoble, France
+Licence : GNU GPL version 2 or later
