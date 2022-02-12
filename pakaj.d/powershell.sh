@@ -1,6 +1,7 @@
-# 2021/10/07
-# powershell
-# See also https://microsoft.com/powershell
+## Date: 2021/10/07
+## Pakaj: powershell
+## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
+## See-Also: https://microsoft.com/powershell
 
 function oberpakaj_powershell {
    local keep=$1; shift

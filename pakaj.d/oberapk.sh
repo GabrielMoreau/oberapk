@@ -1,5 +1,6 @@
 ## Date: 2022/01/27
 ## Pakaj: oberapk
+## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
 ## See-Also: https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/oberapk
 ## Binaries: ls tail xargs rm reprepro grep mkdir git cut pod2man mktemp cut chmod tar ar
 

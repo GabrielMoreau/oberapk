@@ -1,5 +1,6 @@
-# 2021/01/19
-# ganttproject
+## Date: 2021/01/19
+## Pakaj: ganttproject
+## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
 
 function oberpakaj_ganttproject {
    local keep=$1; shift

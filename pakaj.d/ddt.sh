@@ -1,6 +1,8 @@
-# 2022/01/27
-# ddt
-# See also https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/ddt
+## Date: 2022/01/27
+## Pakaj: ddt
+## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
+## See-Also: https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/ddt
+## Binaries: ls tail xargs rm reprepro grep mkdir git cut make pod2man pod2html mktemp cp ln cat chmod tar ar
 
 function oberpakaj_ddt {
    local keep=$1; shift
