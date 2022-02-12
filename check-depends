@@ -2,7 +2,8 @@
 #
 # check-depends
 # 2022/02/10 Gabriel.Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
-
+#
+## Binaries: grep apt-file cut sed sort
 
 # hash table
 declare -A binok
@@ -10,9 +11,13 @@ declare -A fphash
 
 while read binary
 do
+   # package and binary have the same name: awk for example
+   # saves processing time
+   egrep -q "^(Depends|Recommends):.*\b${binary/:}\b" make-package-debian && continue
+
    while read pkg fullpath
    do
-     if egrep -q "^Depends:.*\b${pkg/:}\b" make-package-debian
+     if egrep -q "^(Depends|Recommends):.*\b${pkg/:}\b" make-package-debian
      then
        # keep already define binary in a pkg
        binok["${binary}"]="${pkg}"
@@ -21,7 +26,7 @@ do
        fphash["${fullpath}"]="${pkg}"
      fi
    done < <(apt-file search "bin/${binary}" | grep "/${binary}$")
-done < <(grep -h '^## Binaries:' pakaj.d/*.sh | cut -f 2 -d ':' | sed 's/\s/\n/g;' | sort -u | grep .)
+done < <(grep -h '^## Binaries:' oberapk check-depends pakaj.d/*.sh | cut -f 2 -d ':' | sed 's/\s/\n/g;' | sort -u | grep .)
 
 
 for fullpath in ${!fphash[*]}
