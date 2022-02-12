@@ -231,7 +231,7 @@ exit
 
 =head1 NAME
 
-oberapk - web get rebuild and push package
+oberapk - automated Debian package download, modification and local upload
 
 =head1 SYNOPSIS
 
@@ -254,6 +254,10 @@ For each package, there is a specific recipe to get the latest version,
 if any, and then push it to the right Debian distribution(s)
 that your Reprepro instance manages locally.
 
+It is however possible to slightly modify the package during the recipe,
+or to build very simple packages in which the programs are written
+in scripting languages that do not need to be compiled
+or complex build steps.
 
 =head1 SEE ALSO
 
@@ -279,5 +283,6 @@ Written by Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>, Grenoble - Fr
 
 =head1 COPYRIGHT
 
-Copyright (C) 2017-2022, LEGI UMR 5519 / CNRS UGA G-INP, Grenoble, FranceE<10>
+Copyright (C) 2017-2022, LEGI UMR 5519 / CNRS UGA G-INP, Grenoble, France
+
 Licence : GNU GPL version 2 or later

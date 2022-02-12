@@ -1,4 +1,17 @@
-# Oberapk - Make/Build/Copy local Apt/Debian Package
+# Oberapk - Automated Debian package download, modification and local upload
+
+Oberapk is a tool to automate the uploading of Debian packages
+to a local Reprepro repository.
+The goal is to simplify the provision of software on a local park
+without having them fetch the packages on remote sites.
+For each package, there is a specific recipe to get the latest version,
+if any, and then push it to the right Debian distribution(s)
+that your Reprepro instance manages locally.
+
+It is however possible to slightly modify the package during the recipe,
+or to build very simple packages in which the programs are written
+in scripting languages that do not need to be compiled
+or complex build steps.
 
 ## Download / Ready-made package
 
