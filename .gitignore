@@ -1,2 +1,5 @@
 oberapk_*_all.deb
 public
+*.1.gz
+*.html
+*.tmp

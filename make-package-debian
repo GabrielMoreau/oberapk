@@ -17,7 +17,7 @@ PKG_VERSION=1
 
 # Create future tree
 mkdir -p ${tmp_folder}/usr/bin
-#mkdir -p ${tmp_folder}/usr/share/man/man1
+mkdir -p ${tmp_folder}/usr/share/man/man1
 mkdir -p ${tmp_folder}/usr/share/oberapk
 mkdir -p ${tmp_folder}/usr/lib/oberapk/pakaj.d
 mkdir -p ${tmp_folder}/etc/oberapk
@@ -25,7 +25,7 @@ mkdir -p ${tmp_folder}/etc/cron.daily
 mkdir -p ${tmp_folder}/etc/cron.weekly
 mkdir -p ${tmp_folder}/etc/bash_completion.d
 cp oberapk                ${tmp_folder}/usr/bin/
-#cp oberapk.1.gz          ${tmp_folder}/usr/share/man/man1/
+cp oberapk.1.gz           ${tmp_folder}/usr/share/man/man1/
 cp LICENSE.md             ${tmp_folder}/usr/share/oberapk/
 cp AUTHORS.md             ${tmp_folder}/usr/share/oberapk/
 cp COPYRIGHT.md           ${tmp_folder}/usr/share/oberapk/
