@@ -4,6 +4,8 @@
 # 2022/01/27 Gabriel Moreau : modulate
 #
 # oberapk
+#
+## Binaries: id su cat grep cut sed cut paste
 
 export PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin
 export LANG=C
@@ -62,6 +64,7 @@ SYNOPSIS
  oberapk update pkg
  oberapk upgrade kit
  oberapk source pkg
+ oberapk binaries
 
 AUTHOR
  Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
@@ -203,6 +206,11 @@ case $1 in
          echo "Info: begin update package ${pakaj}"
          oberapk update ${pakaj}
       done
+      exit
+      ;;
+
+   binaries)
+      grep -h '^## Binaries:' $0 ${PAKAJ_FOLDER}/*.sh | cut -f 2 -d ':' | sed 's/\s/\n/g;' | sort -u | grep . | paste -sd ' '
       exit
       ;;
 
