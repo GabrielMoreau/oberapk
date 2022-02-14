@@ -1,4 +1,4 @@
-# Oberapk - Automated Debian package download, modification and local upload
+# Oberapk - Automated Debian packages download, modification and upload to a local Reprepro repository
 
 Oberapk is a tool to automate the uploading of Debian packages
 to a local Reprepro repository.
