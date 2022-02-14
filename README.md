@@ -13,6 +13,10 @@ or to build very simple packages in which the programs are written
 in scripting languages that do not need to be compiled
 or complex build steps.
 
+A small [manual](https://legi.gricad-pages.univ-grenoble-alpes.fr/soft/trokata/oberapk/))
+is also available online.
+However, most of the information is listed below.
+
 ## Download / Ready-made package
 
 Up-to-date Debian packages can be found at
@@ -251,11 +255,12 @@ However, Apache (or Nginx) must have access to the folders
 where Reprepro stores the packages that Oberapk pushes.
 
 In case your repository is signed, which is better,
-either you manually push the updates by doing an oberapk upgrade all
+either you manually push the updates by doing an `oberapk upgrade all`
 regularly in order to put the passphrase of the key,
 or you have a key without passphrase as it is sometimes done
 for SSH keys (which is dangerous),
-or you have a GPG agent that keeps the passphrase in RAM.
+or you have a GPG agent which keeps in RAM the passphrase
+that you manually enter shortly after each reboot.
 
 ## Repository / Contribute
 
