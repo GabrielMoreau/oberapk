@@ -144,11 +144,20 @@ oberapk upgrade kit
 * The `update` command is used to start a recipe, and thus ultimately
   to update the packages that this packaging manages.
 
- * The `upgrade` command allows to apply all the packaging defined
-   by a `kit`.
-   If a kit `all` exists on your installation, then you can update
-   with a single command the software of your local repository
-   which are managed by Oberapk.
+* The `upgrade` command allows to apply all the packaging defined
+  by a `kit`.
+  If a kit `all` exists on your installation, then you can update
+  with a single command the software of your local repository
+  which are managed by Oberapk.
+
+* The `source` command is for developers. It allows to test a new recipe.
+  It allows to set the global variables useful for the bash function. 
+
+* The `binaries` command is for developers.
+  It allows to list all the commands that have been used
+  in the other recipes.
+  It is preferable if possible to restrict yourself to these commands
+  in order not to add any additional dependency to Oberapk. 
 
 ### Configuration file
 
@@ -240,6 +249,13 @@ by the user `root` (here `lambda`).
 It may not be a good idea to run it under the `www-data` account.
 However, Apache (or Nginx) must have access to the folders
 where Reprepro stores the packages that Oberapk pushes.
+
+In case your repository is signed, which is better,
+either you manually push the updates by doing an oberapk upgrade all
+regularly in order to put the passphrase of the key,
+or you have a key without passphrase as it is sometimes done
+for SSH keys (which is dangerous),
+or you have a GPG agent that keeps the passphrase in RAM.
 
 ## Repository / Contribute
 

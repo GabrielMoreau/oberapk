@@ -214,6 +214,11 @@ case $1 in
       exit
       ;;
 
+   version)
+      echo "VERSION ${VERSION}"
+      exit
+      ;;
+
    help|*)
       usage
       exit
@@ -235,7 +240,6 @@ oberapk - automated Debian package download, modification and local upload
 
 =head1 SYNOPSIS
 
- oberapk help
  oberapk avail
  oberapk list
  oberapk kit
@@ -243,6 +247,8 @@ oberapk - automated Debian package download, modification and local upload
  oberapk upgrade kit
  oberapk source pkg
  oberapk binaries
+ oberapk version
+ oberapk help
 
 =head1 DESCRIPTION
 
@@ -259,9 +265,80 @@ or to build very simple packages in which the programs are written
 in scripting languages that do not need to be compiled
 or complex build steps.
 
+=head1 COMMANDS
+
+=head2 avail
+
+The `avail` command allows you to know all the available packaging
+in the Oberapk distribution.
+
+ oberapk avail
+
+=head2 list
+
+The `list` command allows you to know all the configure packaging
+defined  in your configuration file..
+
+ oberapk list
+
+=head2 kit
+
+The `kit` command lets you know the packaging set
+defined in your configuration file.
+
+ oberapk kit
+
+=head2 update
+
+The `update` command is used to start a recipe, and thus ultimately
+to update the packages that this packaging manages.
+
+ oberapk update pkg
+
+=head2 upgrade
+
+The `upgrade` command allows to apply all the packaging defined
+by a `kit`.
+If a kit `all` exists on your installation, then you can update
+with a single command the software of your local repository
+which are managed by Oberapk.
+
+ oberapk upgrade kit
+
+=head2 source
+
+The `source` command is for developers. It allows to test a new recipe.
+It allows to set the global variables useful for the bash function. 
+
+ oberapk source pkg
+
+=head2 binaries
+
+The `binaries` command is for developers.
+It allows to list all the commands that have been used
+in the other recipes.
+It is preferable if possible to restrict yourself to these commands
+in order not to add any additional dependency to Oberapk. 
+
+ oberapk binaries
+
+=head2 version
+
+The `version` command returns the current version installed
+on the computer.
+
+ oberapk version
+
+=head2 help
+
+The `help` command provides a little minimal help.
+
+ oberapk help
+
+
 =head1 SEE ALSO
 
-reprepro
+L<reprepro|https://wiki.debian.org/DebianRepository/SetupWithReprepro>
 
 Own project ressources:
 
