@@ -11,6 +11,6 @@ Indeed, for the moment, Oberapk only works with the reprepro service.
 ## SEE ALSO
 
  * Oberapk - https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/oberapk
- * LICENSE - https://spdx.org/licenses/GPL-2.0-or-later.html
+ * LICENSE - [GNU GPL version 2 or later](https://spdx.org/licenses/GPL-2.0-or-later.html)
  * [AUTHORS](AUTHORS.md)
  * [README](README.md)

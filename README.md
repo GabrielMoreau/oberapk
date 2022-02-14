@@ -13,9 +13,9 @@ or to build very simple packages in which the programs are written
 in scripting languages that do not need to be compiled
 or complex build steps.
 
-A small [manual](https://legi.gricad-pages.univ-grenoble-alpes.fr/soft/trokata/oberapk/))
-is also available online.
-However, most of the information is listed below.
+A short [manual](https://legi.gricad-pages.univ-grenoble-alpes.fr/soft/trokata/oberapk/)
+is available online, which is a copy of the command line manual.
+However, most of the information is also listed below.
 
 ## Download / Ready-made package
 
@@ -303,3 +303,12 @@ The patch is applied (after reading and rereading it) via the command:
 ```bash
 patch -p0 < oberapk.patch
 ```
+
+## COPYRIGHT
+
+Copyright (C) 2017-2022, LEGI UMR 5519 / CNRS UGA G-INP, Grenoble, France
+
+This project was originally written by
+Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>.
+
+Licence: [GNU GPL version 2 or later](https://spdx.org/licenses/GPL-2.0-or-later.html)
