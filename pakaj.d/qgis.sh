@@ -4,6 +4,9 @@
 ## See-Also: http://qgis.org/
 ## Binaries: ls tail xargs rm reprepro grep mkdir cut wget basename
 
+# beta quality - this packaging has not been test on a real life
+
+
 function oberpakaj_qgis {
    local keep=$1; shift
    local distrib=$*
