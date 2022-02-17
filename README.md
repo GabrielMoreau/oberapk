@@ -72,40 +72,39 @@ This list is updated manually from time to time.
 An always up to date list is to look at the files available
 in the folder [pakaj.d](pakaj.d/)
 
-[atom](https://github.com/atom/atom)
-chrome
-[ddt](https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/ddt)
-discord
-[firefox-latest](https://stackoverflow.com/questions/48943416/bash-npm-command-not-found-in-debian-9-3)
-ganttproject
-gestex-ng
-gestex
-[grv](https://stackoverflow.com/questions/48943416/bash-npm-command-not-found-in-debian-9-3)
-kannad
-[klask](https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/klask)
-masterpdf
-nagios-velvice
-[netdata](https://github.com/netdata/netdata)
-[nodejs](https://stackoverflow.com/questions/48943416/bash-npm-command-not-found-in-debian-9-3)
-[oberapk](https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/oberapk)
-[powershell](https://microsoft.com/powershell)
-project-meta
-[qgis](http://qgis.org/)
-signal
-skype
-spideroak
-teams
-teamviewer
-[tixeoclient](https://aide.core-cloud.net/si/tixeo/SitePages/FAQ.aspx)
-[tssh](https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/tssh)
-vscode
-vscodium
-[xflr5](http://www.xflr5.tech/xflr5.htm)
-yadedaily
-[yed](https://www.yworks.com/products/yed)
-[yq](https://github.com/mikefarah/yq)
-zoom
-zotero
+[atom](https://github.com/atom/atom),
+chrome,
+[ddt](https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/ddt),
+discord,
+[firefox-latest](https://stackoverflow.com/questions/48943416/bash-npm-command-not-found-in-debian-9-3),
+ganttproject,
+gestex-ng,
+gestex,
+[grv](https://stackoverflow.com/questions/48943416/bash-npm-command-not-found-in-debian-9-3),
+kannad,
+[klask](https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/klask),
+masterpdf,
+nagios-velvice,
+[netdata](https://github.com/netdata/netdata),
+[nodejs](https://stackoverflow.com/questions/48943416/bash-npm-command-not-found-in-debian-9-3),
+[oberapk](https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/oberapk),
+[powershell](https://microsoft.com/powershell),
+project-meta,
+[qgis](http://qgis.org/),
+signal,
+skype,
+spideroak,
+teams,
+teamviewer,
+[tixeoclient](https://aide.core-cloud.net/si/tixeo/SitePages/FAQ.aspx),
+[tssh](https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/tssh),
+vscode,
+vscodium,
+yadedaily,
+[yed](https://www.yworks.com/products/yed),
+[yq](https://github.com/mikefarah/yq),
+zoom,
+zotero.
 
 ## Schematic diagram of how it works
 

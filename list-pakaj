@@ -1,0 +1,23 @@
+#!/bin/bash
+#
+# list-pakaj
+# 2022/02/17 Gabriel.Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
+#
+## Binaries: grep basename cut ls
+
+(
+   while read pakaj
+   do
+      echo ","
+      name=$(basename ${pakaj/.sh})
+      website=$(grep '^##[[:space:]]See-Also' ${pakaj} | cut -f 3 -d ' ')
+      if [ -z "${website}" ]
+      then
+         echo -n "${name}"
+      else
+         echo -n "[${name}](${website})"
+      fi
+   done < <(ls -1 pakaj.d/*.sh)
+
+   echo "."
+   ) | grep -v '^,$'

@@ -5,7 +5,7 @@ VERSION:=$(shell grep '^VERSION=' $(SOFT) | cut -f 2 -d "'")
 PATCH:=$(shell grep '^PKG_VERSION=' make-package-debian | cut -f 2 -d '=')
 
 
-.PHONY: all help pkg version pages clean
+.PHONY: all help pkg version pages clean check list
 .ONESHELL:
 
 all: $(SOFT).1.gz $(SOFT).html
@@ -41,3 +41,11 @@ help:
 	@echo " * pkg     : build Debian package"
 	@echo " * pages   : build pages for GitLab-CI"
 	@echo " * clean   : clean build files"
+	@echo " * check   : check binaries dependencies"
+	@echo " * list    : list packaging for README"
+
+check:
+	@./check-depends
+
+list:
+	@./list-pakaj

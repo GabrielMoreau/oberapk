@@ -26,7 +26,7 @@ do
        fphash["${fullpath}"]="${pkg}"
      fi
    done < <(apt-file search "bin/${binary}" | grep "/${binary}$")
-done < <(grep -h '^## Binaries:' oberapk check-depends pakaj.d/*.sh | cut -f 2 -d ':' | sed 's/\s/\n/g;' | sort -u | grep .)
+done < <(grep -h '^## Binaries:' oberapk check-depends list-pakaj pakaj.d/*.sh | cut -f 2 -d ':' | sed 's/\s/\n/g;' | sort -u | grep .)
 
 
 for fullpath in ${!fphash[*]}
