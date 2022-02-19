@@ -108,11 +108,11 @@ function cmd_list () {
    while read pakaj
    do
       if [ -e "${PAKAJ_FOLDER}/${pakaj}.sh" ]
-   then
-      echo "${pakaj}"
-   else
-      echo "${pakaj} # Error: no component"
-   fi
+      then
+         echo "${pakaj}"
+      else
+         echo "${pakaj} # Error: no component"
+      fi
    done < <(egrep "^[[:alpha:]][[:alpha:][:digit:]-]*:[[:digit:]]*:" ${CONF_FILE} | cut -f 1 -d ':' | sort -u)
    }
 
