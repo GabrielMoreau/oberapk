@@ -1,0 +1,15 @@
+#!/bin/bash
+#
+# check-metadata
+# 2022/02/19 Gabriel.Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
+#
+## Binaries: grep wc
+
+for pkg in pakaj.d/*
+do
+   nbmeta=$(egrep '^##[[:space:]](Date|Pakaj|Author|See-Also|Binaries):[[:space:]]' ${pkg} | wc -l)
+   if [ $nbmeta -ne 5 ]
+   then
+      echo "Warning: some metadata ($((5 - ${nbmeta}))) are missing on the packaging $(basename ${pkg})"
+   fi
+done

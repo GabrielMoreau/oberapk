@@ -1,5 +1,5 @@
 ## Date: 2021/10/07
-## Pakej: master-pdf-editor
+## Pakaj: master-pdf-editor
 ## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
 ## See-Also: https://code-industry.net/free-pdf-editor/
 
