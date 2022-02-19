@@ -1,6 +1,7 @@
 ## Date: 2021/01/19
 ## Pakaj: ganttproject
 ## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
+## See-Also: https://github.com/bardsoftware/ganttproject
 
 function oberpakaj_ganttproject {
    local keep=$1; shift

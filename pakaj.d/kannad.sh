@@ -1,6 +1,7 @@
-# 2022/01/27
-# kannad
-# See also https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/kannad
+## Date: 2022/01/27
+## Pakaj: kannad
+## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
+## See-Also: https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/kannad
 
 function oberpakaj_kannad {
    local keep=$1; shift

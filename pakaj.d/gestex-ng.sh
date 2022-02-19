@@ -1,6 +1,7 @@
-# 2022/01/27
-# gestex
-# See also https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/gestex
+## Date: 2022/01/27
+## Pakaj: gestex
+## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
+## See-Also: https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/gestex
 
 function oberpakaj_gestex_ng {
    local keep=$1; shift

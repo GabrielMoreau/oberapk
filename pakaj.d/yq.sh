@@ -1,5 +1,6 @@
 ## Date: 2022/01/25
 ## Pakaj: yq
+## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
 ## See-Also: https://github.com/mikefarah/yq
 ## Binaries: ls tail xargs rm reprepro grep mkdir cat wget awk mktemp tar gzip ar chmod
 

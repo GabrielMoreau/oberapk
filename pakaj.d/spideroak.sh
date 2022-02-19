@@ -1,5 +1,7 @@
-# 2021/08/19
-# spideroak
+## Date: 2021/08/19
+## Pakaj: spideroak
+## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
+## See-Also: https://spideroak.com/
 
 function oberpakaj_spideroak {
    local keep=$1; shift

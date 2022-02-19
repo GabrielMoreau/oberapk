@@ -1,7 +1,9 @@
-# 2018/08/30
-# vscodium
-# See also https://carlchenet.com/you-think-the-visual-studio-code-binary-you-use-is-a-free-software-think-again/
-#          https://github.com/VSCodium/vscodium
+## Date: 2018/08/30
+## Pakaj: vscodium
+## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
+## See-Also: https://github.com/VSCodium/vscodium
+#
+# Orther https://carlchenet.com/you-think-the-visual-studio-code-binary-you-use-is-a-free-software-think-again/
 
 function oberpakaj_vscodium {
    local keep=$1; shift

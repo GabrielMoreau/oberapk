@@ -1,5 +1,6 @@
 ## Date: 2018/09/07
 ## Pakaj: nodejs + npm
+## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
 ## See-Also: https://stackoverflow.com/questions/48943416/bash-npm-command-not-found-in-debian-9-3
 ## Binaries: ls tail xargs rm reprepro grep mkdir wget cut sort
 

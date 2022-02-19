@@ -1,6 +1,7 @@
-# 2022/01/27
-# project-meta
-# See also https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/project-meta
+## Date: 2022/01/27
+## Pakaj: project-meta
+## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
+## See-Also: https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/project-meta
 
 function oberpakaj_project_meta {
    local keep=$1; shift

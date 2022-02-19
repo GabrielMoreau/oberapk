@@ -1,6 +1,7 @@
 ## Date: 2021/08/19
 ## Pakaj: signal
 ## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
+## See-Also: https://signal.org/
 ## Binaries: ls tail xargs rm reprepro wget head awk basename grep
 
 function oberpakaj_signal {

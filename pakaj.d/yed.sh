@@ -1,5 +1,6 @@
 ## Date: 2020/03/12
 ## Pakaj: yed
+## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
 ## See-Also: https://www.yworks.com/products/yed
 ## Binaries: ls tail xargs rm reprepro grep mkdir cat curl sed awk head mktemp unzip chmod tar ar
 

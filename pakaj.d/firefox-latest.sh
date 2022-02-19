@@ -1,7 +1,7 @@
 ## Date: 2018/03/28
 ## Pakaj: firefox-latex
 ## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
-## See-Also: https://stackoverflow.com/questions/48943416/bash-npm-command-not-found-in-debian-9-3
+## See-Also: https://www.mozilla.org/
 
 function oberpakaj_firefox_latest {
    local keep=$1; shift

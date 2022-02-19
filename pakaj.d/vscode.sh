@@ -1,3 +1,7 @@
+## Date: 2018/08/30
+## Pakaj: vscode
+## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
+## See-Also: https://github.com/microsoft/vscode
 
 function oberpakaj_vscode {
    local keep=$1; shift

@@ -1,6 +1,7 @@
 ## Date: 2020/04/27
 ## Pakaj: discord
 ## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
+## See-Also: https://discord.com/
 
 function oberpakaj_discord {
    local keep=$1; shift

@@ -1,6 +1,7 @@
 # 2019/04/26
-# yadedaily
-# See also http://www.yade-dem.org/packages/
+## Pakaj: yadedaily
+## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
+## See-Also: http://www.yade-dem.org/packages/
 
 function oberpakaj_yadedaily {
    local keep=$1; shift

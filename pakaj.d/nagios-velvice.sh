@@ -1,6 +1,7 @@
-# 2022/01/27
-# nagios-velvice
-# See also https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/nagios-velvice
+## Date: 2022/01/27
+## Pakaj: nagios-velvice
+## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
+## See-Also: https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/nagios-velvice
 
 function oberpakaj_nagios_velvice {
    local keep=$1; shift

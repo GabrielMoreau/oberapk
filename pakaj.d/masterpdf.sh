@@ -1,7 +1,9 @@
-# 2021/10/07
-# master-pdf-editor
-# https://code-industry.net/free-pdf-editor/
-# https://www.linuxuprising.com/2019/04/download-master-pdf-editor-4-for-linux.html
+## Date: 2021/10/07
+## Pakej: master-pdf-editor
+## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
+## See-Also: https://code-industry.net/free-pdf-editor/
+
+# Other https://www.linuxuprising.com/2019/04/download-master-pdf-editor-4-for-linux.html
 
 function oberpakaj_masterpdf {
    local keep=$1; shift

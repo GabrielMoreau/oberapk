@@ -1,6 +1,7 @@
 ## Date: 2021/06/19
 ## Pakaj: chrome
 ## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
+## See-Also: https://en.wikipedia.org/wiki/Google_Chrome
 ## Binaries: ls tail xargs reprepro wget head awk basename cut mktemp du sed tar ar rm grep
 
 function oberpakaj_chrome {

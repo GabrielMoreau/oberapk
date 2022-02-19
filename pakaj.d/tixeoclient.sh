@@ -1,7 +1,9 @@
 ## Date: 2020/04/14
 ## Pakaj: tixeoclient
 ## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
-## See-Also: https://aide.core-cloud.net/si/tixeo/SitePages/FAQ.aspx
+## See-Also: https://www.tixeo.com/
+#
+# Other (CNRS) https://aide.core-cloud.net/si/tixeo/SitePages/FAQ.aspx
 #
 # Filename: pool/non-free/t/tixeoclient/tixeoclient_15.0.4.0_amd64.deb
 

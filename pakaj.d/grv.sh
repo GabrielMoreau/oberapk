@@ -1,7 +1,7 @@
 ## Date: 2018/11/16
 ## Pakaj: grv
 ## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
-## See-Also: https://stackoverflow.com/questions/48943416/bash-npm-command-not-found-in-debian-9-3
+## See-Also: https://github.com/rgburke/grv
 
 function oberpakaj_grv {
    local keep=$1; shift
