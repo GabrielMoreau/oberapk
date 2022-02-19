@@ -28,7 +28,7 @@ function oberpakaj_qgis {
 
          # Clean old package
          basepkg=$(echo "${package}" | cut -f 1 -d '_')
-         ls -t ${package}_*.deb | tail -n +${keep} | xargs -r rm -f
+         ls -t ${basepkg}_*.deb | tail -n +${keep} | xargs -r rm -f
       done < <(wget -q http://qgis.org/debian-ltr/dists/${dist}/main/binary-amd64/Packages.gz -O - | zgrep -E '^Filename: pool/main/q/qgis/(libqgis|python-qgis|python3-qgis|qgis).*.deb' | cut -f 2 -d ' ')
    done
    }
