@@ -5,7 +5,7 @@ VERSION:=$(shell grep '^VERSION=' $(SOFT) | cut -f 2 -d "'")
 PATCH:=$(shell grep '^PKG_VERSION=' make-package-debian | cut -f 2 -d '=')
 
 
-.PHONY: all help pkg version pages clean check list
+.PHONY: all help pkg version pages clean check-depends check-metadata list
 .ONESHELL:
 
 all: $(SOFT).1.gz $(SOFT).html
@@ -37,15 +37,19 @@ pages: pkg Makefile
 
 help:
 	@echo "Possibles targets:"
-	@echo " * all     : make manual"
-	@echo " * pkg     : build Debian package"
-	@echo " * pages   : build pages for GitLab-CI"
-	@echo " * clean   : clean build files"
-	@echo " * check   : check binaries dependencies"
-	@echo " * list    : list packaging for README"
+	@echo " * all           : make manual"
+	@echo " * pkg           : build Debian package"
+	@echo " * pages         : build pages for GitLab-CI"
+	@echo " * clean         : clean build files"
+	@echo " * check-depends : check binaries dependencies"
+	@echo " * check-metadat : check metadata in packaging definition"
+	@echo " * list          : list packaging for README"
 
-check:
+check-depends:
 	@./check-depends
+
+check-metadata:
+	@./check-metadata
 
 list:
 	@./list-pakaj
