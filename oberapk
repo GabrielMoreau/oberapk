@@ -5,12 +5,12 @@
 #
 # oberapk
 #
-## Binaries: id su cat grep cut sed cut paste
+## Binaries: id su cat grep cut sed cut sort paste reprepro
 
 export PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin
 export LANG=C
 
-VERSION='0.3.28'
+VERSION='0.4.1'
 
 # Global variables
 export CONF_FILE=/etc/oberapk/oberapk.conf
@@ -63,6 +63,7 @@ SYNOPSIS
  oberapk kit
  oberapk update pkg
  oberapk upgrade kit
+ oberapk pushed pkg
  oberapk source pkg
  oberapk binaries
 
@@ -154,6 +155,16 @@ function cmd_update () {
 
 ################################################################
 
+function cmd_pushed () {
+   pakaj=$1
+
+   regex=$((echo ${pakaj}; egrep '^##[[:space:]](Pakaj|Package):' "${PAKAJ_FOLDER}/${pakaj}.sh" 2>/dev/null | cut -f 2 -d ':') | sed 's/[[:space:]]/\n/g;' | sort -u | grep . | paste -sd '|')
+
+   ( cd ${REPREPRO} ; reprepro dumpreferences ) 2>/dev/null | egrep "/(${regex})_.*.deb"
+   }
+
+################################################################
+
 function cmd_source () {
    pakaj=$1
 
@@ -195,6 +206,12 @@ case $1 in
    update)
       pakaj=$2
       cmd_update ${pakaj}
+      exit
+      ;;
+
+   pushed)
+      pakaj=$2
+      cmd_pushed ${pakaj}
       exit
       ;;
 
@@ -245,6 +262,7 @@ oberapk - automated Debian package download, modification and local upload
  oberapk kit
  oberapk update pkg
  oberapk upgrade kit
+ oberapk pushed pkg
  oberapk source pkg
  oberapk binaries
  oberapk version
@@ -304,6 +322,14 @@ with a single command the software of your local repository
 which are managed by Oberapk.
 
  oberapk upgrade kit
+
+=head2 pushed
+
+The `pushed` command lists all versions of the packages in this packaging
+that are already in the Reprepro package manager.
+These are the packages that are in practice available to end users
+
+ oberapk pushed pkg
 
 =head2 source
 

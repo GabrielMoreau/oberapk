@@ -14,7 +14,7 @@ _oberapk() {
          source)
             COMPREPLY=($(compgen -W "$($(which oberapk || echo /usr/bin/oberapk) avail|xargs echo -n)" -- "$cur"))
             ;;
-         update)
+         update|pushed)
             COMPREPLY=($(compgen -W "$($(which oberapk || echo /usr/bin/oberapk) list|grep -v '# Error:'|xargs echo -n)" -- "$cur"))
             ;;
          upgrade)
