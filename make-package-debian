@@ -3,7 +3,7 @@
 # 2022/01/27 Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
 
 # For faster check-depends, binaries in coreutils, findutils, binutils, util-linux, debianutils, perl.
-## MetaBin: ar basename cat chmod cp cut du head id ln ls md5sum mkdir mktemp paste pod2html pod2man rm sed sort stat su tail touch xargs wc mv seq
+## MetaBin: ar basename cat chmod cp cut du head id ln ls md5sum mkdir mktemp paste pod2html pod2man rm sed sort stat su tail touch xargs wc mv seq xz unxz
 
 trap '[ -n "${tmp_folder}" -a -d "${tmp_folder}" ] && rm -rf "${tmp_folder}"' QUIT
 
@@ -56,12 +56,12 @@ Version: ${CODE_VERSION}-${PKG_VERSION}
 Section: utils
 Tag: implemented-in::bash, interface::commandline, role::program
 Priority: optional
-Depends: bash, coreutils, findutils, binutils, util-linux, debianutils, tar, sed, grep, awk, wget, curl, reprepro, git, make, perl, gzip, unzip
+Depends: bash, coreutils, findutils, binutils, util-linux, debianutils, tar, sed, grep, awk, wget, curl, reprepro, git, make, perl, gzip, unzip, xz-utils
 Recommends: apt-file
 Architecture: all
 Installed-Size: $(du -ks ${tmp_folder}|cut -f 1)
 Maintainer: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
-Description: build simple Debian package and push on local reprepro 
+Description: wget Debian package and build simple package and push them on local reprepro
 Homepage: https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/oberapk
 END
 
