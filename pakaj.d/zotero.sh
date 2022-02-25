@@ -2,6 +2,9 @@
 ## Pakaj: zotero
 ## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
 ## See-Also: https://www.zotero.org/
+## Wikipedia: https://en.wikipedia.org/wiki/Zotero
+## Description: Zotero is a free and open-source reference management software to manage bibliographic data and related research materials
+## Binaries: ls tail xargs reprepro grep mkdir curl sed cut head mktemp tar mv chmod rm tar ar cat
 
 function oberpakaj_zotero {
    local keep=$1; shift

@@ -7,9 +7,9 @@
 
 for pkg in pakaj.d/*
 do
-   nbmeta=$(egrep '^##[[:space:]](Date|Pakaj|Author|See-Also|Binaries):[[:space:]]' ${pkg} | wc -l)
-   if [ $nbmeta -ne 5 ]
+   nbmeta=$(egrep '^##[[:space:]](Date|Pakaj|Author|See-Also|Description|Binaries):[[:space:]]' ${pkg} | wc -l)
+   if [ $nbmeta -ne 6 ]
    then
-      echo "Warning: some metadata ($((5 - ${nbmeta}))) are missing on the packaging $(basename ${pkg})"
+      echo "Warning: some metadata ($((6 - ${nbmeta}))) are missing on the packaging $(basename ${pkg})"
    fi
 done

@@ -2,6 +2,7 @@
 ## Pakaj: klask
 ## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
 ## See-Also: https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/klask
+## Description: A tool dedicated to the mapping of the local network
 
 function oberpakaj_klask {
    local keep=$1; shift

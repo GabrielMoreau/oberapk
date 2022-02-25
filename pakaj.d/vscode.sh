@@ -3,6 +3,9 @@
 ## Package: code code-insiders
 ## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
 ## See-Also: https://github.com/microsoft/vscode
+## Wikipedia: https://en.wikipedia.org/wiki/Visual_Studio_Code
+## Description: Visual Studio Code is a source-code editor
+## Binaries: ls tail xargs rm reprepro grep mkdir wget head awk ar tar sed cat rm mktemp
 
 function oberpakaj_vscode {
    local keep=$1; shift

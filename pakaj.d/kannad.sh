@@ -2,6 +2,7 @@
 ## Pakaj: kannad
 ## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
 ## See-Also: https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/kannad
+## Description: Send message on all console
 
 function oberpakaj_kannad {
    local keep=$1; shift

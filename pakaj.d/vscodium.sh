@@ -1,7 +1,11 @@
 ## Date: 2018/08/30
 ## Pakaj: vscodium
+## Package: codium
 ## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
 ## See-Also: https://github.com/VSCodium/vscodium
+## Wikipedia: https://en.wikipedia.org/wiki/Visual_Studio_Code
+## Description: VSCodium is the free par of the Visual Studio Code source-code editor
+## Binaries: ls tail xargs rm reprepro grep mkdir wget cut head sed
 #
 # Orther https://carlchenet.com/you-think-the-visual-studio-code-binary-you-use-is-a-free-software-think-again/
 

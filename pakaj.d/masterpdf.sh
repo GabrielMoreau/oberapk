@@ -2,6 +2,8 @@
 ## Pakaj: master-pdf-editor
 ## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
 ## See-Also: https://code-industry.net/free-pdf-editor/
+## Description: Master PDF Editor is the optimal solution for editing PDF files in Linux
+## Binaries: ls tail xargs reprepro grep mkdir wget sed head basename
 
 # Other https://www.linuxuprising.com/2019/04/download-master-pdf-editor-4-for-linux.html
 

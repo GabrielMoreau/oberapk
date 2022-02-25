@@ -3,7 +3,7 @@
 # 2022/01/27 Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
 
 # For faster check-depends, binaries in coreutils, findutils, binutils, util-linux, debianutils, perl.
-## MetaBin: ar basename cat chmod cp cut du head id ln ls md5sum mkdir mktemp paste pod2html pod2man rm sed sort stat su tail touch xargs wc
+## MetaBin: ar basename cat chmod cp cut du head id ln ls md5sum mkdir mktemp paste pod2html pod2man rm sed sort stat su tail touch xargs wc mv seq
 
 trap '[ -n "${tmp_folder}" -a -d "${tmp_folder}" ] && rm -rf "${tmp_folder}"' QUIT
 

@@ -2,6 +2,9 @@
 ## Pakaj: ganttproject
 ## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
 ## See-Also: https://github.com/bardsoftware/ganttproject
+## Wikipedia: https://en.wikipedia.org/wiki/GanttProject
+## Description: GanttProject is GPL-licensed (free software) Java based, project management software
+## Binaries: ls tail xargs rm reprepro grep mkdir wget sed cut tail basename
 
 function oberpakaj_ganttproject {
    local keep=$1; shift

@@ -2,6 +2,9 @@
 ## Pakaj: discord
 ## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
 ## See-Also: https://discord.com/
+## Wikipedia: https://en.wikipedia.org/wiki/Discord_(software)
+## Description: Discord is a VoIP, instant messaging and digital distribution platform
+## Binaries: ls tail xargs rm reprepro grep mkdir wget seq basename mktemp ar tar cat chmod du sed cut rm 
 
 function oberpakaj_discord {
    local keep=$1; shift

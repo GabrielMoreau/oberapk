@@ -1,7 +1,10 @@
 ## Date: 2019/04/26
 ## Pakaj: yadedaily
+## Package: yadedaily python3-yadedaily libyadedaily
 ## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
-## See-Also: http://www.yade-dem.org/packages/
+## See-Also: https://yade-dem.org/
+## Description: Open Source Discrete Element Method
+## Binaries: ls tail xargs rm reprepro grep mkdir wget awk head basename
 
 function oberpakaj_yadedaily {
    local keep=$1; shift

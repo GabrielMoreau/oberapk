@@ -2,6 +2,8 @@
 ## Pakaj: atom
 ## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
 ## See-Also: https://github.com/atom/atom
+## Wikipedia: https://en.wikipedia.org/wiki/Atom_(text_editor)
+## Description: Atom is a hackable text editor for the 21st century
 ## Binaries: ls tail xargs rm reprepro grep mkdir sort cut wget basename
 
 # beta quality - this packaging has not been test on a real life

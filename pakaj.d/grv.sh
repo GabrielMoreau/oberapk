@@ -2,6 +2,8 @@
 ## Pakaj: grv
 ## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
 ## See-Also: https://github.com/rgburke/grv
+## Description: Git Repository Viewer is a terminal based interface for viewing Git repositories
+## Binaries: ls tail xargs reprepro grep mkdir wget sed head basename cut mktemp cp chmod cp tar ar cat 
 
 function oberpakaj_grv {
    local keep=$1; shift

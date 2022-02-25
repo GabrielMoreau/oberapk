@@ -2,6 +2,8 @@
 ## Pakaj: yed
 ## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
 ## See-Also: https://www.yworks.com/products/yed
+## Wikipedia: https://en.wikipedia.org/wiki/YEd
+## Description: yEd is a powerful desktop application that can be used to quickly and effectively generate high-quality diagrams
 ## Binaries: ls tail xargs rm reprepro grep mkdir cat curl sed awk head mktemp unzip chmod tar ar
 
 function oberpakaj_yed {

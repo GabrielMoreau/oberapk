@@ -2,6 +2,9 @@
 ## Pakaj: firefox-latex
 ## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
 ## See-Also: https://www.mozilla.org/
+## Wikipedia: https://en.wikipedia.org/wiki/Firefox
+## Description: Mozilla Firefox is a free and open-source[19] web browser
+## Binaries: ls tail xargs rm reprepro grep mkdir wget stat rm tar ar cut mktemp rm cat chmod
 
 function oberpakaj_firefox_latest {
    local keep=$1; shift
