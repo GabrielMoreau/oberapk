@@ -2,6 +2,8 @@
 ## Pakaj: rstudio
 ## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
 ## See-Also: https://www.rstudio.com/
+## Wikipedia: https://en.wikipedia.org/wiki/RStudio
+## Description: RStudio is an Integrated Development Environment (IDE) for R
 ## Binaries: ls tail xargs rm reprepro grep mkdir wget sed head basename
 
 # Only buster / bionic / bullseye

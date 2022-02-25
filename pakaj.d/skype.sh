@@ -1,7 +1,10 @@
 ## Date: 2020/09/15
 ## Pakaj: skype
+## Package: skypeforlinux
 ## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
 ## See-Also: https://www.skype.com/
+## Wikipedia: https://en.wikipedia.org/wiki/Skype
+## Description: Skype is a proprietary telecommunications application for VoIP-based videotelephony, videoconferencing and voice calls
 ## Binaries: ls tail xargs rm reprepro grep mkdir wget ar tar awk basename sed
 
 function oberpakaj_skype {

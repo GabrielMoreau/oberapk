@@ -1,7 +1,11 @@
 ## Date: 2021/08/19
 ## Pakaj: spideroak
+## Package: spideroakone
 ## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
 ## See-Also: https://spideroak.com/
+## Wikipedia: https://en.wikipedia.org/wiki/SpiderOak
+## Description: SpiderOak is a US-based collaboration tool, online backup and file hosting service
+## Binaries: ls tail xargs rm reprepro grep mkdir head awk wget basename
 
 function oberpakaj_spideroak {
    local keep=$1; shift

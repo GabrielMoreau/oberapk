@@ -2,6 +2,8 @@
 ## Pakaj: nodejs + npm
 ## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
 ## See-Also: https://stackoverflow.com/questions/48943416/bash-npm-command-not-found-in-debian-9-3
+## Wikipedia: https://en.wikipedia.org/wiki/Node.js
+## Description: Node.js is an open-source, cross-platform, back-end JavaScript runtime environment that runs on the V8 engine and executes JavaScript code outside a web browser
 ## Binaries: ls tail xargs rm reprepro grep mkdir wget cut sort
 
 function oberpakaj_nodejs {

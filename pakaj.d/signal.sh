@@ -1,7 +1,10 @@
 ## Date: 2021/08/19
 ## Pakaj: signal
+## Package: signal-desktop
 ## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
 ## See-Also: https://signal.org/
+## Wikipedia: https://en.wikipedia.org/wiki/Signal_(software)
+## Description: Signal is a cross-platform centralized encrypted instant messaging service
 ## Binaries: ls tail xargs rm reprepro wget head awk basename grep
 
 function oberpakaj_signal {

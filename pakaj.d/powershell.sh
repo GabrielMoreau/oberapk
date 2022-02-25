@@ -2,6 +2,9 @@
 ## Pakaj: powershell
 ## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
 ## See-Also: https://microsoft.com/powershell
+## Wikipedia: https://en.wikipedia.org/wiki/PowerShell
+## Description: PowerShell is a task automation and configuration management program from Microsoft, consisting of a command-line shell and the associated scripting language
+## Binaries: ls tail xargs rm reprepro grep mkdir wget head awk
 
 function oberpakaj_powershell {
    local keep=$1; shift

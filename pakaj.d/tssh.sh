@@ -2,6 +2,7 @@
 ## Pakaj: tssh
 ## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
 ## See-Also: https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/tssh
+## Description: ClusterSSH in terminal mode (tmux)
 ## Binaries: ls tail xargs reprepro git grep cut make pod2man
 
 function oberpakaj_tssh {

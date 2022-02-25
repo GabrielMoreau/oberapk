@@ -2,6 +2,9 @@
 ## Pakaj: netdata
 ## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
 ## See-Also: https://github.com/netdata/netdata and https://packagecloud.io/netdata/netdata-edge/install#manual-deb
+## Wikipedia: https://en.wikipedia.org/wiki/Netdata
+## Description: Netdata[3] is an open source[4][5] tool designed to collect real-time metrics
+## Binaries: ls tail xargs rm reprepro grep mkdir wget awk sort sed basename mktemp ar sed tar rm
 
 function oberpakaj_netdata {
    local keep=$1; shift

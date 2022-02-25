@@ -3,6 +3,7 @@
 ## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
 ## See-Also: https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/gestex
 ## Description: Management of experiments and materials (Beta version)
+## Binaries: ls tail xargs rm reprepro grep mkdir git cut make mktemp cp cat chmod tar ar
 
 function oberpakaj_gestex_ng {
    local keep=$1; shift

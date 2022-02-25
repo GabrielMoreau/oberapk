@@ -2,6 +2,9 @@
 ## Pakaj: teamviewer
 ## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
 ## See-Also: https://www.teamviewer.com/
+## Wikipedia: https://en.wikipedia.org/wiki/TeamViewer
+## Description: TeamViewer is a remote access and remote control computer software, allowing maintenance of computers and other devices
+## Binaries: ls tail xargs rm reprepro grep wget mkdir unxz ar tar xz awk
 
 function oberpakaj_teamviewer {
    local keep=$1; shift

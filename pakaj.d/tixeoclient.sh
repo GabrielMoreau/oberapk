@@ -2,6 +2,8 @@
 ## Pakaj: tixeoclient
 ## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
 ## See-Also: https://www.tixeo.com/
+## Description: Video conferencing technology certified and qualified by the ANSSI
+## Binaries: ls tail xargs rm reprepro grep wget mkdir awk sort
 #
 # Other (CNRS) https://aide.core-cloud.net/si/tixeo/SitePages/FAQ.aspx
 #

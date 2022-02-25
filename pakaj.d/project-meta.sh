@@ -2,6 +2,8 @@
 ## Pakaj: project-meta
 ## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
 ## See-Also: https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/project-meta
+## Description: Meta project for Open Data management
+## Binaries: ls tail xargs rm reprepro grep mkdir git cut make pod2man pod2html mktemp cp ln cat chmod tar ar
 
 function oberpakaj_project_meta {
    local keep=$1; shift

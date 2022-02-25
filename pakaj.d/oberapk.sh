@@ -2,6 +2,7 @@
 ## Pakaj: oberapk
 ## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
 ## See-Also: https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/oberapk
+## Description: Wget Debian package and build simple package and push them on local Reprepro
 ## Binaries: ls tail xargs rm reprepro grep mkdir git cut pod2man mktemp cut chmod tar ar
 
 function oberpakaj_oberapk {

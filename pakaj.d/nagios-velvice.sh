@@ -2,6 +2,8 @@
 ## Pakaj: nagios-velvice
 ## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
 ## See-Also: https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/nagios-velvice
+## Description: Nagios Velvice Alert Panel
+## Binaries: ls tail xargs rm reprepro grep mkdir git cut make mktemp pod2man pod2html cp cat chmod tar ar
 
 function oberpakaj_nagios_velvice {
    local keep=$1; shift

@@ -1,7 +1,10 @@
 ## Date: 2022/02/16
 ## Pakaj: qgis
+## Package: libqgis python-qgis python3-qgis qgis
 ## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
 ## See-Also: http://qgis.org/
+## Wikipedia: https://en.wikipedia.org/wiki/QGIS
+## Description: QGIS is a free and open-source cross-platform desktop geographic information system (GIS)
 ## Binaries: ls tail xargs rm reprepro grep mkdir cut wget basename
 
 # beta quality - this packaging has not been test on a real life

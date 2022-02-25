@@ -2,6 +2,9 @@
 ## Pakaj: teams
 ## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
 ## See-Also: https://teams.com/
+## Wikipedia: https://en.wikipedia.org/wiki/Microsoft_Teams
+## Description: Microsoft Teams is a proprietary business communication platform
+## Binaries: ls tail xargs rm reprepro grep wget cut sort awk mktemp ar tar sed rm
 
 function oberpakaj_teams {
    local keep=$1; shift
