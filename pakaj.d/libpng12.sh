@@ -13,7 +13,8 @@ function oberpakaj_libpng12 {
    mkdir -p "$HOME/upload/libpng12"
    cd "$HOME/upload/libpng12"
 
-   version=1.2.54-3
+   # patch >= 5 for usrmerge compatibility
+   version=1.2.54-5
    package=libpng12-0_${version}_amd64.deb
 
    if wget --timestamping http://ppa.launchpad.net/linuxuprising/libpng12/ubuntu/pool/main/libp/libpng/libpng12-0_1.2.54-1ubuntu1.1+1~ppa0~hirsute0_amd64.deb
