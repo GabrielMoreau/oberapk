@@ -30,7 +30,7 @@ function oberpakaj_libpng12 {
 
       rm -rf control control.tar.xz data.tar.xz debian-binary md5sums shlibs triggers usr
 
-      if [ ! -e "${package}" ]
+      if [ -e "${package}" ]
       then
          for dist in ${distrib}
          do
