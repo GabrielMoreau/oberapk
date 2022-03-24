@@ -13,7 +13,7 @@ function oberpakaj_libpng12 {
    mkdir -p "$HOME/upload/libpng12"
    cd "$HOME/upload/libpng12"
 
-   version=1.2.54-2
+   version=1.2.54-3
    package=libpng12-0_${version}_amd64.deb
 
    if wget --timestamping http://ppa.launchpad.net/linuxuprising/libpng12/ubuntu/pool/main/libp/libpng/libpng12-0_1.2.54-1ubuntu1.1+1~ppa0~hirsute0_amd64.deb
@@ -23,6 +23,7 @@ function oberpakaj_libpng12 {
       tar xJf control.tar.xz
       rm -rf usr/share data.tar.xz control.tar.xz
 
+      sed -i -e "s/^Version: .*/Version: ${version}/;" control
       tar --owner root --group root -cJf control.tar.xz control
       tar --owner root --group root -cJf data.tar.xz usr
       ar -r $HOME/upload/libpng12/${package} debian-binary control.tar.* data.tar.*
