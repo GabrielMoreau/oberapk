@@ -19,7 +19,7 @@ function oberpakaj_libpng12 {
 
    if wget --timestamping http://ppa.launchpad.net/linuxuprising/libpng12/ubuntu/pool/main/libp/libpng/libpng12-0_1.2.54-1ubuntu1.1+1~ppa0~hirsute0_amd64.deb
    then
-      ar -x libpng12-1_1.2.54-1ubuntu1.1+1~ppa0~hirsute0_amd64.deb
+      ar -x libpng12-0_1.2.54-1ubuntu1.1+1~ppa0~hirsute0_amd64.deb
       tar xJf data.tar.xz
       tar xJf control.tar.xz
       rm -rf usr/share data.tar.xz control.tar.xz
