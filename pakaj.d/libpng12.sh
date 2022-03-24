@@ -17,7 +17,7 @@ function oberpakaj_libpng12 {
    version=1.2.54-1
    package=libpng12-1_${version}_amd64.deb
 
-   if wget --timestamping http://ppa.launchpad.net/linuxuprising/libpng12/ubuntu/pool/main/libp/libpng/libpng12-1_1.2.54-1ubuntu1.1+1~ppa0~hirsute0_amd64.deb
+   if wget --timestamping http://ppa.launchpad.net/linuxuprising/libpng12/ubuntu/pool/main/libp/libpng/libpng12-0_1.2.54-1ubuntu1.1+1~ppa0~hirsute0_amd64.deb
    then
       ar -x libpng12-1_1.2.54-1ubuntu1.1+1~ppa0~hirsute0_amd64.deb
       tar xJf data.tar.xz
@@ -45,5 +45,5 @@ function oberpakaj_libpng12 {
    fi
 
    # Clean old package - kept last 4 (put 4+1=5)
-   ls -t libpng12-1*.deb | tail -n +${keep} | xargs -r rm -f
+   ls -t libpng12-*.deb | tail -n +${keep} | xargs -r rm -f
 }
