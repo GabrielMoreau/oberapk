@@ -41,8 +41,8 @@ function oberpakaj_spideroak {
                # Build new package archives
                sed -i -e 's/^\(Version:.*\)$/\1-1/;' control
                rm -f control.tar.gz data.tar.xz
-               tar -cJf data.tar.xz etc opt usr
-               tar -czf control.tar.gz conffiles control postinst postrm
+               tar --preserve-permissions --owner root --group root -cJf data.tar.xz ./usr ./etc ./opt
+               tar --owner root --group root -czf control.tar.gz ./conffiles ./control ./postinst ./postrm
                )
 
             # Create package (control before data)
