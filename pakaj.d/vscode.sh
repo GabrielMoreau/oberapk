@@ -11,8 +11,6 @@ function oberpakaj_vscode {
    local keep=$1; shift
    local distrib=$*
 
-   # 2018/08/30
-   # vscode
    # See also https://code.visualstudio.com/docs/setup/linux
    # Ticket 13897
 
@@ -29,13 +27,12 @@ function oberpakaj_vscode {
          wget --timestamping "https://packages.microsoft.com/repos/vscode/${codeonly}"
          wget --timestamping "https://packages.microsoft.com/repos/vscode/${codeinsiders}"
 
-         if [ ! -e "Packages.gz" ]
-         then
          # vscode
          tmp_folder=$(mktemp --directory /tmp/vscode-XXXXXX)
          (cd ${tmp_folder}
             ar -x "$HOME/upload/vscode/$(basename ${codeonly})"
-            tar -xJf control.tar.xz 
+            tar -xJf control.tar.xz
+            sed -i -e 's/^\(Version:.*\)$/\1.'${PKG_VERSION}'/;' control
             sed -i 's/^\([[:space:]]*\)eval /\1exit; eval /;' postinst
             cat <<'END' >> postrm
 
@@ -54,6 +51,7 @@ END
          (cd ${tmp_folder}
             ar -x "$HOME/upload/vscode/$(basename ${codeinsiders})"
             tar -xJf control.tar.xz 
+            sed -i -e 's/^\(Version:.*\)$/\1.'${PKG_VERSION}'/;' control
             sed -i 's/^\([[:space:]]*\)eval /\1exit; eval /;' postinst
             cat <<'END' >> postrm
 
@@ -66,15 +64,14 @@ END
             )
          ar -r "$HOME/upload/vscode/$(basename ${codeinsiders} _amd64.deb).${PKG_VERSION}_amd64.deb" ${tmp_folder}/debian-binary ${tmp_folder}/control.tar.xz ${tmp_folder}/data.tar.xz
          rm -rf ${tmp_folder}
-         fi
 
          if [ -e "$(basename ${codeonly})" -a -e "$(basename ${codeinsiders})" ]
          then
             # Upload package
             for dist in ${distrib}
             do
-               ( cd ${REPREPRO} ; reprepro includedeb ${dist} $HOME/upload/vscode/$(basename ${codeonly})     )
-               ( cd ${REPREPRO} ; reprepro includedeb ${dist} $HOME/upload/vscode/$(basename ${codeinsiders}) )
+               ( cd ${REPREPRO} ; reprepro includedeb ${dist} $HOME/upload/vscode/$(basename ${codeonly} _amd64.deb).${PKG_VERSION}_amd64.deb     )
+               ( cd ${REPREPRO} ; reprepro includedeb ${dist} $HOME/upload/vscode/$(basename ${codeinsiders} _amd64.deb).${PKG_VERSION}_amd64.deb )
             done
             ( cd ${REPREPRO} ; reprepro dumpreferences ) | grep '/code'
          fi
