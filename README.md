@@ -1,17 +1,20 @@
 # Oberapk - Automated Debian packages download, modification and upload to a local Reprepro repository
 
 Oberapk is a tool to automate the uploading of Debian packages
-to a local Reprepro repository.
+to a local [Reprepro](https://wiki.debian.org/DebianRepository/SetupWithReprepro) repository.
 The goal is to simplify the provision of software on a local park
 without having them fetch the packages on remote sites.
 For each package, there is a specific recipe to get the latest version,
 if any, and then push it to the right Debian distribution(s)
-that your Reprepro instance manages locally.
+that your [Reprepro](https://wiki.debian.org/DebianRepository/SetupWithReprepro)
+instance manages locally.
 
 It is however possible to slightly modify the package during the recipe,
 or to build very simple packages in which the programs are written
 in scripting languages that do not need to be compiled
 or complex build steps.
+Oberapk is therefore not a copy or reimplementation of the mirroring protocol
+built into [Reprepro](https://wiki.debian.org/DebianRepository/SetupWithReprepro).
 
 A short [manual](https://legi.gricad-pages.univ-grenoble-alpes.fr/soft/trokata/oberapk/)
 is available online, which is a copy of the command line manual.
@@ -73,7 +76,7 @@ An always up to date list is to look at the files available
 in the folder [pakaj.d](pakaj.d/)
 
 [atom](https://github.com/atom/atom),
-[chrome](https://en.wikipedia.org/wiki/Google_Chrome),
+[chrome](https://www.google.com/chrome/),
 [ddt](https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/ddt),
 [discord](https://discord.com/),
 [firefox-latest](https://www.mozilla.org/),
@@ -83,6 +86,7 @@ in the folder [pakaj.d](pakaj.d/)
 [grv](https://github.com/rgburke/grv),
 [kannad](https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/kannad),
 [klask](https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/klask),
+[libpng12](http://libpng.org/pub/png/libpng.html),
 [masterpdf](https://code-industry.net/free-pdf-editor/),
 [nagios-velvice](https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/nagios-velvice),
 [netdata](https://github.com/netdata/netdata),
@@ -95,13 +99,15 @@ in the folder [pakaj.d](pakaj.d/)
 [signal](https://signal.org/),
 [skype](https://www.skype.com/),
 [spideroak](https://spideroak.com/),
+[tabby](https://tabby.sh/),
 [teams](https://teams.com/),
 [teamviewer](https://www.teamviewer.com/),
 [tixeoclient](https://www.tixeo.com/),
 [tssh](https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/tssh),
+[virtualbox](https://www.virtualbox.org/wiki/Linux_Downloads),
 [vscode](https://github.com/microsoft/vscode),
 [vscodium](https://github.com/VSCodium/vscodium),
-[yadedaily](http://www.yade-dem.org/packages/),
+[yadedaily](https://yade-dem.org/),
 [yed](https://www.yworks.com/products/yed),
 [yq](https://github.com/mikefarah/yq),
 [zoom](https://zoom.us/),
