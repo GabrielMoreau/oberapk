@@ -28,11 +28,18 @@ function oberpakaj_chrome {
          (cd ${tmp_folder}
             ar -x "$HOME/upload/chrome/$(basename ${google_chrome})"
             tar -xJf control.tar.xz 
-            sed -i 's/^\(#!\/bin\/\)sh/\1bash/; s/^\([[:space:]]*\)nohup /\1# nohup /;' postinst
+            sed -i -e 's/^\(#!\/bin\/\)sh/\1bash/; s/^\([[:space:]]*\)nohup /\1# nohup /;' postrm
+            sed -i -e 's/^\(#!\/bin\/\)sh/\1bash/; s/^\([[:space:]]*\)nohup /\1# nohup /;' prerm
+            sed -i -e 's/^\(#!\/bin\/\)sh/\1bash/; s/^\([[:space:]]*\)nohup /\1# nohup /;
+                       s/REPOCONFIG=.*$/REPOCONFIG=""/;' postinst
+            # no auto upgrade from google
             cat <<'END' >> postinst
-if [ -e "/etc/cron.daily/google-chrome" ]; then
-  rm -f /etc/cron.daily/google-chrome
-fi
+for f in /etc/cron.daily/google-chrome /etc/apt/sources.list.d/google-chrome.list /etc/apt/trusted.gpg.d/google-chrome.gpg
+do
+  if [ -e "${f}" ]; then
+    rm -f "${f}"
+  fi
+done
 END
             size=$(du -ks ${tmp_folder} | cut -f 1)
             sed -i -e "s/^Installed-Size: .*$/Installed-Size: ${size}/;
