@@ -76,6 +76,7 @@ An always up to date list is to look at the files available
 in the folder [pakaj.d](pakaj.d/)
 
 [atom](https://github.com/atom/atom),
+[backuppc-silzigan](https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/backuppc-silizan),
 [chrome](https://www.google.com/chrome/),
 [ddt](https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/ddt),
 [discord](https://discord.com/),
