@@ -1,10 +1,11 @@
 ## Date: 2020/03/12
 ## Pakaj: yed
+## Package: yed-latest
 ## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
 ## See-Also: https://www.yworks.com/products/yed
 ## Wikipedia: https://en.wikipedia.org/wiki/YEd
 ## Description: yEd is a powerful desktop application that can be used to quickly and effectively generate high-quality diagrams
-## Binaries: ls tail xargs rm reprepro grep mkdir cat curl sed awk head mktemp unzip chmod tar ar
+## Binaries: ls tail xargs rm reprepro grep mkdir cat curl sed head mktemp unzip chmod tar ar
 
 function oberpakaj_yed {
    local keep=$1; shift
@@ -15,7 +16,7 @@ function oberpakaj_yed {
    cd "$HOME/upload/yed"
    
    version_old=$(cat "$HOME/upload/yed/version")
-   version=$(curl --silent https://www.yworks.com/products/yed/download -o - | sed -e 's/\(productVersion\)/\n\1/g; s/[<>]/ /g;' | grep '^productVersion' | awk '{print $2}' | grep '^[[:digit:]]' | head -1)
+   version=$(curl --silent https://www.yworks.com/products/yed/download -o - | sed -e 's#[[:space:]/_]#\n#g;' | egrep '^yEd-[[:digit:]]' | head -1 | cut -f 2 -d '-')
    PKG_VERSION=2
    PKG_NAME=yed-latest
    package=${PKG_NAME}_${version}-${PKG_VERSION}_all.deb
@@ -64,7 +65,7 @@ END_EXEC
 
          # Control file
          cat <<END > ${tmp_folder}/control
-Package: yed-latest
+Package: ${PKG_NAME}
 Version: ${version}-${PKG_VERSION}
 Section: graphics
 Priority: optional
@@ -109,6 +110,6 @@ END
       fi
    fi
    # Clean old package - kept last 4 (put 4+1=5)
-   ls -t yed_*.deb | tail -n +${keep} | xargs -r rm -f
+   ls -t ${PKG_NAME}_*.deb | tail -n +${keep} | xargs -r rm -f
    ls -t yEd-*.zip | tail -n +${keep} | xargs -r rm -f
    }
