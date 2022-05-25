@@ -77,10 +77,12 @@ in the folder [pakaj.d](pakaj.d/)
 
 [atom](https://github.com/atom/atom),
 [backuppc-silzigan](https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/backuppc-silizan),
+[bidiez](https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/bidiez),
 [chrome](https://www.google.com/chrome/),
 [ddt](https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/ddt),
 [discord](https://discord.com/),
 [firefox-latest](https://www.mozilla.org/),
+[freskein](https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/freskein),
 [ganttproject](https://github.com/bardsoftware/ganttproject),
 [gestex-ng](https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/gestex),
 [gestex](https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/gestex),
