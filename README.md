@@ -83,6 +83,7 @@ in the folder [pakaj.d](pakaj.d/)
 [discord](https://discord.com/),
 [firefox-latest](https://www.mozilla.org/),
 [freskein](https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/freskein),
+[f-secure](https://www.withsecure.com/en/support/product-support/business-suite/policy-manager),
 [ganttproject](https://github.com/bardsoftware/ganttproject),
 [gestex-ng](https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/gestex),
 [gestex](https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/gestex),
