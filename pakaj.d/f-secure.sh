@@ -39,7 +39,7 @@ function oberpakaj_f_secure {
             pkg_vers=$(grep '^Version:' ${tmp_folder}/control | cut -f 2 -d ' ')
             pkg_real="${pkg_name}_${pkg_vers}_amd64.deb"
             # Create link to real name
-            ln -sf ${package} ${pkg_real}
+            ln -f ${package} ${pkg_real}
 
             # Clean
             rm -rf ${tmp_folder}
