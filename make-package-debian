@@ -56,7 +56,7 @@ Version: ${CODE_VERSION}-${PKG_VERSION}
 Section: utils
 Tag: implemented-in::bash, interface::commandline, role::program
 Priority: optional
-Depends: bash, coreutils, findutils, binutils, util-linux, debianutils, tar, sed, grep, awk, wget, curl, reprepro, git, make, perl, gzip, unzip, xz-utils
+Depends: bash, coreutils, findutils, binutils, util-linux, debianutils, tar, sed, grep, awk, wget, curl, reprepro, git, make, perl, gzip, unzip, xz-utils, file
 Recommends: apt-file
 Architecture: all
 Installed-Size: $(du -ks ${tmp_folder}|cut -f 1)
