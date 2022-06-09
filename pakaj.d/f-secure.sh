@@ -29,7 +29,7 @@ function oberpakaj_f_secure {
          then
             wget "https://download.f-secure.com/corpro/${url}"
             file ${package} | grep -q 'Debian binary package .format 2.0' || { rm -f "${package}"; continue; }
-            
+
             tmp_folder=$(mktemp --directory /tmp/f-secure-XXXXXX)
             (cd ${tmp_folder}
                ar -x ${HOME}/upload/f-secure/${package} control.tar.gz
@@ -38,8 +38,23 @@ function oberpakaj_f_secure {
             pkg_name=$(grep '^Package:' ${tmp_folder}/control | cut -f 2 -d ' ')
             pkg_vers=$(grep '^Version:' ${tmp_folder}/control | cut -f 2 -d ' ')
             pkg_real="${pkg_name}_${pkg_vers}_amd64.deb"
-            # Create link to real name
-            ln -f ${package} ${pkg_real}
+
+            if egrep -q 'Package: (f-secure-policy-manager-proxy|f-secure-policy-manager-server)' ${tmp_folder}/control
+            then
+               (cd ${tmp_folder}
+                  sed -i -e 's/^\(Depends:.*\)/\1,libstdc++6:i386/;' ./control
+                  gunzip control.tar.gz
+                  tar --delete -f control.tar ./control
+                  tar -uf control.tar ./control
+                  gzip control.tar
+
+                  cp -f ${HOME}/upload/f-secure/${package} ${HOME}/upload/f-secure/${pkg_real}
+                  ar -r ${HOME}/upload/f-secure/${pkg_real} control.tar.gz
+                  )
+            else
+               # Create link to real name
+               ln -f ${package} ${pkg_real}
+            fi
 
             # Clean
             rm -rf ${tmp_folder}
