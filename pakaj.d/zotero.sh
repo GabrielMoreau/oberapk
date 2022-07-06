@@ -104,6 +104,6 @@ END
       fi
    fi
    # Clean old package - kept last 4 (put 4+1=5)
-   ls -t zotero_*.deb                  | tail -n +${keep} | xargs -r rm -f
+   ls -t zotero-latest_*.deb           | tail -n +${keep} | xargs -r rm -f
    ls -t Zotero-*_linux-x86_64.tar.bz2 | tail -n +${keep} | xargs -r rm -f
    }
