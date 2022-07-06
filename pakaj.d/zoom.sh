@@ -50,11 +50,11 @@ END
          tar --owner root --group root -cJf control.tar.xz ./control ./postinst ./postrm ./md5sums
 
          echo 2.0 > ${tmp_folder}/debian-binary
-         )
 
-      # Create package (control before data)
-      ar -r ${package}_${VERSION}_amd64.deb ${tmp_folder}/debian-binary ${tmp_folder}/control.tar.xz ${tmp_folder}/data.tar.xz \
-         && echo "${package}" > timestamp.sig
+         # Create package (control before data)
+         ar -r "$HOME/upload/zoom/${package}_${VERSION}_amd64.deb" ${tmp_folder}/debian-binary ${tmp_folder}/control.tar.xz ${tmp_folder}/data.tar.xz \
+            && echo "${package}_${VERSION}_amd64.deb" > "$HOME/upload/zoom/timestamp.sig"
+            )
 
       # Clean
       rm -rf ${tmp_folder}
