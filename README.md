@@ -88,6 +88,7 @@ in the folder [pakaj.d](pakaj.d/)
 [gestex-ng](https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/gestex),
 [gestex](https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/gestex),
 [grv](https://github.com/rgburke/grv),
+[icaclient](https://www.citrix.com/),
 [kannad](https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/kannad),
 [klask](https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/klask),
 [libpng12](http://libpng.org/pub/png/libpng.html),
