@@ -11,11 +11,16 @@
       echo ","
       name=$(basename ${pakaj/.sh})
       website=$(grep '^##[[:space:]]See-Also' ${pakaj} | cut -f 3 -d ' ')
+      pkg_list=$(grep '^## Package: ' ${pakaj} | cut -f 3- -d ' ')
+      if [ -n "${pkg_list}" ]
+      then
+        pkg_list=' ['${pkg_list}']'
+      fi
       if [ -z "${website}" ]
       then
-         echo -n "${name}"
+         echo -n "${name}${pkg_list}"
       else
-         echo -n "[${name}](${website})"
+         echo -n "[${name}](${website})${pkg_list}"
       fi
    done < <(ls -1 pakaj.d/*.sh)
 
