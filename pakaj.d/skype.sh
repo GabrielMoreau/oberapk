@@ -5,7 +5,7 @@
 ## See-Also: https://www.skype.com/
 ## Wikipedia: https://en.wikipedia.org/wiki/Skype
 ## Description: Skype is a proprietary telecommunications application for VoIP-based videotelephony, videoconferencing and voice calls
-## Binaries: ls tail xargs rm reprepro grep mkdir wget ar tar awk basename sed
+## Binaries: ls tail xargs rm reprepro grep mkdir wget ar tar awk basename sed mktemp cat file
 
 function oberpakaj_skype {
    local keep=$1; shift
@@ -15,32 +15,46 @@ function oberpakaj_skype {
    cd "$HOME/upload/skype"
 
    url="https://go.skype.com/skypeforlinux-64.deb"
-   if wget --quiet --timestamping "${url}"
+   package_file=$(basename ${url})
+   before=$(stat -c %Y ${package_file} 2> /dev/null || echo 0)
+   wget --quiet --timestamping "${url}"
+   LANG=C file ${package_file} | grep -q 'Debian binary package' || return
+   after=$(stat -c %Y ${package_file} 2> /dev/null || echo 0)
+   if [ ${after} -gt ${before} ]
    then
-      package=$(basename ${url})
-      
-      rm -f control control.tar.* data.tar.* debian-binary md5sums postinst
-      ar -x ${package}
-      tar xzf control.tar.gz
+      tmp_folder=$(mktemp --directory /tmp/skype-XXXXXX)
+      (cd ${tmp_folder}
+         ar -x $HOME/upload/skype/${package_file}
+         tar xzf control.tar.gz
 
-      version=$(grep '^Version:' control | awk '{print $2}')
-      pkg=$(grep '^Package:' control | awk '{print $2}')_${version}_amd64.deb
-      
-      if [ ! -e "${pkg}" ]
-      then
-         # On ne rajoute pas le depot Microsoft sur la machine
+         version=$(grep '^Version:' control | awk '{print $2}')
+         package=$(grep '^Package:' control | awk '{print $2}')_${version}_amd64.deb
+
+         # Disable Microsoft Repository
          sed -i -e 's/nohup/# nohup/;' postinst
-         tar --owner root --group root -czf control.tar.gz control md5sums postinst
-         ar -r $HOME/upload/skype/${pkg} debian-binary control.tar.* data.tar.*
 
-         for dist in ${distrib}
-         do
-            # Upload package
-            ( cd ${REPREPRO} ; reprepro includedeb ${dist} $HOME/upload/skype/${pkg} )
-            ( cd ${REPREPRO} ; reprepro dumpreferences ) | grep '/skype'
-         done
-      fi
+         tar --owner root --group root -czf control.tar.gz control md5sums postinst
+         ar -r $HOME/upload/skype/${package} debian-binary control.tar.* data.tar.* \
+            && echo "${package}" > "$HOME/upload/skype/timestamp.sig"
+         )
+
+      # Clean
+      rm -rf ${tmp_folder}
    fi
+
+   # Upload package
+   package="$(cat timestamp.sig)"
+   if [ -e "${package}" ]
+   then
+      for dist in ${distrib}
+      do
+         # Upload package
+         ( cd ${REPREPRO} ; reprepro dumpreferences )  2>/dev/null | grep -q "^${dist}|.*/${package}" || \
+            ( cd ${REPREPRO} ; reprepro includedeb ${dist} $HOME/upload/skype/${package} )
+         ( cd ${REPREPRO} ; reprepro dumpreferences ) | grep "^${dist}|.*/skype"
+      done
+   fi
+
    # Clean old package - kept last 4 (put 4+1=5)
    ls -t skypeforlinux_*.deb | tail -n +${keep} | xargs -r rm -f
    }
