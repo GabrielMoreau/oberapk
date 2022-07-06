@@ -18,6 +18,9 @@ PKG_NAME=oberapk
 CODE_VERSION=$(grep '^VERSION=' oberapk | cut -f 2 -d "'")
 PKG_VERSION=1
 
+# Manual
+[ -e "oberapk.1.gz" ] || pod2man oberapk | gzip > oberapk.1.gz
+
 # Create future tree
 mkdir -p ${tmp_folder}/usr/bin
 mkdir -p ${tmp_folder}/usr/share/man/man1
