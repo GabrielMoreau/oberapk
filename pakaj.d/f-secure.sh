@@ -51,9 +51,19 @@ function oberpakaj_f_secure {
                   cp -f ${HOME}/upload/f-secure/${package} ${HOME}/upload/f-secure/${pkg_real}
                   ar -r ${HOME}/upload/f-secure/${pkg_real} control.tar.gz
                   )
-            else
-               # Create link to real name
-               ln -f ${package} ${pkg_real}
+            else # f-secure-policy-manager-console
+               (cd ${tmp_folder}
+                  ar -x ${HOME}/upload/f-secure/${package} debian-binary data.tar.xz
+                  tar -xJf data.tar.xz
+                  mkdir -p ./usr/bin
+                  cat << END > ./usr/bin/fspmc
+#!/bin/sh
+/opt/f-secure/fspmc/fspmc
+END
+                  chmod a+rx ./usr/bin/fspmc
+                  tar --owner root --group root -cJf data.tar.xz ./usr ./opt
+                  ar -r ${HOME}/upload/f-secure/${pkg_real} debian-binary control.tar.gz data.tar.xz
+                  )
             fi
 
             # Clean
