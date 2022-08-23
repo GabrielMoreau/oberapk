@@ -58,7 +58,7 @@ function oberpakaj_f_secure {
                   mkdir -p ./usr/bin
                   cat << END > ./usr/bin/fspmc
 #!/bin/sh
-/opt/f-secure/fspmc/fspmc
+exec /opt/f-secure/fspmc/fspmc
 END
                   chmod a+rx ./usr/bin/fspmc
                   tar --owner root --group root -cJf data.tar.xz ./usr ./opt
