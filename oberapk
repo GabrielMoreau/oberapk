@@ -10,7 +10,7 @@
 export PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin
 export LANG=C
 
-VERSION='0.5.5'
+VERSION='0.5.6'
 
 # Global variables
 export CONF_FILE=/etc/oberapk/oberapk.conf
