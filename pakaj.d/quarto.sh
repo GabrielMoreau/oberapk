@@ -28,6 +28,7 @@ function oberpakaj_quarto {
       then
          # Upload package
          for dist in ${distrib}
+         do
             ( cd ${REPREPRO} ; reprepro includedeb ${dist} $HOME/upload/quarto/${package} )
          done
          ( cd ${REPREPRO} ; reprepro dumpreferences ) | grep '/quarto'
