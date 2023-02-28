@@ -26,10 +26,21 @@ function oberpakaj_quarto {
       wget --timestamping "https://github.com/quarto-dev/quarto-cli/releases/download/v${version}/${package}"
       if file "${package}" | grep -q 'Debian binary package'
       then
+         tmp_folder=$(mktemp --directory /tmp/quarto-XXXXXX)
+         (cd ${tmp_folder}
+            ar -x "$HOME/upload/quarto/${package}"
+            tar xJf control.tar.xz
+            sed -i -e 's/^Package: Quarto/Package: quarto/;' control
+            tar --owner root --group root -czf control.tar.gz ./control ./copyright ./postinst ./postrm
+            ar -r $HOME/upload/quarto/${package} debian-binary control.tar.gz data.tar.gz
+            )
+         rm -rf ${tmp_folder}
+
          # Upload package
          for dist in ${distrib}
          do
-            ( cd ${REPREPRO} ; reprepro includedeb ${dist} $HOME/upload/quarto/${package} )
+            ( cd ${REPREPRO} ; reprepro dumpreferences ) 2>/dev/null | grep -q "^${dist}|.*/${package}" || \
+               ( cd ${REPREPRO} ; reprepro includedeb ${dist} $HOME/upload/quarto/${package} )
          done
          ( cd ${REPREPRO} ; reprepro dumpreferences ) | grep '/quarto'
       fi

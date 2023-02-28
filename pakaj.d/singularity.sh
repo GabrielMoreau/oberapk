@@ -30,8 +30,8 @@ function oberpakaj_singularity {
                   ar -x "$HOME/upload/singularity/${dist}/${package}"
                   tar xJf control.tar.xz
                   sed -i -e 's/neurodebian-popularity-contest, //;' control
-                  tar --owner root --group root -cJf control.tar.xz control
-                  ar -r $HOME/upload/singularity/${dist}/${package} debian-binary control.tar.* data.tar.*
+                  tar --owner root --group root -cJf control.tar.xz ./control ./conffiles ./md5sums ./shlibs ./triggers
+                  ar -r $HOME/upload/singularity/${dist}/${package} debian-binary control.tar.xz data.tar.xz
                   )
                rm -rf ${tmp_folder}
             fi
@@ -42,6 +42,7 @@ function oberpakaj_singularity {
                ( cd ${REPREPRO} ; reprepro dumpreferences ) 2>/dev/null | grep -q "^${dist}|.*/${package}" || \
                   ( cd ${REPREPRO} ; reprepro includedeb ${dist} $HOME/upload/singularity/${dist}/${package} )
             fi
+            ( cd ${REPREPRO} ; reprepro dumpreferences ) | grep '/singularity-container'
          fi
       fi
 
