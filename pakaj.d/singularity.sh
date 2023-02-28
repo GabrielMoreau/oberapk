@@ -42,7 +42,7 @@ function oberpakaj_singularity {
                ( cd ${REPREPRO} ; reprepro dumpreferences ) 2>/dev/null | grep -q "^${dist}|.*/${package}" || \
                   ( cd ${REPREPRO} ; reprepro includedeb ${dist} $HOME/upload/singularity/${dist}/${package} )
             fi
-            ( cd ${REPREPRO} ; reprepro dumpreferences ) | grep '/singularity-container'
+            ( cd ${REPREPRO} ; reprepro dumpreferences ) | grep '^${dist}|.*/singularity-container'
          fi
       fi
 
