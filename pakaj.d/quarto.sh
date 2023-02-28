@@ -29,7 +29,7 @@ function oberpakaj_quarto {
          tmp_folder=$(mktemp --directory /tmp/quarto-XXXXXX)
          (cd ${tmp_folder}
             ar -x "$HOME/upload/quarto/${package}"
-            tar xJf control.tar.xz
+            tar xzf control.tar.gz
             sed -i -e 's/^Package: Quarto/Package: quarto/;' control
             tar --owner root --group root -czf control.tar.gz ./control ./copyright ./postinst ./postrm
             ar -r $HOME/upload/quarto/${package} debian-binary control.tar.gz data.tar.gz
