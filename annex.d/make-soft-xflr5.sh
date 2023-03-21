@@ -1,8 +1,15 @@
 #!/bin/bash
 #
 # 2021/10/21 Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
+#
+## See-Also: http://www.xflr5.tech/xflr5.htm
+## Decription: analysis tool for airfoils, wings and planes operating at low Reynolds Numbers.
 
 # See https://github.com/polmes/xflr5-ubuntu
+
+PKG_NAME=xflr5
+PKG_VERSION=1
+CODE_VERSION=$(curl -s 'https://raw.githubusercontent.com/polmes/xflr5-ubuntu/master/xflr5/xflr5v6/xflcore/gui_params.h' | grep 'define .*_VERSION' | awk '{print $3}' | paste -s -d '.')
 
 # Debian package
 sudo apt install qt5-qmake libgl1-mesa-dev qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools
@@ -15,9 +22,12 @@ cd xflr5-ubuntu/xflr5/
 
 mkdir -p ${tmp_folder}/local/xflr5/usr
 
-PKG_NAME=xflr5
-PKG_VERSION=1
-CODE_VERSION=$(grep 'define .*_VERSION' xflr5v6/xflcore/gui_params.h | awk '{print $3}' | paste -s -d '.')
+LOCAL_VERSION=$(grep 'define .*_VERSION' xflr5v6/xflcore/gui_params.h | awk '{print $3}' | paste -s -d '.')
+if ("${LOCAL_VERSION}" -ne "${CODE_VERSION}")
+then
+   echo "Error: version problem on git clone"
+   exit 1
+fi
 
 qmake PREFIX=${tmp_folder}/local/xflr5/usr
 make
