@@ -81,6 +81,7 @@ in the folder [pakaj.d](pakaj.d/)
 [chrome](https://www.google.com/chrome/),
 [ddt](https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/ddt),
 [discord](https://discord.com/),
+[espanso](https://espanso.org),
 [firefox-latest](https://www.mozilla.org/),
 [freskein](https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/freskein),
 [f-secure](https://www.withsecure.com/en/support/product-support/business-suite/policy-manager) [f-secure-policy-manager-console f-secure-policy-manager-proxy f-secure-policy-manager-server],
