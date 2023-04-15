@@ -362,7 +362,7 @@ patch -p0 < oberapk.patch
 
 ## COPYRIGHT
 
-Copyright (C) 2017-2022, LEGI UMR 5519 / CNRS UGA G-INP, Grenoble, France
+Copyright (C) 2017-2023, LEGI UMR 5519 / CNRS UGA G-INP, Grenoble, France
 
 This project was originally written by
 Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>.

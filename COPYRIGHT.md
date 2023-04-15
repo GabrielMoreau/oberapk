@@ -1,6 +1,6 @@
 # COPYRIGHT
 
-Copyright (C) 2017-2022, LEGI UMR 5519 / CNRS UGA G-INP, Grenoble, France
+Copyright (C) 2017-2023, LEGI UMR 5519 / CNRS UGA G-INP, Grenoble, France
  http://www.legi.grenoble-inp.fr
 
 Oberapk allows you via a programmed task (cron) to update the packages
