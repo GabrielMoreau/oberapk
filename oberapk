@@ -10,7 +10,7 @@
 export PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin
 export LANG=C
 
-VERSION='0.5.12'
+VERSION='0.5.13'
 
 # Global variables
 export CONF_FILE=/etc/oberapk/oberapk.conf
@@ -181,6 +181,22 @@ function cmd_source () {
 
 ################################################################
 
+function cmd_remove () {
+   pakaj=$1
+
+   pushed=$(oberapk pushed ${pakaj})
+   version=$(echo "${pushed}" | cut -f 2 -d '_' | sort -V  | tail -1)
+
+   while read distcpu pool eol
+   do
+      dist=$(echo ${distcpu} | cut -f 1 -d '|')
+      package=$(basename ${pool})
+      echo "( cd ${REPREPRO} ; reprepro remove ${dist} ${pakaj} )"
+   done < <(echo "${pushed}" | grep "/${pakaj}/${pakaj}_${version}_") | sort -u
+   }
+
+################################################################
+
 case $1 in
    avail)
       cmd_avail
@@ -212,6 +228,12 @@ case $1 in
    pushed)
       pakaj=$2
       cmd_pushed ${pakaj}
+      exit
+      ;;
+
+   remove)
+      pakaj=$2
+      cmd_remove ${pakaj}
       exit
       ;;
 
@@ -263,6 +285,7 @@ oberapk - automated Debian package download, modification and local upload
  oberapk update pkg
  oberapk upgrade kit
  oberapk pushed pkg
+ oberapk remove pkg
  oberapk source pkg
  oberapk binaries
  oberapk version
@@ -330,6 +353,17 @@ that are already in the Reprepro package manager.
 These are the packages that are in practice available to end users
 
  oberapk pushed pkg
+
+=head2 remove
+
+The `remove` command remove the last version of the package in the
+Reprepro package manager.
+It is then possible to push it again via the `update` command.
+In a normal life, you do not need to use this command.
+
+ oberapk remove pkg | bash
+
+For security, you have to pipe bash the output to really remove the package.
 
 =head2 source
 
