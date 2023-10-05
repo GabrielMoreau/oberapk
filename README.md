@@ -103,6 +103,7 @@ in the folder [pakaj.d](pakaj.d/)
 [opensnitch](https://github.com/evilsocket/opensnitch/) [opensnitch python3-opensnitch-ui],
 [powershell](https://microsoft.com/powershell),
 [project-meta](https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/project-meta),
+[protonmail](https://proton.me) [protonmail-bridge],
 [qgis](http://qgis.org/) [libqgis python-qgis python3-qgis qgis],
 [quarto](https://github.com/quarto-dev/quarto-cli),
 [rstudio](https://www.rstudio.com/),
