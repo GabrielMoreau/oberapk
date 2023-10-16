@@ -19,17 +19,19 @@ function oberpakaj_virtualbox {
       then
          if [ -e "Packages.gz" ]
          then
-            url=$(zgrep ^Filename Packages.gz | grep '/virtualbox-' | head -1 | awk '{print $2}')
-            package=$(basename ${url})
+            for url in $(zgrep ^Filename Packages.gz | grep '/virtualbox-' | awk '{print $2}')
+            do
+               package=$(basename ${url})
 
-            wget --timestamping "https://download.virtualbox.org/virtualbox/debian/${url}"
+               wget --timestamping "https://download.virtualbox.org/virtualbox/debian/${url}"
 
-            if [ -e "${package}" ]
-            then
-               # Upload package
-               ( cd ${REPREPRO} ; reprepro dumpreferences ) 2>/dev/null | grep -q "^${dist}|.*/${package}" || \
-                  ( cd ${REPREPRO} ; reprepro includedeb ${dist} $HOME/upload/virtualbox/${dist}/${package} )
-            fi
+               if [ -e "${package}" ]
+               then
+                  # Upload package
+                  ( cd ${REPREPRO} ; reprepro dumpreferences ) 2>/dev/null | grep -q "^${dist}|.*/${package}" || \
+                     ( cd ${REPREPRO} ; reprepro includedeb ${dist} $HOME/upload/virtualbox/${dist}/${package} )
+               fi
+            done
          fi
       fi
 
