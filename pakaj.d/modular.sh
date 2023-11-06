@@ -18,7 +18,6 @@ function oberpakaj_modular {
       if [ -e "Packages.gz" ]
       then
          modular=$(zgrep ^Filename Packages.gz | grep '/modular-' | head -1 | awk '{print $2}')
-echo "https://dl.modular.com/public/installer/deb/debian/${modular}"
          wget --timestamping "https://dl.modular.com/public/installer/deb/debian/${modular}"
 
          if [ -e "$(basename ${modular})" ]
