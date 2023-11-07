@@ -35,5 +35,5 @@ function oberpakaj_powershell {
    
    # Clean old package - kept last 4 (put 4+1=5)
    cd "$HOME/upload/powershell"
-   ls -t powershell_*.deb | tail -n +${keep} | xargs -r rm -f
+   ls -t powershell_*.deb | tail -n +$((${keep} + 1)) | xargs -r rm -f
    }

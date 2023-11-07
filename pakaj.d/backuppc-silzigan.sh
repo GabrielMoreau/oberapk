@@ -43,6 +43,6 @@ function oberpakaj_backuppc_silzigan {
    if [ -d "${HOME}/upload/backuppc-silzigan" ]
    then
       cd "${HOME}/upload/backuppc-silzigan"
-      ls -t backuppc-silzigan_*.deb | tail -n +${keep} | xargs -r rm -f
+      ls -t backuppc-silzigan_*.deb | tail -n +$((${keep} + 1)) | xargs -r rm -f
    fi
    }

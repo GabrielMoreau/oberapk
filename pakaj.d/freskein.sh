@@ -43,6 +43,6 @@ function oberpakaj_freskein {
    if [ -d "${HOME}/upload/freskein" ]
    then
       cd "${HOME}/upload/freskein"
-      ls -t freskein_*.deb | tail -n +${keep} | xargs -r rm -f
+      ls -t freskein_*.deb | tail -n +$((${keep} + 1)) | xargs -r rm -f
    fi
    }

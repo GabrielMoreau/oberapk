@@ -32,5 +32,5 @@ function oberpakaj_rstudio {
 
    # Clean old package
    basepkg=$(echo "${pkgfile}" | cut -f 1 -d '-')
-   ls -t ${basepkg}-*.deb | tail -n +${keep} | xargs -r rm -f
+   ls -t ${basepkg}-*.deb | tail -n +$((${keep} + 1)) | xargs -r rm -f
    }

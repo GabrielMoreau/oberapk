@@ -45,5 +45,5 @@ function oberpakaj_libpng12 {
    fi
 
    # Clean old package - kept last 4 (put 4+1=5)
-   ls -t libpng12-*.deb | tail -n +${keep} | xargs -r rm -f
+   ls -t libpng12-*.deb | tail -n +$((${keep} + 1)) | xargs -r rm -f
 }

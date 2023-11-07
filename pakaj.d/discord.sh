@@ -63,5 +63,5 @@ END
       fi
    done
    # Clean old package - kept last 4 (put 4+1=5)
-   ls -t discord-*.deb | tail -n +${keep} | xargs -r rm -f
+   ls -t discord-*.deb | tail -n +$((${keep} + 1)) | xargs -r rm -f
    }

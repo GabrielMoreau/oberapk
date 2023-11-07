@@ -37,6 +37,6 @@ function oberpakaj_virtualbox {
 
       # Clean old package - kept last 4 (put 4+1=5)
       cd "$HOME/upload/virtualbox/${dist}"
-      ls -t virtualbox*.deb | tail -n +${keep} | xargs -r rm -f
+      ls -t virtualbox*.deb | tail -n +$((${keep} + 1)) | xargs -r rm -f
    done
    }

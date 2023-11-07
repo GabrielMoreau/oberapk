@@ -91,7 +91,7 @@ END
       cd "${HOME}/upload/f-secure"
       for pkg in fspmc fspmp fspms f-secure-policy-manager-console f-secure-policy-manager-proxy f-secure-policy-manager-server
       do
-         ls -t ${pkg}_*.deb | tail -n +${keep} | xargs -r rm -f
+         ls -t ${pkg}_*.deb | tail -n +$((${keep} + 1)) | xargs -r rm -f
       done
    fi
    }

@@ -42,6 +42,6 @@ function oberpakaj_certcheck {
    if [ -d "${HOME}/upload/certcheck" ]
    then
       cd "${HOME}/upload/certcheck"
-      ls -t certcheck_*.deb | tail -n +${keep} | xargs -r rm -f
+      ls -t certcheck_*.deb | tail -n +$((${keep} + 1)) | xargs -r rm -f
    fi
    }

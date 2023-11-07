@@ -42,6 +42,6 @@ function oberpakaj_klask {
    if [ -d "${HOME}/upload/klask" ]
    then
       cd "${HOME}/upload/klask"
-      ls -t klask_*.deb | tail -n +${keep} | xargs -r rm -f
+      ls -t klask_*.deb | tail -n +$((${keep} + 1)) | xargs -r rm -f
    fi
    }

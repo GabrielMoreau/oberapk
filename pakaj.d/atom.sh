@@ -30,5 +30,5 @@ function oberpakaj_atom {
 
    # Clean old package
    basepkg=$(echo "${package}" | cut -f 1 -d '_')
-   ls -t ${basepkg}_*.deb | tail -n +${keep} | xargs -r rm -f
+   ls -t ${basepkg}_*.deb | tail -n +$((${keep} + 1)) | xargs -r rm -f
    }

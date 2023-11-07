@@ -80,6 +80,6 @@ END
    
    # Clean old package - kept last 4 (put 4+1=5)
    cd "$HOME/upload/vscode"
-   ls -t code-insiders_*.deb | tail -n +${keep} | xargs -r rm -f
-   ls -t code_*.deb          | tail -n +${keep} | xargs -r rm -f
+   ls -t code-insiders_*.deb | tail -n +$((${keep} + 1)) | xargs -r rm -f
+   ls -t code_*.deb          | tail -n +$((${keep} + 1)) | xargs -r rm -f
    }

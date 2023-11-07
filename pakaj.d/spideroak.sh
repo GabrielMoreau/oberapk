@@ -67,5 +67,5 @@ function oberpakaj_spideroak {
 
    # Clean old package - kept last 4 (put 4+1=5)
    cd "$HOME/upload/spideroak"
-   ls -t spideroakone_*.deb | tail -n +${keep} | xargs -r rm -f
+   ls -t spideroakone_*.deb | tail -n +$((${keep} + 1)) | xargs -r rm -f
    }

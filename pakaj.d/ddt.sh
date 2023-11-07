@@ -42,6 +42,6 @@ function oberpakaj_ddt {
    if [ -d "${HOME}/upload/ddt" ]
    then
       cd "${HOME}/upload/ddt"
-      ls -t ddt_*.deb | tail -n +${keep} | xargs -r rm -f
+      ls -t ddt_*.deb | tail -n +$((${keep} + 1)) | xargs -r rm -f
    fi
    }

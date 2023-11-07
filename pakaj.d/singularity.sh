@@ -48,6 +48,6 @@ function oberpakaj_singularity {
 
       # Clean old package - kept last 4 (put 4+1=5)
       cd "$HOME/upload/singularity/${dist}"
-      ls -t singularity-container*.deb | tail -n +${keep} | xargs -r rm -f
+      ls -t singularity-container*.deb | tail -n +$((${keep} + 1)) | xargs -r rm -f
    done
    }

@@ -42,6 +42,6 @@ function oberpakaj_project_meta {
    if [ -d "${HOME}/upload/project-meta" ]
    then
       cd "${HOME}/upload/project-meta"
-      ls -t project-meta_*.deb | tail -n +${keep} | xargs -r rm -f
+      ls -t project-meta_*.deb | tail -n +$((${keep} + 1)) | xargs -r rm -f
    fi
    }
