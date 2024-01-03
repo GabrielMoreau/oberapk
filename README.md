@@ -20,6 +20,9 @@ A short [manual](https://legi.gricad-pages.univ-grenoble-alpes.fr/soft/trokata/o
 is available online, which is a copy of the command line manual.
 However, most of the information is also listed below.
 
+The master Git repository in on the [GRICAD Gitlab](https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/oberapk).
+Other Git repository are mirror or fork.
+
 ## Download / Ready-made package
 
 Up-to-date Debian packages can be found at
@@ -347,7 +350,7 @@ It is very easy to stay synchronized with these sources.
 ### Patch
 
 It is possible to have a writing access to the project on the forge
-on motivated request to [Gabriel Moreau](mailto:Gabriel.Moreau_A_legi.grenoble-inp.fr).
+on motivated request to [Gabriel Moreau](mailto:Gabriel.Moreau@univ-grenoble-alpes.fr).
 For questions of administration time and security,
 the project is not directly accessible in writing without authorization.
 For questions of decentralization of the web, of autonomy
@@ -365,9 +368,9 @@ patch -p0 < oberapk.patch
 
 ## COPYRIGHT
 
-Copyright (C) 2017-2023, LEGI UMR 5519 / CNRS UGA G-INP, Grenoble, France
+Copyright (C) 2017-2024, LEGI UMR 5519 / CNRS UGA G-INP, Grenoble, France
 
 This project was originally written by
-Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>.
+[Gabriel Moreau](mailto:Gabriel.Moreau@univ-grenoble-alpes.fr).
 
 Licence: [GNU GPL version 2 or later](https://spdx.org/licenses/GPL-2.0-or-later.html)
