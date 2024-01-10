@@ -22,7 +22,7 @@ function oberpakaj_tabby {
    then
       for dist in ${distrib}
       do
-         ( cd ${REPREPRO} ; reprepro dumpreferences ) 2>/dev/null | grep -q "^${dist}|.*/${pkgname}" || \
+         ( cd ${REPREPRO} ; reprepro dumpreferences ) 2> /dev/null | grep -q "^${dist}|.*/${pkgname}" || \
             ( cd ${REPREPRO} ; reprepro includedeb ${dist} $HOME/upload/tabby/${package} )
       done
    fi

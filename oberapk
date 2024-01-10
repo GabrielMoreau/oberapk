@@ -10,7 +10,7 @@
 export PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin
 export LANG=C
 
-VERSION='0.5.22'
+VERSION='0.5.23'
 
 # Global variables
 export CONF_FILE=/etc/oberapk/oberapk.conf
@@ -158,9 +158,9 @@ function cmd_update () {
 function cmd_pushed () {
    pakaj=$1
 
-   regex=$((echo ${pakaj}; egrep '^##[[:space:]](Pakaj|Package):' "${PAKAJ_FOLDER}/${pakaj}.sh" 2>/dev/null | cut -f 2 -d ':') | sed 's/[[:space:]]/\n/g;' | sort -u | grep . | paste -sd '|')
+   regex=$((echo ${pakaj}; egrep '^##[[:space:]](Pakaj|Package):' "${PAKAJ_FOLDER}/${pakaj}.sh" 2> /dev/null | cut -f 2 -d ':') | sed 's/[[:space:]]/\n/g;' | sort -u | grep . | paste -sd '|')
 
-   ( cd ${REPREPRO} ; reprepro dumpreferences ) 2>/dev/null | egrep "/(${regex})[_-].*.deb"
+   ( cd ${REPREPRO} ; reprepro dumpreferences ) 2> /dev/null | egrep "/(${regex})[_-].*.deb"
    }
 
 ################################################################

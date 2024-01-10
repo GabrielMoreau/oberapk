@@ -32,7 +32,7 @@ function oberpakaj_icaclient {
       pkg_basename=$(echo ${package} | cut -f 1 -d '_')
       for dist in ${distrib}
       do
-         ( cd ${REPREPRO} ; reprepro dumpreferences )  2>/dev/null | grep -q "^${dist}|.*/${package}" || \
+         ( cd ${REPREPRO} ; reprepro dumpreferences )  2> /dev/null | grep -q "^${dist}|.*/${package}" || \
             ( cd ${REPREPRO} ; reprepro includedeb ${dist} $HOME/upload/zoom/${package} )
          ( cd ${REPREPRO} ; reprepro dumpreferences ) | grep "^${dist}|.*/${pkg_basename}"
       done

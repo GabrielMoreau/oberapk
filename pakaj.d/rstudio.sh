@@ -24,9 +24,9 @@ function oberpakaj_rstudio {
    then
       for dist in ${distrib}
       do
-         ( cd ${REPREPRO} ; reprepro dumpreferences ) 2>/dev/null | grep -q "^${dist}|.*/${package}" || \
+         ( cd ${REPREPRO} ; reprepro dumpreferences ) 2> /dev/null | grep -q "^${dist}|.*/${package}" || \
             ( cd ${REPREPRO} ; reprepro includedeb ${dist} $HOME/upload/rstudio/${pkgfile} )
-         ( cd ${REPREPRO} ; reprepro dumpreferences ) 2>/dev/null | grep "^${dist}|.*/${package}"
+         ( cd ${REPREPRO} ; reprepro dumpreferences ) 2> /dev/null | grep "^${dist}|.*/${package}"
       done
    fi
 

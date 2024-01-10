@@ -37,9 +37,9 @@ function oberpakaj_libpng12 {
          for dist in ${distrib}
          do
             # Upload package
-            ( cd ${REPREPRO} ; reprepro dumpreferences ) 2>/dev/null | grep -q "^${dist}|.*/${package}" || \
+            ( cd ${REPREPRO} ; reprepro dumpreferences ) 2> /dev/null | grep -q "^${dist}|.*/${package}" || \
                   ( cd ${REPREPRO} ; reprepro includedeb ${dist} $HOME/upload/libpng12/${package} )
-            ( cd ${REPREPRO} ; reprepro dumpreferences ) 2>/dev/null | grep "^${dist}|.*/libpng12"
+            ( cd ${REPREPRO} ; reprepro dumpreferences ) 2> /dev/null | grep "^${dist}|.*/libpng12"
          done
       fi
    fi

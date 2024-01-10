@@ -41,7 +41,7 @@ function oberpakaj_netdata {
                   fi
 
                   # Upload package
-                  ( cd ${REPREPRO} ; reprepro dumpreferences )  2>/dev/null | grep -q "^${dist}|.*/${package}" || \
+                  ( cd ${REPREPRO} ; reprepro dumpreferences )  2> /dev/null | grep -q "^${dist}|.*/${package}" || \
                      ( cd ${REPREPRO} ; reprepro includedeb ${dist} $HOME/upload/netdata/${dist}/${package} )
                   ( cd ${REPREPRO} ; reprepro dumpreferences ) | grep "^${dist}|.*/netdata"
                fi

@@ -84,7 +84,7 @@ END
 
          for dist in ${distrib}
          do
-           ( cd ${REPREPRO} ; reprepro dumpreferences ) 2>/dev/null | grep -q "^${dist}|.*/${pkg_real}" || \
+           ( cd ${REPREPRO} ; reprepro dumpreferences ) 2> /dev/null | grep -q "^${dist}|.*/${pkg_real}" || \
               ( cd ${REPREPRO} ; reprepro includedeb ${dist} $HOME/upload/f-secure/${pkg_real} )
          done
       done

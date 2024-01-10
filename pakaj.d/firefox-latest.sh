@@ -91,7 +91,7 @@ END
       then
          for dist in ${distrib}
          do
-            ( cd ${REPREPRO} ; reprepro dumpreferences )  2>/dev/null | grep -q "^${dist}|.*/${package}" || \
+            ( cd ${REPREPRO} ; reprepro dumpreferences )  2> /dev/null | grep -q "^${dist}|.*/${package}" || \
                ( cd ${REPREPRO} ; reprepro includedeb ${dist} $HOME/upload/firefox-latest/${package} )
             ( cd ${REPREPRO} ; reprepro dumpreferences ) | grep "^${dist}|.*/firefox-latest"
          done
