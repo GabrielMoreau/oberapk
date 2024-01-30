@@ -17,18 +17,20 @@ function oberpakaj_powershell {
    then
       if [ -e "Packages.gz" ]
       then
-         powershell=$(zgrep ^Filename Packages.gz | grep '/powershell/' | head -1 | awk '{print $2}')
+         url=$(zgrep ^Filename Packages.gz | grep '/powershell/' | head -1 | awk '{print $2}')
+         package=$(basename ${url})
 
-         wget --timestamping "https://packages.microsoft.com/repos/microsoft-debian-buster-prod/${powershell}"
+         wget --timestamping "https://packages.microsoft.com/repos/microsoft-debian-buster-prod/${url}"
 
-         if [ -e "$(basename ${powershell})" ]
+         if [ -s "${package}" ]
          then
             # Upload package
             for dist in ${distrib}
             do
-               ( cd ${REPREPRO} ; reprepro includedeb ${dist} $HOME/upload/powershell/$(basename ${powershell}) )
+               ( cd ${REPREPRO} ; reprepro dumpreferences ) 2> /dev/null | grep -q "^${dist}|.*/${package}" || \
+                  ( cd ${REPREPRO} ; reprepro includedeb ${dist} $HOME/upload/powershell/${package} )
+               ( cd ${REPREPRO} ; reprepro dumpreferences ) 2> /dev/null | grep "^${dist}|.*/${package}"
             done
-            ( cd ${REPREPRO} ; reprepro dumpreferences ) | grep '/powershell'
          fi
       fi
    fi
