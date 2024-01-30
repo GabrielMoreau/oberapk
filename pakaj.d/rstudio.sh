@@ -20,7 +20,7 @@ function oberpakaj_rstudio {
    pkgfile=$(basename ${url})
    package=$(echo ${pkgfile} | sed 's/-/_/; s/-/+/;')
    wget --timestamping "${url}"
-   if [ -e "${pkgfile}" ]
+   if [ -s "${pkgfile}" ]
    then
       for dist in ${distrib}
       do

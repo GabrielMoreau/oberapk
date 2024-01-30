@@ -94,15 +94,20 @@ END
  
          # Clean
          rm -rf ${tmp_folder}
-
-         # Upload package
-         for dist in ${distrib}
-         do
-            ( cd ${REPREPRO} ; reprepro includedeb ${dist} $HOME/upload/zotero/${package} )
-         done
-         ( cd ${REPREPRO} ; reprepro dumpreferences ) | grep '/zotero'
       fi
    fi
+
+   if [ -s "${package}" ]
+   then
+      # Upload package
+      for dist in ${distrib}
+      do
+         ( cd ${REPREPRO} ; reprepro dumpreferences ) 2> /dev/null | grep -q "^${dist}|.*/${package}" || \
+            ( cd ${REPREPRO} ; reprepro includedeb ${dist} $HOME/upload/zotero/${package} )
+         ( cd ${REPREPRO} ; reprepro dumpreferences ) 2> /dev/null | grep "^${dist}|.*/zotero"
+      done
+   fi
+
    # Clean old package - kept last 4 (put 4+1=5)
    ls -t zotero-latest_*.deb           | tail -n +$((${keep} + 1)) | xargs -r rm -f
    ls -t Zotero-*_linux-x86_64.tar.bz2 | tail -n +$((${keep} + 1)) | xargs -r rm -f
