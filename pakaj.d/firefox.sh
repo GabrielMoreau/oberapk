@@ -1,5 +1,6 @@
-## Date: 2021/08/19
+## Date: 2024/01/31
 ## Pakaj: firefox
+## Package: firefox firefox-l10n-fr
 ## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
 ## See-Also: https://www.mozilla.org/
 ## Wikipedia: https://en.wikipedia.org/wiki/Firefox
@@ -13,27 +14,32 @@ function oberpakaj_firefox {
    mkdir -p "$HOME/upload/firefox"
    cd "$HOME/upload/firefox"
 
-   curl -s --time-cond 'Packages' -o 'Packages' -L 'https://packages.mozilla.org/apt/dists/mozilla/main/binary-amd64/Packages'
-   if [ -s "Packages" ]
+   curl -s --time-cond 'Packages-amd64' -o 'Packages-amd64' -L 'https://packages.mozilla.org/apt/dists/mozilla/main/binary-amd64/Packages'
+   curl -s --time-cond 'Packages-all'   -o 'Packages-all'   -L 'https://packages.mozilla.org/apt/dists/mozilla/main/binary-all/Packages'
+   if [ -s "Packages-amd64" ] && [ -s "Packages-all" ]
    then
-      url='https://packages.mozilla.org/apt/'$(grep ^Filename Packages | grep '/firefox_' | head -1 | awk '{print $2}')
-      package=$(basename "${url}" | sed -e 's/_amd64_.*\.deb/_amd64.deb/;')
+      for pkg in 'firefox' 'firefox-l10n-fr'
+      do
+         url='https://packages.mozilla.org/apt/'$(grep -h ^Filename Packages-amd64 Packages-all | grep "/${pkg}_" | head -1 | awk '{print $2}')
+         package=$(basename "${url}" | sed -e 's/_\(amd64\|all\)_.*\.deb/_\1.deb/;')
 
-      LANG=C file "${package}" 2> /dev/null | grep -q 'Debian binary package' || curl -# -o "${package}" -L "${url}"
+         LANG=C file "${package}" 2> /dev/null | grep -q 'Debian binary package' || curl -# -o "${package}" -L "${url}"
 
-      if LANG=C file "${package}" 2> /dev/null | grep -q 'Debian binary package'
-      then
-         # Upload package
-         for dist in ${distrib}
-         do
-            ( cd ${REPREPRO} ; reprepro dumpreferences ) 2> /dev/null | grep -q "^${dist}|.*/${package}" || \
-               ( cd ${REPREPRO} ; reprepro includedeb ${dist} $HOME/upload/firefox/${pkgfile} )
-            ( cd ${REPREPRO} ; reprepro dumpreferences ) 2> /dev/null | grep "^${dist}|.*/${package}"
-         done
-      fi
+         if LANG=C file "${package}" 2> /dev/null | grep -q 'Debian binary package'
+         then
+            # Upload package
+            for dist in ${distrib}
+            do
+               ( cd ${REPREPRO} ; reprepro dumpreferences ) 2> /dev/null | grep -q "^${dist}|.*/${package}" || \
+                  ( cd ${REPREPRO} ; reprepro includedeb ${dist} $HOME/upload/firefox/${pkgfile} )
+               ( cd ${REPREPRO} ; reprepro dumpreferences ) 2> /dev/null | grep "^${dist}|.*/${package}"
+            done
+         fi
+      done
    fi
 
-   # Clean old package - kept last 4 (put 4+1=5)
+   # Clean old package - keep last 4 (put 4+1=5)
    cd "$HOME/upload/firefox"
-   ls -t firefox_*.deb | tail -n +$((${keep} + 1)) | xargs -r rm -f
+   ls -t firefox_*.deb         | tail -n +$((${keep} + 1)) | xargs -r rm -f
+   ls -t firefox-l10n-fr_*.deb | tail -n +$((${keep} + 1)) | xargs -r rm -f
    }
