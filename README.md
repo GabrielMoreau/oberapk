@@ -87,7 +87,7 @@ in the folder [pakaj.d](pakaj.d/)
 [discord](https://discord.com/),
 [espanso](https://espanso.org),
 [firefox-latest](https://www.mozilla.org/),
-[firefox](https://www.mozilla.org/),
+[firefox](https://www.mozilla.org/) [firefox firefox-l10n-fr],
 [freskein](https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/freskein),
 [f-secure](https://www.withsecure.com/en/support/product-support/business-suite/policy-manager) [f-secure-policy-manager-console f-secure-policy-manager-proxy f-secure-policy-manager-server],
 [ganttproject](https://github.com/bardsoftware/ganttproject),
@@ -200,6 +200,10 @@ oberapk list
 oberapk kit
 oberapk update pkg
 oberapk upgrade kit
+oberapk pushed pkg
+oberapk source pkg
+oberapk binaries
+oberapk version
 ```
 
 * The `avail` command allows you to know all the available packaging
@@ -220,6 +224,10 @@ oberapk upgrade kit
   with a single command the software of your local repository
   which are managed by Oberapk.
 
+* The `pushed` command lists all versions of the packages in this
+  packaging that are already in the Reprepro package manager.
+  These are the packages that are in practice available to end users
+
 * The `source` command is for developers. It allows to test a new recipe.
   It allows to set the global variables useful for the bash function. 
 
@@ -234,10 +242,18 @@ oberapk upgrade kit
 There are two configuration files.
 They can be under `/etc/oberapk` folder or under `$HOME/.local/oberapk`.
 
-* `oberapk.conf` describes the local configuration of your site.
-  It gives the available kits and packaging that can be applied
-  and on which versions of the distribution.
-  Each site pushes the packages it wants on the version(s) it wants.
+* The `oberapk.conf` file describes the local configuration of your site.
+  It indicates which kits are available and which packages can be
+  applied to which versions of the distribution (based on the
+  distribution name).
+  In this way, each site has the choice of pushing the packages it
+  wants onto its local Reprepro repository and only onto the
+  distribution version(s) it needs.
+  Please note that the recipes will certainly not work on all
+  distributions.
+  Oberapk is intended to be a simple tool for managing a reasonable
+  number of machines.
+  Not all cases are taken into account.
 
   ```
   @all: @free @non-free
