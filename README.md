@@ -117,6 +117,7 @@ in the folder [pakaj.d](pakaj.d/)
 [signal](https://signal.org/) [signal-desktop],
 [singularity](https://docs.sylabs.io/guides/3.0/user-guide/installation.html) [singularity-container],
 [skype](https://www.skype.com/) [skypeforlinux],
+[slack](https://slack.com/intl/fr-fr/downloads/linux) [slack-desktop],
 [spideroak](https://spideroak.com/) [spideroakone],
 [tabby](https://tabby.sh/) [tabby-terminal],
 [teams](https://teams.com/),
