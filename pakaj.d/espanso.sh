@@ -36,7 +36,7 @@ function oberpakaj_espanso {
    fi
 
    # Upload package
-   if [ -e "${package}" ]
+   if [ -s "${package}" ]
    then
       for dist in ${distrib}
       do
