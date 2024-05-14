@@ -1,5 +1,6 @@
 ## Date: 2022/01/25
 ## Pakaj: apptainer
+## Package: apptainer apptainer-suid
 ## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
 ## See-Also: https://github.com/apptainer/apptainer
 ## Description: Container platform focused on supporting Mobility of Compute formerly known as Singularity
