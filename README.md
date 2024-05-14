@@ -78,6 +78,7 @@ This list is updated manually from time to time.
 An always up to date list is to look at the files available
 in the folder [pakaj.d](pakaj.d/)
 
+[apptainer](https://github.com/apptainer/apptainer),
 [atom](https://github.com/atom/atom),
 [backuppc-silzigan](https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/backuppc-silizan),
 [bidiez](https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/bidiez),
@@ -115,7 +116,6 @@ in the folder [pakaj.d](pakaj.d/)
 [reaction](https://framagit.org/ppom),
 [rstudio](https://www.rstudio.com/),
 [signal](https://signal.org/) [signal-desktop],
-[singularity](https://docs.sylabs.io/guides/3.0/user-guide/installation.html) [singularity-container],
 [skype](https://www.skype.com/) [skypeforlinux],
 [slack](https://slack.com/intl/fr-fr/downloads/linux) [slack-desktop],
 [spideroak](https://spideroak.com/) [spideroakone],
@@ -127,6 +127,7 @@ in the folder [pakaj.d](pakaj.d/)
 [virtualbox](https://www.virtualbox.org/wiki/Linux_Downloads),
 [vscode](https://github.com/microsoft/vscode) [code code-insiders],
 [vscodium](https://github.com/VSCodium/vscodium) [codium],
+[webex](https://www.webex.com/downloads.html),
 [yadedaily](https://yade-dem.org/) [yadedaily python3-yadedaily libyadedaily],
 [yed](https://www.yworks.com/products/yed) [yed-latest],
 [yq](https://github.com/mikefarah/yq),
