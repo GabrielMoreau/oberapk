@@ -62,7 +62,7 @@ END
 
    # Upload package
    package="$(cat timestamp.sig)"
-   if [ -s "${package}" ]
+   if [ -s "${package}" ] && file "${package}" | grep -q 'Debian binary package'
    then
       for dist in ${distrib}
       do
