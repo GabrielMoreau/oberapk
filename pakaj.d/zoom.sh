@@ -62,7 +62,7 @@ END
 
    # Upload package
    package="$(cat timestamp.sig)"
-   if [ -e "${package}" ]
+   if [ -s "${package}" ]
    then
       for dist in ${distrib}
       do
