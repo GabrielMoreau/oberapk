@@ -4,7 +4,7 @@
 ## See-Also: https://zoom.us/
 ## Wikipedia: https://en.wikipedia.org/wiki/Zoom_(software)
 ## Description: Zoom Meetings is a proprietary video teleconferencing software
-## Binaries: ls tail xargs rm reprepro grep mkdir touch basename wget stat mktemp ar tar chmod md5sum du cut
+## Binaries: ls tail xargs rm reprepro grep mkdir touch basename wget stat mktemp ar tar chmod md5sum du cut file
 
 function oberpakaj_zoom {
    local keep=$1; shift
