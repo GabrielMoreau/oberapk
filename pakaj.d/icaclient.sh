@@ -15,12 +15,12 @@ function oberpakaj_icaclient {
    cd "$HOME/upload/icaclient"
    wget -q 'https://www.citrix.com/downloads/workspace-app/linux/workspace-app-for-linux-latest.html' -O - | sed -e 's/"/\n/g;' | grep _amd64.deb > packages.txt
    
-   url_icaclient=https:$(grep '/icaclient_.*_amd64.deb.__gda__=' packages.txt)   
+   url_icaclient=https:$(grep '/icaclient_.*_amd64.deb.__gda__=' packages.txt | head -1)   
    pkg_icaclient=$(basename $(echo $url_icaclient | sed -e 's/\?.*//;'))
    [ -e "${pkg_icaclient}" ] && { LANG=C file "${pkg_icaclient}" | grep -q 'Debian binary package' || rm -f "${pkg_icaclient}"; }
    [ -e "${pkg_icaclient}" ] || wget -q "${url_icaclient}" -O "${pkg_icaclient}"
 
-   url_ctxusb=https:$(grep '/ctxusb_.*_amd64.deb.__gda__=' packages.txt)
+   url_ctxusb=https:$(grep '/ctxusb_.*_amd64.deb.__gda__=' packages.txt | head -1)
    pkg_ctxusb=$(basename $(echo $url_ctxusb | sed -e 's/\?.*//;'))
    [ -e "${pkg_ctxusb}" ] && { LANG=C file "${pkg_ctxusb}" | grep -q 'Debian binary package' || rm -f "${pkg_ctxusb}"; }
    [ -e "${pkg_ctxusb}" ] || wget -q "${url_ctxusb}" -O "${pkg_ctxusb}"
