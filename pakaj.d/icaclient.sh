@@ -13,7 +13,7 @@ function oberpakaj_icaclient {
 
    mkdir -p "$HOME/upload/icaclient"
    cd "$HOME/upload/icaclient"
-   wget -q 'https://www.citrix.com/fr-fr/downloads/workspace-app/linux/workspace-app-for-linux-latest1.html' -O - | sed -e 's/"/\n/g;' | grep _amd64.deb > packages.txt
+   wget -q 'https://www.citrix.com/downloads/workspace-app/linux/workspace-app-for-linux-latest.html' -O - | sed -e 's/"/\n/g;' | grep _amd64.deb > packages.txt
    
    url_icaclient=https:$(grep '/icaclient_.*_amd64.deb.__gda__=' packages.txt)   
    pkg_icaclient=$(basename $(echo $url_icaclient | sed -e 's/\?.*//;'))
