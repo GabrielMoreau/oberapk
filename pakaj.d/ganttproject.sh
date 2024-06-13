@@ -18,7 +18,7 @@ function oberpakaj_ganttproject {
    then
       package=$(basename ${url})
       pkg_basename=$(echo ${package} | cut -f 1 -d '_')
-      if [ -s "${package}" ] && LANG=C file "${package}" | grep -q 'Debian binary package'
+      if [ -s "${package}" ] && LANG=C file "${package}" | grep -q 'Debian binary package' && [ $(ar t "${package}" | wc -l) -ge 3 ]
       then
          for dist in ${distrib}
          do

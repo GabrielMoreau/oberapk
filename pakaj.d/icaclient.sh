@@ -29,6 +29,7 @@ function oberpakaj_icaclient {
    do
       [ -s "${package}" ] || continue
       LANG=C file "${package}" | grep -q 'Debian binary package' || continue
+      [ $(ar t "${package}" | wc -l) -ge 3 ] || continue
 
       pkg_basename=$(echo ${package} | cut -f 1 -d '_')
       for dist in ${distrib}
