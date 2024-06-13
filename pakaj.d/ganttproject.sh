@@ -16,17 +16,20 @@ function oberpakaj_ganttproject {
    url=$(wget --quiet https://dl.ganttproject.biz/ -O - | sed -e 's/Key/\nKey/g;' | grep '^Key>ganttproject-.*.deb' | cut -f 2 -d '>' | cut -f 1 -d '<' | tail -1)
    if wget --quiet --timestamping "https://dl.ganttproject.biz/${url}"
    then
-      pkg=$(basename ${url})
-      if [ -e "${pkg}" ]
+      package=$(basename ${url})
+      pkg_basename=$(echo ${package} | cut -f 1 -d '_')
+      if [ -s "${package}" ] && LANG=C file "${package}" | grep -q 'Debian binary package'
       then
          for dist in ${distrib}
          do
             # Upload package
-            ( cd ${REPREPRO} ; reprepro includedeb ${dist} $HOME/upload/ganttproject/${pkg} )
-            ( cd ${REPREPRO} ; reprepro dumpreferences ) | grep '/ganttproject'
+            ( cd ${REPREPRO} ; reprepro dumpreferences )  2> /dev/null | grep -q "^${dist}|.*/${package}" || \
+               ( cd ${REPREPRO} ; reprepro includedeb ${dist} $HOME/upload/ganttproject/${package} )
+            ( cd ${REPREPRO} ; reprepro dumpreferences ) | grep "^${dist}|.*/${pkg_basename}"
          done
       fi
    fi
+
    # Clean old package - kept last 4 (put 4+1=5)
    ls -t ganttproject_*.deb | tail -n +$((${keep} + 1)) | xargs -r rm -f
    }
