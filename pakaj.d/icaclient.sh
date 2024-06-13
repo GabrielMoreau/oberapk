@@ -17,16 +17,17 @@ function oberpakaj_icaclient {
    
    url_icaclient=https:$(grep '/icaclient_.*_amd64.deb.__gda__=' packages.txt | head -1)   
    pkg_icaclient=$(basename $(echo $url_icaclient | sed -e 's/\?.*//;'))
-   [ -e "${pkg_icaclient}" ] && { LANG=C file "${pkg_icaclient}" | grep -q 'Debian binary package' || rm -f "${pkg_icaclient}"; }
-   [ -e "${pkg_icaclient}" ] || wget -q "${url_icaclient}" -O "${pkg_icaclient}"
+   [ -s "${pkg_icaclient}" ] && { LANG=C file "${pkg_icaclient}" | grep -q 'Debian binary package' || rm -f "${pkg_icaclient}"; }
+   [ -s "${pkg_icaclient}" ] || wget -q "${url_icaclient}" -O "${pkg_icaclient}"
 
    url_ctxusb=https:$(grep '/ctxusb_.*_amd64.deb.__gda__=' packages.txt | head -1)
    pkg_ctxusb=$(basename $(echo $url_ctxusb | sed -e 's/\?.*//;'))
-   [ -e "${pkg_ctxusb}" ] && { LANG=C file "${pkg_ctxusb}" | grep -q 'Debian binary package' || rm -f "${pkg_ctxusb}"; }
-   [ -e "${pkg_ctxusb}" ] || wget -q "${url_ctxusb}" -O "${pkg_ctxusb}"
+   [ -s "${pkg_ctxusb}" ] && { LANG=C file "${pkg_ctxusb}" | grep -q 'Debian binary package' || rm -f "${pkg_ctxusb}"; }
+   [ -s "${pkg_ctxusb}" ] || wget -q "${url_ctxusb}" -O "${pkg_ctxusb}"
 
    for package in "${pkg_icaclient}" "${pkg_ctxusb}"
    do
+      [ -s "${package}" ] || continue
       LANG=C file "${package}" | grep -q 'Debian binary package' || continue
 
       pkg_basename=$(echo ${package} | cut -f 1 -d '_')
