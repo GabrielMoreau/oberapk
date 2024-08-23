@@ -10,7 +10,7 @@
 export PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin
 export LANG=C
 
-VERSION='0.5.40'
+VERSION='0.5.41'
 
 # Global variables
 export CONF_FILE=/etc/oberapk/oberapk.conf
@@ -350,8 +350,8 @@ which are managed by Oberapk.
 
 =head2 pushed
 
-The `pushed` command lists all versions of the packages in this packaging
-that are already in the Reprepro package manager.
+The `pushed` command lists all versions of the packages in this
+packaging that are already in the Reprepro package manager.
 These are the packages that are in practice available to end users
 
  oberapk pushed pkg
@@ -365,7 +365,9 @@ In a normal life, you do not need to use this command.
 
  oberapk remove pkg | bash
 
-For security, you have to pipe bash the output to really remove the package.
+For security reasons, the command does not take any direct action.
+You have to pipe to bash the output of the command to really remove the
+package from the Reprepro package manager.
 
 =head2 source
 
