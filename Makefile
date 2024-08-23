@@ -5,24 +5,26 @@ VERSION:=$(shell grep '^VERSION=' $(SOFT) | cut -f 2 -d "'")
 PATCH:=$(shell grep '^PKG_VERSION=' make-package-debian | cut -f 2 -d '=')
 
 
-.PHONY: all help pkg version pages clean check-depends check-metadata list
+.PHONY: all help man pkg version pages clean check-depends check-metadata list
 .ONESHELL:
 
-all: $(SOFT).1.gz $(SOFT).html
+all: man pkg
 
 clean:
 	@rm -rf public $(SOFT).1.gz $(SOFT).html pod2htmd.tmp
 
 %.1.gz: $(SOFT) Makefile
-	@pod2man $(SOFT) | gzip > $@
+	@pod2man $< | gzip > $@
 
-%.html: $(SOFT) Makefile
-	@pod2html --css podstyle.css --index --header $(SOFT) > $@
+%.html: $(SOFT) Makefile podstyle.css
+	@pod2html --css podstyle.css --index --header $< > $@
 
-pkg: all Makefile make-package-debian oberapk
+man: $(SOFT).1.gz $(SOFT).html
+
+pkg: $(SOFT) Makefile make-package-debian
 	@./make-package-debian
 
-pages: pkg Makefile
+pages: pkg $(SOFT).html Makefile
 	@mkdir -p public/download
 	@cp -p *.html       public/
 	@cp -p podstyle.css public/

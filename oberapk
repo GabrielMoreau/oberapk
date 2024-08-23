@@ -10,7 +10,7 @@
 export PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin
 export LANG=C
 
-VERSION='0.5.39'
+VERSION='0.5.40'
 
 # Global variables
 export CONF_FILE=/etc/oberapk/oberapk.conf
@@ -57,15 +57,17 @@ NAME
  oberapk - generate package
 
 SYNOPSIS
- oberapk help
  oberapk avail
  oberapk list
  oberapk kit
  oberapk update pkg
  oberapk upgrade kit
  oberapk pushed pkg
+ oberapk remove pkg
  oberapk source pkg
  oberapk binaries
+ oberapk version
+ oberapk help
 
 AUTHOR
  Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
