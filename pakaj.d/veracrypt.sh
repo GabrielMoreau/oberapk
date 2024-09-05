@@ -52,20 +52,21 @@ function oberpakaj_veracrypt {
             rm -rf ${tmp_folder}
             
             # Upload
-            [ -s "$HOME/upload/veracrypt/${dist}/timestamp.sig" ] || continue
-            package=$(grep "^${pkg}_" "$HOME/upload/veracrypt/${dist}/timestamp.sig" | tail -1)
-            if LANG=C file "${package}" 2> /dev/null | grep -q 'Debian binary package'
-            then
-              # Upload package
-               ( cd ${REPREPRO} ; reprepro dumpreferences ) 2> /dev/null | grep -q "^${dist}|.*/${package}" || \
-                  ( cd ${REPREPRO} ; reprepro includedeb ${dist} $HOME/upload/veracrypt/${dist}/${package} )
-               ( cd ${REPREPRO} ; reprepro dumpreferences ) 2> /dev/null | grep "^${dist}|.*/${package}"
+            if [ -s "$HOME/upload/veracrypt/${dist}/timestamp.sig" ]
+               package=$(grep "^${pkg}_" "$HOME/upload/veracrypt/${dist}/timestamp.sig" | tail -1)
+               if LANG=C file "$HOME/upload/veracrypt/${dist}/${package}" 2> /dev/null | grep -q 'Debian binary package'
+               then
+                 # Upload package
+                  ( cd ${REPREPRO} ; reprepro dumpreferences ) 2> /dev/null | grep -q "^${dist}|.*/${package}" || \
+                     ( cd ${REPREPRO} ; reprepro includedeb ${dist} $HOME/upload/veracrypt/${dist}/${package} )
+                  ( cd ${REPREPRO} ; reprepro dumpreferences ) 2> /dev/null | grep "^${dist}|.*/${package}"
+               fi
             fi
 
             # Clean old package - keep last 4 (put 4+1=5)
             [ -d "$HOME/upload/veracrypt/${dist}" ] && (cd "$HOME/upload/veracrypt/${dist}"
                ls -t ${pkg}-[123456789]*.deb | tail -n +$((${keep} + 1)) | xargs -r rm -f
-               ls -t ${pkg}_*.deb | tail -n +$((${keep} + 1)) | xargs -r rm -f
+               ls -t ${pkg}_*.deb            | tail -n +$((${keep} + 1)) | xargs -r rm -f
                )
           done
       done
