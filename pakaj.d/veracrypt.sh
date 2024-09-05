@@ -53,6 +53,7 @@ function oberpakaj_veracrypt {
             
             # Upload
             if [ -s "$HOME/upload/veracrypt/${dist}/timestamp.sig" ]
+            then
                package=$(grep "^${pkg}_" "$HOME/upload/veracrypt/${dist}/timestamp.sig" | tail -1)
                if LANG=C file "$HOME/upload/veracrypt/${dist}/${package}" 2> /dev/null | grep -q 'Debian binary package'
                then
