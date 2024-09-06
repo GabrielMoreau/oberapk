@@ -1,16 +1,17 @@
 #!/bin/bash
 #
-# 2022/06/24 Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
+# Script: make-soft-anyconnect5.sh
+#
+# 2024/09/06 Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
 
-# Install AnyConnect
+# Install Cisco Secure Client (AnyConnect VPN) version 5
 # Go on https://vpn.grenet.fr/+CSCOE+/logon.html
-# Get script cisco-secure-client-linux64-5.1.5.65-core-vpn-webdeploy-k9.sh or newer
+# Get script cisco-secure-client-linux64-5.1.5.65-core-vpn-webdeploy-k9.sh
 # Run it on a computer as root
 # Install log are in /opt/cisco/secureclient/cisco-secure-client-linux64-*-core-vpn-webdeploy-k9-12373306092024.log
 # find /etc /usr -name '*secure*client*' -o -name '*anyconnect*'
 # find /opt/cisco/ -name vpnui 
-# Uninstall AnyConnect
-# /opt/cisco/anyconnect/bin/anyconnect_uninstall.sh && rm -rf /opt/cisco/anyconnect && rmdir /opt/cisco
+# Uninstall Cisco Secure Client (AnyConnect) after running this script
 # /opt/cisco/secureclient/bin/vpn_uninstall.sh && rm -rf /opt/cisco/secureclient /opt/cisco/anyconnect && rmdir /opt/cisco
 
 if [ ! -e "/opt/cisco/secureclient/update.txt" ]
@@ -33,8 +34,6 @@ rsync -a --exclude 'temp' /opt/cisco  ./opt/
 rsync -a /opt/.cisco ./opt/
 rsync -a /etc/systemd/system/vpnagentd.service ./etc/systemd/system/
 
-rm -f ./opt/cisco/anyconnect/anyconnect-*.log
-rm -f ./opt/cisco/anyconnect/bin/*_uninstall.sh
 rm -f ./opt/cisco/secureclient/anyconnect-*.log
 rm -f ./opt/cisco/secureclient/bin/*_uninstall.sh
 
@@ -107,9 +106,10 @@ Architecture: amd64
 Depends: systemd | systemctl,libsystemd0,libstdc++6,libglib2.0-0,libxext6,${depends}
 Recommends: gtk-update-icon-cache
 Description: Cisco Secure Client, Mobility AnyConnect VPN
- The Cisco AnyConnect Secure Mobility Client enables remote workers to
- easily and securely access your network from anywhere, anytime, on any
- device, while protecting your business.
+ The Cisco Secure Client enables remote workers to easily and securely
+ access your network from anywhere, anytime, on any device, while
+ protecting your business.
+ The old name was AnyConnect Secure Mobility Client.
 Homepage: https://www.cisco.com/c/en/us/support/security/secure-client-5/model.html
 END
 
@@ -132,5 +132,5 @@ echo '(cd ${REPO} ; reprepro includedeb bullseye $HOME/bookworm/'"${package})"
 echo '(cd ${REPO} ; reprepro dumpreferences ) | grep anyconnect'
 echo '# (cd ${REPO} ; reprepro remove bookworm anyconnect )'
 echo ''
-echo '# Clean temp build folder'
+echo '# Clean the temporary build folder'
 echo "rm -rf ${tmp_folder}"

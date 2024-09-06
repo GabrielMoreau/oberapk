@@ -1,5 +1,7 @@
 #!/bin/bash
 #
+# Script: make-soft-xflr5.sh
+#
 # 2021/10/21 Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
 #
 ## See-Also: http://www.xflr5.tech/xflr5.htm

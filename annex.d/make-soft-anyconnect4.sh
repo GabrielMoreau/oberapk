@@ -1,14 +1,16 @@
 #!/bin/bash
 #
+# Script: make-soft-anyconnect4.sh
+#
 # 2022/06/24 Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
 
-# Install AnyConnect
+# Install Cisco AnyConnect version 4
 # Go on https://vpn.grenet.fr/+CSCOE+/logon.html
 # Get script anyconnect-linux64-4.7.04056-core-vpn-webdeploy-k9.sh or newer
 # Run it on a computer as root
 # Install log are in /opt/cisco/anyconnect/anyconnect-linux64-*-core-vpn-webdeploy-k9-*.log
 # find /etc /usr -name '*anyconnect*'
-# Uninstall AnyConnect
+# Uninstall AnyConnect after running this script
 # /opt/cisco/anyconnect/bin/anyconnect_uninstall.sh && rm -rf /opt/cisco/anyconnect && rmdir /opt/cisco
 
 if [ ! -e "/opt/cisco/anyconnect/update.txt" ]
@@ -126,3 +128,6 @@ echo 'export REPO=/var/www/debian/'
 echo '(cd ${REPO} ; reprepro includedeb bullseye $HOME/bullseye/'"${package})"
 echo '(cd ${REPO} ; reprepro dumpreferences ) | grep anyconnect'
 echo '# (cd ${REPO} ; reprepro remove bullseye anyconnect )'
+echo ''
+echo '# Clean the temporary build folder'
+echo "rm -rf ${tmp_folder}"
