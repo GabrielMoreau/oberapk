@@ -72,6 +72,12 @@ A set of recipes to apply will be called `kit`.
  | pakaj  | emballage | packaging |
  | stroll | ensemble  | kit       |
 
+Some programs may be difficult to automate: impossible to download from
+the Internet, complex compilation, etc. This is outside oberapk's weekly
+scope. However, recipes are given in the [annex.d](./annex.d) files for
+scripts to help build this type of package. Perhaps one day automation
+will be possible and carried out if it proves useful and necessary.
+
 ## Packaging list
 
 This list is updated manually from time to time.
