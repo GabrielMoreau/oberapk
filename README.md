@@ -76,7 +76,7 @@ A set of recipes to apply will be called `kit`.
 
 This list is updated manually from time to time.
 An always up to date list is to look at the files available
-in the folder [pakaj.d](pakaj.d/)
+in the folder [pakaj.d](pakaj.d/):
 
 [apptainer](https://github.com/apptainer/apptainer) [apptainer apptainer-suid],
 [atom](https://github.com/atom/atom),
@@ -106,6 +106,7 @@ in the folder [pakaj.d](pakaj.d/)
 [netdata](https://github.com/netdata/netdata),
 [nodejs](https://stackoverflow.com/questions/48943416/bash-npm-command-not-found-in-debian-9-3),
 [oberapk](https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/oberapk),
+[openfoam](https://openfoam.com) [openfoam openfoam-common openfoam-default openfoam-dev openfoam-source openfoam-tools openfoam-tutorials],
 [opensnitch](https://github.com/evilsocket/opensnitch/) [opensnitch python3-opensnitch-ui],
 [powershell](https://microsoft.com/powershell),
 [project-meta](https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/project-meta),
@@ -123,6 +124,7 @@ in the folder [pakaj.d](pakaj.d/)
 [teamviewer](https://www.teamviewer.com/),
 [tixeoclient](https://www.tixeo.com/),
 [tssh](https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/tssh),
+[veracrypt](https://www.veracrypt.fr/) [veracrypt veracrypt-console],
 [virtualbox](https://www.virtualbox.org/wiki/Linux_Downloads),
 [vscode](https://github.com/microsoft/vscode) [code code-insiders],
 [vscodium](https://github.com/VSCodium/vscodium) [codium],
