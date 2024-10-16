@@ -3,7 +3,7 @@
 ## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
 ## See-Also: https://github.com/rgburke/grv
 ## Description: Git Repository Viewer is a terminal based interface for viewing Git repositories
-## Binaries: ls tail xargs reprepro grep mkdir wget sed head basename cut mktemp cp chmod cp tar ar cat 
+## Binaries: ls tail xargs reprepro grep mkdir wget sed head basename cut mktemp cp chmod cp tar ar cat curl
 
 function oberpakaj_grv {
    local keep=$1; shift
@@ -11,11 +11,11 @@ function oberpakaj_grv {
 
    mkdir -p "$HOME/upload/grv"
    cd "$HOME/upload/grv"
-   if wget https://github.com/rgburke/grv -O index.html
+   if curl -s -o 'index.html' -L 'https://github.com/rgburke/grv'
    then
       if [ -e "index.html" ]
       then
-         url=$(grep 'wget -O grv' index.html | sed -e 's/.*\(https:\)/\1/;')
+         url=$(grep 'wget -O grv' index.html | sed -e 's/.*\(https:\)/\1/;' | grep 'grv_.*linux64' | head -1)
          binary=$(basename $(echo ${url}))
          version=$(echo ${binary} | cut -f 2 -d '_' | sed -e 's/^v//;')
 
@@ -29,7 +29,7 @@ function oberpakaj_grv {
          if [ \( -n "${binary}" -a ! -e "${binary}" \) -o \( -n "${package}" -a ! -e "${package}" \) ]
          then
             rm -f "${binary}" "${package}"
-            if wget ${url}
+            if curl -o "${binary}" -L "${url}"
             then
                tmp_folder=$(mktemp --directory /tmp/grv-XXXXXX)
                [ -n "${tmp_folder}" -a -d "${tmp_folder}" ] || exit 1
