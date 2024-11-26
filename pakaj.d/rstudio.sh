@@ -38,8 +38,8 @@ function oberpakaj_rstudio {
             then
                ar -x "$HOME/upload/rstudio/${dist}/${pkgfile}"
                tar -xzf control.tar.gz
-               VERSION=$(grep '^Version: ' control | cut -f 2 -d ' ')".${DEBVERSION}"
-               sed -i -e "s/\(Version: .*\)/\1-${VERSION}/; s|^$|Homepage: https://posit.co/products/open-source/rstudio/\n|;" control
+               VERSION=$(grep '^Version: ' control | cut -f 2 -d ' ')"-${DEBVERSION}"
+               sed -i -e "s/\(Version: \).*/\1${VERSION}/; s|^$|Homepage: https://posit.co/products/open-source/rstudio/\n|;" control
                tar --owner root --group root -czf control.tar.gz control md5sums postinst postrm
 
                if ! grep -q "${pkg}_${VERSION}_amd64.deb" "$HOME/upload/rstudio/${dist}/timestamp.sig"

@@ -36,8 +36,8 @@ function oberpakaj_veracrypt {
                then
                   ar -x "$HOME/upload/veracrypt/${dist}/${pkgfile}"
                   tar -xzf control.tar.gz
-                  VERSION=$(grep '^Version: ' control | cut -f 2 -d ' ')".${DEBVERSION}"
-                  sed -i -e "s/\(Version: .*\)/\1-${VERSION}/; s|^$|Homepage: https://www.veracrypt.fr/en/Home.html\n|;" control
+                  VERSION=$(grep '^Version: ' control | cut -f 2 -d ' ')"-${DEBVERSION}"
+                  sed -i -e "s/\(Version: \).*/\1${VERSION}/; s|^$|Homepage: https://www.veracrypt.fr/en/Home.html\n|;" control
                   tar --owner root --group root -czf control.tar.gz control md5sums prerm
 
                   if ! grep -q "${pkg}_${VERSION}_amd64.deb" "$HOME/upload/veracrypt/${dist}/timestamp.sig"
