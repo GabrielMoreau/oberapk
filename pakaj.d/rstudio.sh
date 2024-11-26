@@ -40,17 +40,17 @@ function oberpakaj_rstudio {
                tar -xzf control.tar.gz
                VERSION=$(grep '^Version: ' control | cut -f 2 -d ' ')".${DEBVERSION}"
                sed -i -e "s/\(Version: .*\)/\1-${VERSION}/; s|^$|Homepage: https://posit.co/products/open-source/rstudio/\n|;" control
-               tar --owner root --group root -czf control.tar.gz control md5sums prerm
+               tar --owner root --group root -czf control.tar.gz control md5sums postinst postrm
 
                if ! grep -q "${pkg}_${VERSION}_amd64.deb" "$HOME/upload/rstudio/${dist}/timestamp.sig"
                then
-                  ar -r "$HOME/upload/rstudio/${dist}/${pkg}_${VERSION}_amd64.deb" ${tmp_folder}/debian-binary ${tmp_folder}/control.tar.gz ${tmp_folder}/data.tar.xz ${tmp_folder}/md5sums ${tmp_folder}/postinst ${tmp_folder}/postrm \
+                  ar -r "$HOME/upload/rstudio/${dist}/${pkg}_${VERSION}_amd64.deb" ${tmp_folder}/debian-binary ${tmp_folder}/control.tar.gz ${tmp_folder}/data.tar.xz \
                      && echo "${pkg}_${VERSION}_amd64.deb" >> "$HOME/upload/rstudio/${dist}/timestamp.sig"
                fi
             fi
             )
          # Clean
-         rm -rf ${tmp_folder}
+         #rm -rf ${tmp_folder}
 
          # Upload
          if [ -s "$HOME/upload/rstudio/${dist}/timestamp.sig" ]
