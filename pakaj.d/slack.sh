@@ -44,7 +44,7 @@ function oberpakaj_slack {
             )
 
          # Clean
-         # rm -rf ${tmp_folder}
+         rm -rf ${tmp_folder}
       fi
    fi
 
