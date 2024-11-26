@@ -50,7 +50,7 @@ function oberpakaj_rstudio {
             fi
             )
          # Clean
-         #rm -rf ${tmp_folder}
+         rm -rf ${tmp_folder}
 
          # Upload
          if [ -s "$HOME/upload/rstudio/${dist}/timestamp.sig" ]
