@@ -132,6 +132,7 @@ in the folder [pakaj.d](pakaj.d/):
 [teamviewer](https://www.teamviewer.com/),
 [tixeoclient](https://www.tixeo.com/),
 [tssh](https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/tssh),
+[udsclient3](http://www.udsenterprise.com),
 [veracrypt](https://www.veracrypt.fr/) [veracrypt veracrypt-console],
 [virtualbox](https://www.virtualbox.org/wiki/Linux_Downloads),
 [vscode](https://github.com/microsoft/vscode) [code code-insiders],
