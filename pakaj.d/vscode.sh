@@ -5,7 +5,7 @@
 ## See-Also: https://github.com/microsoft/vscode
 ## Wikipedia: https://en.wikipedia.org/wiki/Visual_Studio_Code
 ## Description: Visual Studio Code is a source-code editor
-## Binaries: ls tail xargs rm reprepro grep mkdir wget head awk ar tar sed cat rm mktemp
+## Binaries: ls tail xargs rm reprepro grep mkdir wget sort awk ar tar sed cat rm mktemp
 
 function oberpakaj_vscode {
    local keep=$1; shift
@@ -21,8 +21,8 @@ function oberpakaj_vscode {
    then
       if [ -e "Packages.gz" ]
       then
-         codeonly=$(zgrep ^Filename Packages.gz | grep '/code/' | head -1 | awk '{print $2}')
-         codeinsiders=$(zgrep ^Filename Packages.gz | grep '/code-insiders/' | head -1 | awk '{print $2}')
+         codeonly=$(zgrep ^Filename Packages.gz | grep '/code/' | sort -V | tail -1 | awk '{print $2}')
+         codeinsiders=$(zgrep ^Filename Packages.gz | grep '/code-insiders/' | sort -V | tail -1 | awk '{print $2}')
 
          wget --timestamping "https://packages.microsoft.com/repos/vscode/${codeonly}"
          wget --timestamping "https://packages.microsoft.com/repos/vscode/${codeinsiders}"
