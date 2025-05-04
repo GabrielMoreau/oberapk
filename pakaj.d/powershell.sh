@@ -27,12 +27,9 @@ function oberpakaj_powershell {
             if [ -s "${package}" ]
             then
                # Upload package
-               for dist in ${distrib}
-               do
-                  ( cd ${REPREPRO} ; reprepro dumpreferences ) 2> /dev/null | grep -q "^${dist}|.*/${package}" || \
-                     ( cd ${REPREPRO} ; reprepro includedeb ${dist} $HOME/upload/powershell/${dist}/${package} )
-                  ( cd ${REPREPRO} ; reprepro dumpreferences ) 2> /dev/null | grep "^${dist}|.*/${package}"
-               done
+               ( cd ${REPREPRO} ; reprepro dumpreferences ) 2> /dev/null | grep -q "^${dist}|.*/${package}" || \
+                  ( cd ${REPREPRO} ; reprepro includedeb ${dist} $HOME/upload/powershell/${dist}/${package} )
+               ( cd ${REPREPRO} ; reprepro dumpreferences ) 2> /dev/null | grep "^${dist}|.*/${package}"
             fi
          fi
       fi
