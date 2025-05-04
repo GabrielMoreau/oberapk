@@ -41,7 +41,7 @@ function oberpakaj_powershell {
    for dist in ${distrib}
    do
       # Clean old package - kept last 4 (put 4+1=5)
-      cd "$HOME/upload/powershell"
+      cd "$HOME/upload/powershell/${dist}"
       ls -t powershell_*.deb | tail -n +$((${keep} + 1)) | xargs -r rm -f
    done
    }
