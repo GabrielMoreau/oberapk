@@ -12,15 +12,16 @@
       name=$(basename ${pakaj/.sh})
       website=$(grep '^##[[:space:]]See-Also' ${pakaj} | cut -f 3 -d ' ')
       pkg_list=$(grep '^## Package: ' ${pakaj} | cut -f 3- -d ' ')
+      obsolete=$(grep '^## Obsolete: ' ${pakaj} | cut -f 3- -d ' ' | sed -e 's/^\(.*\)/ (obsolete since \1)/;')
       if [ -n "${pkg_list}" ]
       then
         pkg_list=' ['${pkg_list}']'
       fi
       if [ -z "${website}" ]
       then
-         echo -n "${name}${pkg_list}"
+         echo -n "${name}${pkg_list}${obsolete}"
       else
-         echo -n "[${name}](${website})${pkg_list}"
+         echo -n "[${name}](${website})${pkg_list}${obsolete}"
       fi
    done < <(ls -1 pakaj.d/*.sh)
 
