@@ -5,6 +5,7 @@
 ## See-Also: https://www.skype.com/
 ## Wikipedia: https://en.wikipedia.org/wiki/Skype
 ## Description: Skype is a proprietary telecommunications application for VoIP-based videotelephony, videoconferencing and voice calls
+## Obsolete: 2025/05
 ## Binaries: ls tail xargs rm reprepro grep mkdir wget ar tar awk basename sed mktemp cat file
 
 function oberpakaj_skype {
