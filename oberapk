@@ -10,7 +10,7 @@
 export PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin
 export LANG=C
 
-VERSION='0.5.66'
+VERSION='0.5.67'
 
 # Global variables
 export CONF_FILE=/etc/oberapk/oberapk.conf
@@ -179,6 +179,7 @@ function cmd_source () {
    echo "# eval this result"
    echo "export REPREPRO='${REPREPRO}';"
    echo "source ${PAKAJ_FOLDER}/${pakaj}.sh;"
+   echo "# oberpakaj_${pakaj} keep distrib;"
    }
 
 ################################################################
