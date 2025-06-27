@@ -218,6 +218,7 @@ oberapk kit
 oberapk update pkg
 oberapk upgrade kit
 oberapk pushed pkg
+oberapk remove pkg | bash
 oberapk source pkg
 oberapk binaries
 oberapk version
@@ -234,19 +235,36 @@ oberapk version
 
 * The `update` command is used to start a recipe, and thus ultimately
   to update the packages that this packaging manages.
+  The `pkg` packaging must be defined in your configuration file.
 
 * The `upgrade` command allows to apply all the packaging defined
   by a `kit`.
-  If a kit `all` exists on your installation, then you can update
-  with a single command the software of your local repository
+  If a kit with the name `all` exists on your installation, then you can
+  update with a single command the software of your local repository
   which are managed by Oberapk.
+  The `kit` must be defined in your configuration file.
 
 * The `pushed` command lists all versions of the packages in this
   packaging that are already in the Reprepro package manager.
   These are the packages that are in practice available to end users
+  The `pkg` packaging must be defined in your configuration file.
 
-* The `source` command is for developers. It allows to test a new recipe.
+* The `remove` command remove the last version of the package in the
+  Reprepro package manager.
+  It is then possible to push it again via the `update` command.
+  In a normal life, you do not need to use this command.
+  The `pkg` packaging must be defined in your configuration file.
+
+  For security reasons, the command does not take any direct action.
+  You have to pipe to bash the output of the command to really remove the
+  package from the Reprepro package manager.
+
+* The `source` command is for developers.
+  It allows to test a new recipe.
   It allows to set the global variables useful for the bash function. 
+  The `pkg` here is a packaging defined in the oberpak distribution
+  (see the `avail` command).
+  It is not only a packaging declared in your configuration file.
 
 * The `binaries` command is for developers.
   It allows to list all the commands that have been used
@@ -254,7 +272,7 @@ oberapk version
   It is preferable if possible to restrict yourself to these commands
   in order not to add any additional dependency to Oberapk. 
 
-### Configuration file
+### Configuration files
 
 There are two configuration files.
 They can be under `/etc/oberapk` folder or under `$HOME/.local/oberapk`.
