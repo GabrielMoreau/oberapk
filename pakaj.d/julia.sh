@@ -43,7 +43,7 @@ function oberpakaj_julia {
 
             # Data archive
             rm -f data.tar.gz
-            tar --owner root --group root -czf data.tar.gz ./opt
+            tar --owner root --group root -czf data.tar.xz ./opt
 
             cat << 'END' > postinst
 #!/bin/bash
@@ -91,7 +91,7 @@ END
 
             # Control archive
             rm -f control.tar.gz
-            tar --owner root --group root -cJf control.tar.xz control postinst prerm
+            tar --owner root --group root -cJf control.tar.gz control postinst prerm
 
             # Format deb package
             echo 2.0 > debian-binary
