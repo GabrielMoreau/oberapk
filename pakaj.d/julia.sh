@@ -19,7 +19,7 @@ function oberpakaj_julia {
    url=$(curl -sL 'https://julialang.org/downloads/' | grep -A 1000 '(LTS)' | sed -s 's/"/\n/g;' | grep '^https://.*/linux/x64/.*/julia-.*x86_64.tar.gz$' | head -1)
    version=$(basename "${url}" | cut -f 2 -d '-')
    archive=$(basename "${url}")
-   PKG_VERSION=1
+   PKG_VERSION=2
    PKG_NAME=julia-lts
    package=${PKG_NAME}_${version}-${PKG_VERSION}_amd64.deb
 
@@ -91,17 +91,17 @@ END
 
             # Control archive
             rm -f control.tar.gz
-            tar --owner root --group root -czf control.tar.gz control postinst prerm
+            tar --owner root --group root -cJf control.tar.xz control postinst prerm
 
             # Format deb package
             echo 2.0 > debian-binary
 
             # Create package (control before data)
-            ar -r "$HOME/upload/julia/${package}" debian-binary control.tar.gz data.tar.gz
+            ar -r "$HOME/upload/julia/${package}" debian-binary control.tar.gz data.tar.xz
          fi
       )
       # Clean
-      #rm -rf ${tmp_folder}
+      rm -rf ${tmp_folder}
    fi
 
    if [ -s "${package}" ] && file "${package}" | grep -q 'Debian binary package'
