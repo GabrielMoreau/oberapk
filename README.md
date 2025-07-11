@@ -106,6 +106,7 @@ in the folder [pakaj.d](pakaj.d/):
 [ht3ctl](https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/ht3ctl),
 [icaclient](https://www.citrix.com/) [icaclient ctxusb],
 [jitsi](https://desktop.jitsi.org/) [jitsi],
+[julia](https://julialang.org) [julia-lts],
 [kannad](https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/kannad),
 [klask](https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/klask),
 [kopia](https://github.com/kopia/kopia) [kopia kopia-ui],
