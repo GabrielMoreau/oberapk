@@ -5,6 +5,8 @@
 #
 ## Binaries: grep basename cut ls
 
+prev_letter=''
+
 (
    while read pakaj
    do
@@ -26,4 +28,15 @@
    done < <(ls -1 pakaj.d/*.sh)
 
    echo "."
-   ) | grep -v '^,$'
+   ) | grep -v '^,$' | while IFS= read -r soft
+do
+   current_letter=$(echo "${soft}" | cut -c2 | tr '[:upper:]' '[:lower:]')
+
+   if [[ "${current_letter}" != "${prev_letter}" ]]
+   then
+      echo "* ${soft}"
+      prev_letter="${current_letter}"
+   else
+      echo "  ${soft}"
+   fi
+done
