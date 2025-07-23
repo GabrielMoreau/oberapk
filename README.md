@@ -84,71 +84,71 @@ This list is updated manually from time to time.
 An always up to date list is to look at the files available
 in the folder [pakaj.d](pakaj.d/):
 
-* [apptainer](https://github.com/apptainer/apptainer) [apptainer apptainer-suid],
-  [atom](https://github.com/atom/atom),
-* [backuppc-silzigan](https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/backuppc-silizan),
-  [bidiez](https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/bidiez),
-* [certcheck](https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/certcheck),
-  [chrome](https://www.google.com/chrome/),
-* [ddt](https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/ddt),
-  [discord](https://discord.com/),
-  [drawio](https://app.diagrams.net/),
-* [eduvpn](https://www.eduvpn.org) [eduvpn-client eduvpn-client-data libeduvpn-common libeduvpn-common-dbgsym python3-eduvpn-client python3-eduvpn-common],
-  [espanso](https://espanso.org),
-* [ferdium](https://ferdium.org/),
-  [firefox-latest](https://www.mozilla.org/),
-  [firefox](https://www.mozilla.org/) [firefox firefox-l10n-fr],
-  [freskein](https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/freskein),
-  [f-secure](https://www.withsecure.com/en/support/product-support/business-suite/policy-manager) [f-secure-policy-manager-console f-secure-policy-manager-proxy f-secure-policy-manager-server],
-* [ganttproject](https://github.com/bardsoftware/ganttproject),
-  [gestex-ng](https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/gestex),
-  [gestex](https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/gestex),
-  [grv](https://github.com/rgburke/grv),
-* [ht3ctl](https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/ht3ctl),
-* [icaclient](https://www.citrix.com/) [icaclient ctxusb],
-* [jitsi](https://desktop.jitsi.org/) [jitsi],
-  [julia](https://julialang.org) [julia-lts],
-* [kannad](https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/kannad),
-  [klask](https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/klask),
-  [kopia](https://github.com/kopia/kopia) [kopia kopia-ui],
-* [libpng12](http://libpng.org/pub/png/libpng.html) [libpng12-1],
-* [masterpdf](https://code-industry.net/free-pdf-editor/),
-  [modular](https://www.modular.com/),
-* [nagios-velvice](https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/nagios-velvice),
-  [netdata](https://github.com/netdata/netdata),
-  [nodejs](https://stackoverflow.com/questions/48943416/bash-npm-command-not-found-in-debian-9-3),
-* [oberapk](https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/oberapk),
-  [onlyoffice](https://www.onlyoffice.com/desktop.aspx) [onlyoffice-desktopeditors],
-  [openfoam](https://openfoam.com) [openfoam openfoam-common openfoam-default openfoam-dev openfoam-source openfoam-tools openfoam-tutorials],
-  [opensnitch](https://github.com/evilsocket/opensnitch/) [opensnitch python3-opensnitch-ui],
-* [powershell](https://microsoft.com/powershell),
-  [project-meta](https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/project-meta),
-  [protonmail](https://proton.me) [protonmail-bridge],
-* [qgis](http://qgis.org/) [libqgis python-qgis python3-qgis qgis],
-  [quarto](https://github.com/quarto-dev/quarto-cli),
-* [reaction](https://framagit.org/ppom),
-  [rstudio](https://www.rstudio.com/),
-* [signal](https://signal.org/) [signal-desktop],
-  [skype](https://www.skype.com/) [skypeforlinux] (obsolete since 2025/05),
-  [slack](https://slack.com/intl/fr-fr/downloads/linux) [slack-desktop],
-  [spideroak](https://spideroak.com/) [spideroakone],
-* [tabby](https://tabby.sh/) [tabby-terminal],
-  [teams](https://teams.com/),
-  [teamviewer](https://www.teamviewer.com/),
-  [tixeoclient](https://www.tixeo.com/),
-  [tssh](https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/tssh),
-* [udsclient3](http://www.udsenterprise.com),
-* [veracrypt](https://www.veracrypt.fr/) [veracrypt veracrypt-console],
-  [virtualbox](https://www.virtualbox.org/wiki/Linux_Downloads),
-  [vscode](https://github.com/microsoft/vscode) [code code-insiders],
-  [vscodium](https://github.com/VSCodium/vscodium) [codium],
-* [webex](https://www.webex.com/downloads.html),
-* [xnview](https://www.xnview.com),
-  [xpipe](https://xpipe.io),
-* [yadedaily](https://yade-dem.org/) [yadedaily python3-yadedaily libyadedaily],
-  [yed](https://www.yworks.com/products/yed) [yed-latest],
-  [yq](https://github.com/mikefarah/yq),
-* [zoom](https://zoom.us/),
+* [apptainer](https://github.com/apptainer/apptainer) [apptainer apptainer-suid];
+  [atom](https://github.com/atom/atom);
+* [backuppc-silzigan](https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/backuppc-silizan);
+  [bidiez](https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/bidiez);
+* [certcheck](https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/certcheck);
+  [chrome](https://www.google.com/chrome/);
+* [ddt](https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/ddt);
+  [discord](https://discord.com/);
+  [drawio](https://app.diagrams.net/);
+* [eduvpn](https://www.eduvpn.org) [eduvpn-client eduvpn-client-data libeduvpn-common libeduvpn-common-dbgsym python3-eduvpn-client python3-eduvpn-common];
+  [espanso](https://espanso.org);
+* [ferdium](https://ferdium.org/);
+  [firefox-latest](https://www.mozilla.org/);
+  [firefox](https://www.mozilla.org/) [firefox firefox-l10n-fr];
+  [freskein](https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/freskein);
+  [f-secure](https://www.withsecure.com/en/support/product-support/business-suite/policy-manager) [f-secure-policy-manager-console f-secure-policy-manager-proxy f-secure-policy-manager-server];
+* [ganttproject](https://github.com/bardsoftware/ganttproject);
+  [gestex-ng](https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/gestex);
+  [gestex](https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/gestex);
+  [grv](https://github.com/rgburke/grv);
+* [ht3ctl](https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/ht3ctl);
+* [icaclient](https://www.citrix.com/) [icaclient ctxusb];
+* [jitsi](https://desktop.jitsi.org/) [jitsi];
+  [julia](https://julialang.org) [julia-lts];
+* [kannad](https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/kannad);
+  [klask](https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/klask);
+  [kopia](https://github.com/kopia/kopia) [kopia kopia-ui];
+* [libpng12](http://libpng.org/pub/png/libpng.html) [libpng12-1];
+* [masterpdf](https://code-industry.net/free-pdf-editor/);
+  [modular](https://www.modular.com/);
+* [nagios-velvice](https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/nagios-velvice);
+  [netdata](https://github.com/netdata/netdata);
+  [nodejs](https://stackoverflow.com/questions/48943416/bash-npm-command-not-found-in-debian-9-3);
+* [oberapk](https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/oberapk);
+  [onlyoffice](https://www.onlyoffice.com/desktop.aspx) [onlyoffice-desktopeditors];
+  [openfoam](https://openfoam.com) [openfoam openfoam-common openfoam-default openfoam-dev openfoam-source openfoam-tools openfoam-tutorials];
+  [opensnitch](https://github.com/evilsocket/opensnitch/) [opensnitch python3-opensnitch-ui];
+* [powershell](https://microsoft.com/powershell);
+  [project-meta](https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/project-meta);
+  [protonmail](https://proton.me) [protonmail-bridge];
+* [qgis](http://qgis.org/) [libqgis python-qgis python3-qgis qgis];
+  [quarto](https://github.com/quarto-dev/quarto-cli);
+* [reaction](https://framagit.org/ppom);
+  [rstudio](https://www.rstudio.com/);
+* [signal](https://signal.org/) [signal-desktop];
+  [skype](https://www.skype.com/) [skypeforlinux] (obsolete since 2025/05);
+  [slack](https://slack.com/intl/fr-fr/downloads/linux) [slack-desktop];
+  [spideroak](https://spideroak.com/) [spideroakone];
+* [tabby](https://tabby.sh/) [tabby-terminal];
+  [teams](https://teams.com/);
+  [teamviewer](https://www.teamviewer.com/);
+  [tixeoclient](https://www.tixeo.com/);
+  [tssh](https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/tssh);
+* [udsclient3](http://www.udsenterprise.com);
+* [veracrypt](https://www.veracrypt.fr/) [veracrypt veracrypt-console];
+  [virtualbox](https://www.virtualbox.org/wiki/Linux_Downloads);
+  [vscode](https://github.com/microsoft/vscode) [code code-insiders];
+  [vscodium](https://github.com/VSCodium/vscodium) [codium];
+* [webex](https://www.webex.com/downloads.html);
+* [xnview](https://www.xnview.com);
+  [xpipe](https://xpipe.io);
+* [yadedaily](https://yade-dem.org/) [yadedaily python3-yadedaily libyadedaily];
+  [yed](https://www.yworks.com/products/yed) [yed-latest];
+  [yq](https://github.com/mikefarah/yq);
+* [zoom](https://zoom.us/);
   [zotero](https://www.zotero.org/).
 
 ## Schematic diagram of how it works
