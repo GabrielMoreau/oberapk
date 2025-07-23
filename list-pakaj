@@ -28,15 +28,21 @@ prev_letter=''
    done < <(ls -1 pakaj.d/*.sh)
 
    echo "."
-   ) | grep -v '^,$' | while IFS= read -r soft
-do
-   current_letter=$(echo "${soft}" | cut -c2 | tr '[:upper:]' '[:lower:]')
+) | grep -v '^,$' | (
+   while IFS= read -r soft
+   do
+      current_letter=$(echo "${soft}" | cut -c2 | tr '[:upper:]' '[:lower:]')
 
-   if [[ "${current_letter}" != "${prev_letter}" ]]
-   then
-      echo "* ${soft}"
-      prev_letter="${current_letter}"
-   else
-      echo "  ${soft}"
-   fi
-done | sed -e 's/,$/;/;'
+      if [[ "${current_letter}" != "${prev_letter}" ]]
+      then
+         echo ";"
+         echo -n "* ${soft}"
+         prev_letter="${current_letter}"
+      else
+         echo ''
+         echo -n "  ${soft}"
+      fi
+   done
+
+   echo ''
+) | grep -v '^;$' | sed -e 's/,;$/;/;'
