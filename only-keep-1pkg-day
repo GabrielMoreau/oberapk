@@ -13,7 +13,7 @@ for search in "$@"
 do
 	# Find all files, sort by date
 	# and keep only the most recent for each day
-	find .  -maxdepth 1 -type f -a -name "${search}" -printf "%TY-%Tm-%Td %TT %p\n" | \
+	find .  -maxdepth 1 -type f -a -name "${search/%/*}" -printf "%TY-%Tm-%Td %TT %p\n" | \
 	sort | \
 	perl -ne '
 		BEGIN {
