@@ -4,8 +4,9 @@
 #
 # 2025/02/25 Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
 #
-# Use find command, protect joker with simple quote
+# Use find command, protect joker with simple quote or use % (equivalent for * here)
 # ./only-keep-1pkg-day 'MySoft-*.exe' 'MyPkg-*.zip' | bash
+# ./only-keep-1pkg-day MySoft-%.exe | tee >(cat 1>&2) | bash
 
 export LANG=C
 
@@ -13,7 +14,7 @@ for search in "$@"
 do
 	# Find all files, sort by date
 	# and keep only the most recent for each day
-	find .  -maxdepth 1 -type f -a -name "${search/%/*}" -printf "%TY-%Tm-%Td %TT %p\n" | \
+	find .  -maxdepth 1 -type f -a -name "${search//%/*}" -printf "%TY-%Tm-%Td %TT %p\n" | \
 	sort | \
 	perl -ne '
 		BEGIN {

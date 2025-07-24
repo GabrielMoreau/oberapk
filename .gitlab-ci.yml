@@ -15,9 +15,7 @@ pages:
     - '[ -s download.tar.gz ] && tar -xzf download.tar.gz public/download/ || echo "tar error"'
     - ls -t public/download/oberapk_*.deb 2> /dev/null | tail -n +$((${KEEP_PKG} + 1)) | xargs -r rm -f
     - make pages
-    - (cd public/download; ../../only-keep-1pkg-day 'oberapk_*.deb')
-    - (cd public/download; ../../only-keep-1pkg-day 'oberapk_%.deb')
-    - (cd public/download; ../../only-keep-1pkg-day 'oberapk_*.deb' | bash)
+    - (cd public/download; ../../only-keep-1pkg-day 'oberapk_*.deb' | tee >(cat 1>&2) | bash)
     - tar -czf public/download.tar.gz public/download/
   artifacts:
     paths:
