@@ -5,7 +5,7 @@
 ## Description: DDT is a simple IP Address Management (IPAM) service
 ## Binaries: ls tail xargs rm reprepro grep mkdir git cut make pod2man pod2html mktemp cp ln cat chmod tar ar
 
-function oberpakaj_ocs-webutils {
+function oberpakaj_ocs_webutils {
    local keep=$1; shift
    local distrib=$*
 
