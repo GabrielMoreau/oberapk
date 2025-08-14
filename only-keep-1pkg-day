@@ -5,6 +5,7 @@
 # 2025/02/25 Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
 #
 # Use find command, protect joker with simple quote or use % (equivalent for * here)
+# See find(1) and fnmatch(3)
 # ./only-keep-1pkg-day 'MySoft-*.exe' 'MyPkg-*.zip' | bash
 # ./only-keep-1pkg-day MySoft-%.exe | tee >(cat 1>&2) | bash
 
