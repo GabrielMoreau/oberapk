@@ -10,7 +10,7 @@
 export PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin
 export LANG=C
 
-VERSION='0.5.76'
+VERSION='0.6.1'
 
 # Global variables
 export CONF_FILE=/etc/oberapk/oberapk.conf
@@ -187,15 +187,13 @@ function cmd_source () {
 function cmd_remove () {
    pakaj=$1
 
-   pushed=$(oberapk pushed ${pakaj})
-   version=$(echo "${pushed}" | cut -f 2 -d '_' | sort -V  | tail -1)
-
+   # bookworm|main|amd64 pool/main/p/pkg-name/pkg-name_1.102.0-21567.1_amd64.deb
    while read distcpu pool eol
    do
-      dist=$(echo ${distcpu} | cut -f 1 -d '|')
-      package=$(basename ${pool})
-      echo "( cd ${REPREPRO} ; reprepro remove ${dist} ${pakaj} )"
-   done < <(echo "${pushed}" | grep "/${pakaj}/${pakaj}_${version}_") | sort -u
+      dist=${distcpu%%|*}
+      package=$(basename ${pool%%_*})
+      echo "( cd ${REPREPRO} ; reprepro remove ${dist} ${package} )"
+   done < <(oberapk pushed ${pakaj}) | sort -u
    }
 
 ################################################################
