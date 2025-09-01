@@ -141,7 +141,7 @@ in the folder [pakaj.d](pakaj.d/):
 * [veracrypt](https://www.veracrypt.fr/) [veracrypt veracrypt-console],
   [virtualbox](https://www.virtualbox.org/wiki/Linux_Downloads),
   [vscode](https://github.com/microsoft/vscode) [code code-insiders],
-  [vscodium](https://github.com/VSCodium/vscodium) [codium];
+  [codium](https://github.com/VSCodium/vscodium);
 * [webex](https://www.webex.com/downloads.html);
 * [xnview](https://www.xnview.com),
   [xpipe](https://xpipe.io);
@@ -294,14 +294,14 @@ They can be under `/etc/oberapk` folder or under `$HOME/.local/oberapk`.
 
   ```
   @all: @free @non-free
-  @free: grv vscodium nodejs
+  @free: grv codium nodejs
   @non-free: discord teams teamviewer
   
   @daily: @free teams
   @weekly: teamviewer
   
   grv:4:        bullseye buster stretch
-  vscodium:3:   bullseye buster
+  codium:3:     bullseye buster
   nodejs:3:              buster stretch
   discord:2:             buster
   teams:2:      bullseye buster

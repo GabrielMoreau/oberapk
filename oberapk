@@ -10,7 +10,7 @@
 export PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin
 export LANG=C
 
-VERSION='0.5.75'
+VERSION='0.5.76'
 
 # Global variables
 export CONF_FILE=/etc/oberapk/oberapk.conf
@@ -430,14 +430,14 @@ number of machines.
 Not all cases are taken into account.
 
  @all: @free @non-free
- @free: grv vscodium nodejs
+ @free: grv codium nodejs
  @non-free: discord teams teamviewer
 
  @daily: @free teams
  @weekly: teamviewer
 
  grv:4:        bullseye buster stretch
- vscodium:3:   bullseye buster
+ codium:3:     bullseye buster
  nodejs:3:              buster stretch
  discord:2:             buster
  teams:2:      bullseye buster
