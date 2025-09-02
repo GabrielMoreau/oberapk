@@ -21,7 +21,8 @@ function oberpakaj_xnview {
    wget --quiet --timestamping "${url}"
    LANG=C file ${package_file} | grep -q 'Debian binary package' || return
    after=$(stat -c %Y ${package_file} 2> /dev/null || echo 0)
-   if [ ${after} -gt ${before} ]
+   previous_package="$(cat timestamp.sig)"
+   if [ ${after} -gt ${before} ] || [ ! -s "${previous_package}" ]
    then
       tmp_folder=$(mktemp --directory /tmp/xnview-XXXXXX)
       (cd ${tmp_folder}

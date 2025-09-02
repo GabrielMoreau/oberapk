@@ -17,7 +17,8 @@ function oberpakaj_firefox_latest {
 
    if wget --timestamping "https://download.mozilla.org/?product=firefox-latest&os=linux64&lang=en-US"
    then
-      if [ $(stat -c '%Y' "index.html?product=firefox-latest&os=linux64&lang=en-US") -gt $(stat -c '%Y' "timestamp.sig") ]
+      previous_package="$(cat timestamp.sig)"
+      if [ $(stat -c '%Y' "index.html?product=firefox-latest&os=linux64&lang=en-US") -gt $(stat -c '%Y' "timestamp.sig") ] || [ ! -s "${previous_package}" ]
       then
          rm -rf ./firefox
          tar xjf "$HOME/upload/firefox-latest/index.html?product=firefox-latest&os=linux64&lang=en-US" firefox/application.ini

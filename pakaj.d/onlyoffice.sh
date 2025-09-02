@@ -22,7 +22,8 @@ function oberpakaj_onlyoffice {
    before=$(stat -c %Y ${package_file} 2> /dev/null || echo 0)
    wget --timestamping "${url}"
    after=$(stat -c %Y ${package_file} 2> /dev/null || echo 0)
-   if [ ${after} -gt ${before} ]
+   previous_package="$(cat timestamp.sig)"
+   if [ ${after} -gt ${before} ] || [ ! -s "${previous_package}" ]
    then
       package=$(basename ${url} _amd64.deb)
 
