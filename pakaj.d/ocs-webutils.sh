@@ -1,3 +1,5 @@
+#!/bin/bash
+
 ## Date: 2022/01/27
 ## Pakaj: ocs-webutils
 ## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
@@ -11,13 +13,13 @@ function oberpakaj_ocs_webutils {
 
    if [ ! -d "${HOME}/upload/ocs-webutils" ]
    then
-      cd "${HOME}/upload/"
+      cd "${HOME}/upload/" || return
       git clone https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/ocs-webutils.git
    fi
 
    if [ -d "${HOME}/upload/ocs-webutils/.git" ]
    then
-      cd "${HOME}/upload/ocs-webutils"
+      cd "${HOME}/upload/ocs-webutils" || return
       git pull
 
       PKG_NAME=$(grep '^PKG_NAME=' make-package-debian | cut -f 2 -d "=")
@@ -28,19 +30,23 @@ function oberpakaj_ocs_webutils {
       if [ ! -e "${PKG_NAME}_${CODE_VERSION}-${PKG_VERSION}_all.deb" ]
       then
          ./make-package-debian
-         
-         for dist in ${distrib}
-         do
-           ( cd ${REPREPRO} ; reprepro includedeb ${dist} $HOME/upload/${PKG_NAME}/${package} )
-         done
-         ( cd ${REPREPRO} ; reprepro dumpreferences ) | grep -i "/${PKG_NAME}"
+
+         if [ -s "${package}" ] && file "${package}" | grep -q 'Debian binary package'
+         then
+            for dist in ${distrib}
+            do
+               ( cd "${REPREPRO}" || return ; reprepro dumpreferences )  2> /dev/null | grep -q "^${dist}|.*/${package}" || \
+                  ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" "$HOME/upload/${PKG_NAME}/${package}" )
+            done
+            ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) | grep -i "/${PKG_NAME}"
+         fi
       fi
    fi
 
    # Clean old package - keep last 4 (put 4+1=5)
    if [ -d "${HOME}/upload/ocs-webutils" ]
    then
-      cd "${HOME}/upload/ocs-webutils"
+      cd "${HOME}/upload/ocs-webutils" || return
       ls -t ocs-webutils_*.deb | tail -n +$((${keep} + 1)) | xargs -r rm -f
    fi
    }
