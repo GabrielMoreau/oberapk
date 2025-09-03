@@ -55,6 +55,6 @@ function oberpakaj_ferdium {
    fi
 
    # Clean old package - kept last 4 (put 4+1=5)
-   ls -t ferdium_*.deb | tail -n +$((${keep} + 1)) | xargs -r rm -f
-   ls -t Ferdium-*.deb | tail -n +$((${keep} + 1)) | xargs -r rm -f
+   ls -1t -- ferdium_*.deb 2> /dev/null | tail -n +$((keep+1)) | xargs -r rm -f --
+   ls -1t -- Ferdium-*.deb 2> /dev/null | tail -n +$((keep+1)) | xargs -r rm -f --
    }

@@ -30,7 +30,7 @@ function oberpakaj_eduvpn {
 
          # Clean old package
          basepkg=$(echo "${package}" | cut -f 1 -d '_')
-         ls -t ${basepkg}_*.deb | tail -n +$((${keep} + 1)) | xargs -r rm -f
+         ls -1t -- ${basepkg}_*.deb 2> /dev/null | tail -n +$((keep+1)) | xargs -r rm -f --
       done < <(grep "^Filename: .*eduvpn-[^/]*.deb" Packages 2> /dev/null | cut -f 2 -d ' ' | sort -uR)
    done
    }

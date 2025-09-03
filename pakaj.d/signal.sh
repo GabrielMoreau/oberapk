@@ -35,5 +35,5 @@ function oberpakaj_signal {
 
    # Clean old package - kept last 4 (put 4+1=5)
    cd "$HOME/upload/signal"
-   ls -t signal-desktop_*.deb | tail -n +$((${keep} + 1)) | xargs -r rm -f
+   ls -1t -- signal-desktop_*.deb 2> /dev/null | tail -n +$((keep+1)) | xargs -r rm -f --
    }

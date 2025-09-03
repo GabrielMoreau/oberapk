@@ -40,6 +40,6 @@ function oberpakaj_firefox {
 
    # Clean old package - keep last 4 (put 4+1=5)
    cd "$HOME/upload/firefox"
-   ls -t firefox_*.deb         | tail -n +$((${keep} + 1)) | xargs -r rm -f
-   ls -t firefox-l10n-fr_*.deb | tail -n +$((${keep} + 1)) | xargs -r rm -f
+   ls -1t -- firefox_*.deb         2> /dev/null | tail -n +$((keep+1)) | xargs -r rm -f --
+   ls -1t -- firefox-l10n-fr_*.deb 2> /dev/null | tail -n +$((keep+1)) | xargs -r rm -f --
    }

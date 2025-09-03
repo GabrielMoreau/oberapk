@@ -34,5 +34,5 @@ function oberpakaj_codium {
       fi
    fi
    # Clean old package - kept last 4 (put 4+1=5)
-   ls -t codium_*.deb | tail -n +$((${keep} + 1)) | xargs -r rm -f
+   ls -1t -- codium_*.deb 2> /dev/null | tail -n +$((keep+1)) | xargs -r rm -f --
    }

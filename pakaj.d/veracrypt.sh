@@ -65,8 +65,8 @@ function oberpakaj_veracrypt {
 
             # Clean old package - keep last 4 (put 4+1=5)
             [ -d "$HOME/upload/veracrypt/${dist}" ] && (cd "$HOME/upload/veracrypt/${dist}"
-               ls -t ${pkg}-[123456789]*.deb | tail -n +$((${keep} + 1)) | xargs -r rm -f
-               ls -t ${pkg}_*.deb            | tail -n +$((${keep} + 1)) | xargs -r rm -f
+               ls -1t -- ${pkg}-[123456789]*.deb 2> /dev/null | tail -n +$((keep+1)) | xargs -r rm -f --
+               ls -1t -- ${pkg}_*.deb            2> /dev/null | tail -n +$((keep+1)) | xargs -r rm -f --
                )
           done
       done

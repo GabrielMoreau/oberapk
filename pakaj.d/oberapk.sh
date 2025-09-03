@@ -41,6 +41,6 @@ function oberpakaj_oberapk {
    if [ -d "${HOME}/upload/oberapk" ]
    then
       cd "${HOME}/upload/oberapk"
-      ls -t oberapk_*.deb | tail -n +$((${keep} + 1)) | xargs -r rm -f
+      ls -1t -- oberapk_*.deb 2> /dev/null | tail -n +$((keep+1)) | xargs -r rm -f --
    fi
    }

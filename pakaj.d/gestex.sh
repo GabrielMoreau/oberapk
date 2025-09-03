@@ -43,6 +43,6 @@ function oberpakaj_gestex {
    if [ -d "${HOME}/upload/gestex" ]
    then
       cd "${HOME}/upload/gestex"
-      ls -t gestex_*.deb | tail -n +$((${keep} + 1)) | xargs -r rm -f
+      ls -1t -- gestex_*.deb 2> /dev/null | tail -n +$((keep+1)) | xargs -r rm -f --
    fi
    }

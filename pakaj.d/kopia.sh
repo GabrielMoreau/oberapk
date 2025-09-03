@@ -36,6 +36,6 @@ function oberpakaj_kopia {
    done
 
    # Clean old package - kept last 4 (put 4+1=5)
-   ls -t kopia_*.deb    | tail -n +$((2 * (${keep} + 1))) | xargs -r rm -f
-   ls -t kopia-ui_*.deb | tail -n +$((${keep} + 1))       | xargs -r rm -f
+   ls -1t -- kopia_*.deb    | tail -n +$((2 * (${keep} + 1))) | xargs -r rm -f
+   ls -1t -- kopia-ui_*.deb | tail -n +$((${keep} + 1))       | xargs -r rm -f
    }

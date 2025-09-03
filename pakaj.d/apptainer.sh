@@ -31,6 +31,6 @@ function oberpakaj_apptainer {
    done
 
    # Clean old package - kept last 4 (put 4+1=5)
-   ls -t apptainer_*.deb      | tail -n +$((${keep} + 1)) | xargs -r rm -f
-   ls -t apptainer-suid_*.deb | tail -n +$((${keep} + 1)) | xargs -r rm -f
+   ls -1t -- apptainer_*.deb      2> /dev/null | tail -n +$((keep+1)) | xargs -r rm -f --
+   ls -1t -- apptainer-suid_*.deb 2> /dev/null | tail -n +$((keep+1)) | xargs -r rm -f --
    }

@@ -64,5 +64,5 @@ function oberpakaj_slack {
 
    # Clean old package - kept last 4 (put 4+1=5)
    cd "$HOME/upload/slack/${dist}"
-   ls -t slack-desktop_*.deb | tail -n +$((${keep} + 1)) | xargs -r rm -f
+   ls -1t -- slack-desktop_*.deb 2> /dev/null | tail -n +$((keep+1)) | xargs -r rm -f --
    }

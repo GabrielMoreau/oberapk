@@ -67,8 +67,8 @@ function oberpakaj_rstudio {
 
          # Clean old package - keep last 4 (put 4+1=5)
          [ -d "$HOME/upload/rstudio/${dist}" ] && (cd "$HOME/upload/rstudio/${dist}"
-            ls -t ${pkg}-[123456789]*.deb | tail -n +$((${keep} + 1)) | xargs -r rm -f
-           ls -t ${pkg}_*.deb            | tail -n +$((${keep} + 1)) | xargs -r rm -f
+            ls -1t -- ${pkg}-[123456789]*.deb 2> /dev/null | tail -n +$((keep+1)) | xargs -r rm -f --
+           ls -1t -- ${pkg}_*.deb            2> /dev/null | tail -n +$((keep+1)) | xargs -r rm -f --
             )
       done
    fi

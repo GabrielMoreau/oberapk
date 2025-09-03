@@ -42,6 +42,6 @@ function oberpakaj_kannad {
    if [ -d "${HOME}/upload/kannad" ]
    then
       cd "${HOME}/upload/kannad"
-      ls -t kannad_*.deb | tail -n +$((${keep} + 1)) | xargs -r rm -f
+      ls -1t -- kannad_*.deb 2> /dev/null | tail -n +$((keep+1)) | xargs -r rm -f --
    fi
    }

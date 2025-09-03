@@ -44,6 +44,6 @@ function oberpakaj_opensnitch {
    done
 
    # Clean old package - kept last 4 (put 4+1=5)
-   ls -t opensnitch_*.deb | tail -n +$((${keep} + 1)) | xargs -r rm -f
-   ls -t python3-opensnitch-ui_*.deb | tail -n +$((${keep} + 1)) | xargs -r rm -f
+   ls -1t -- opensnitch_*.deb 2> /dev/null | tail -n +$((keep+1)) | xargs -r rm -f --
+   ls -1t -- python3-opensnitch-ui_*.deb 2> /dev/null | tail -n +$((keep+1)) | xargs -r rm -f --
    }

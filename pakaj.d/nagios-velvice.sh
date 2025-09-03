@@ -42,6 +42,6 @@ function oberpakaj_nagios_velvice {
    if [ -d "${HOME}/upload/nagios-velvice" ]
    then
       cd "${HOME}/upload/nagios-velvice"
-      ls -t nagios3-velvice_*.deb | tail -n +$((${keep} + 1)) | xargs -r rm -f
+      ls -1t -- nagios3-velvice_*.deb 2> /dev/null | tail -n +$((keep+1)) | xargs -r rm -f --
    fi
    }

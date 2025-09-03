@@ -29,5 +29,5 @@ function oberpakaj_tabby {
 
    # Clean old package
    basepkg=$(echo "${package}" | cut -f 1 -d '-')
-   ls -t ${basepkg}-*.deb | tail -n +$((${keep} + 1)) | xargs -r rm -f
+   ls -1t -- ${basepkg}-*.deb 2> /dev/null | tail -n +$((keep+1)) | xargs -r rm -f --
    }

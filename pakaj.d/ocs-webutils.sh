@@ -47,6 +47,6 @@ function oberpakaj_ocs_webutils {
    if [ -d "${HOME}/upload/ocs-webutils" ]
    then
       cd "${HOME}/upload/ocs-webutils" || return
-      ls -t ocs-webutils_*.deb | tail -n +$((${keep} + 1)) | xargs -r rm -f
+      ls -1t -- ocs-webutils_*.deb 2> /dev/null | tail -n +$((keep+1)) | xargs -r rm -f --
    fi
    }

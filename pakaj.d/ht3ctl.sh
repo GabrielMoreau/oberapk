@@ -42,6 +42,6 @@ function oberpakaj_ht3ctl {
    if [ -d "${HOME}/upload/ht3ctl" ]
    then
       cd "${HOME}/upload/ht3ctl"
-      ls -t ht3ctl_*.deb | tail -n +$((${keep} + 1)) | xargs -r rm -f
+      ls -1t -- ht3ctl_*.deb 2> /dev/null | tail -n +$((keep+1)) | xargs -r rm -f --
    fi
    }

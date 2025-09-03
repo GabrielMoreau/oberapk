@@ -49,5 +49,5 @@ function oberpakaj_teams {
       done
    fi
    # Clean old package - kept last 4 (put 4+1=5)
-   ls -t teams_*.deb | tail -n +$((${keep} + 1)) | xargs -r rm -f
+   ls -1t -- teams_*.deb 2> /dev/null | tail -n +$((keep+1)) | xargs -r rm -f --
    }

@@ -42,6 +42,6 @@ function oberpakaj_icaclient {
 
    # Clean old package - kept last 4 (put 4+1=5)
    cd "$HOME/upload/icaclient"
-   ls -t icaclient_*.deb | tail -n +$((${keep} + 1)) | xargs -r rm -f
-   ls -t ctxusb_*.deb    | tail -n +$((${keep} + 1)) | xargs -r rm -f
+   ls -1t -- icaclient_*.deb 2> /dev/null | tail -n +$((keep+1)) | xargs -r rm -f --
+   ls -1t -- ctxusb_*.deb    2> /dev/null | tail -n +$((keep+1)) | xargs -r rm -f --
    }

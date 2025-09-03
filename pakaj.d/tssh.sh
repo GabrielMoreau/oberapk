@@ -42,6 +42,6 @@ function oberpakaj_tssh {
    if [ -d "${HOME}/upload/tssh" ]
    then
       cd "${HOME}/upload/tssh"
-      ls -t tssh_*.deb | tail -n +$((${keep} + 1)) | xargs -r rm -f
+      ls -1t -- tssh_*.deb 2> /dev/null | tail -n +$((keep+1)) | xargs -r rm -f --
    fi
    }

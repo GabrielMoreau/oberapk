@@ -110,6 +110,6 @@ END
       fi
    fi
    # Clean old package - kept last 4 (put 4+1=5)
-   ls -t ${PKG_NAME}_*.deb | tail -n +$((${keep} + 1)) | xargs -r rm -f
-   ls -t yEd-*.zip | tail -n +$((${keep} + 1)) | xargs -r rm -f
+   ls -1t -- ${PKG_NAME}_*.deb 2> /dev/null | tail -n +$((keep+1)) | xargs -r rm -f --
+   ls -1t -- yEd-*.zip 2> /dev/null | tail -n +$((keep+1)) | xargs -r rm -f --
    }

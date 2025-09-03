@@ -43,6 +43,6 @@ function oberpakaj_bidiez {
    if [ -d "${HOME}/upload/bidiez" ]
    then
       cd "${HOME}/upload/bidiez"
-      ls -t bidiez_*.deb | tail -n +$((${keep} + 1)) | xargs -r rm -f
+      ls -1t -- bidiez_*.deb 2> /dev/null | tail -n +$((keep+1)) | xargs -r rm -f --
    fi
    }
