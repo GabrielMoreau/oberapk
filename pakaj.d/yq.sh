@@ -102,9 +102,9 @@ END
          # Upload package
          for dist in ${distrib}
          do
-            ( cd ${REPREPRO} ; reprepro includedeb ${dist} $HOME/upload/yq/${package} )
+            ( cd "${REPREPRO}" || return ; reprepro includedeb ${dist} $HOME/upload/yq/${package} )
          done
-         ( cd ${REPREPRO} ; reprepro dumpreferences ) | grep '/yq'
+         ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) | grep '/yq'
       fi
    fi
 

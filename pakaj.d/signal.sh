@@ -28,9 +28,9 @@ function oberpakaj_signal {
             # Upload package
             for dist in ${distrib}
             do
-               ( cd ${REPREPRO} ; reprepro includedeb ${dist} $HOME/upload/signal/$(basename ${pkg_signal}) )
+               ( cd "${REPREPRO}" || return ; reprepro includedeb ${dist} $HOME/upload/signal/$(basename ${pkg_signal}) )
             done
-            ( cd ${REPREPRO} ; reprepro dumpreferences ) | grep '/signal-desktop'
+            ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) | grep '/signal-desktop'
          fi
       fi
    fi

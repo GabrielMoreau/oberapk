@@ -57,9 +57,9 @@ function oberpakaj_veracrypt {
                if LANG=C file "$HOME/upload/veracrypt/${dist}/${package}" 2> /dev/null | grep -q 'Debian binary package'
                then
                  # Upload package
-                  ( cd ${REPREPRO} ; reprepro dumpreferences ) 2> /dev/null | grep -q "^${dist}|.*/${package}" || \
-                     ( cd ${REPREPRO} ; reprepro includedeb ${dist} $HOME/upload/veracrypt/${dist}/${package} )
-                  ( cd ${REPREPRO} ; reprepro dumpreferences ) 2> /dev/null | grep "^${dist}|.*/${package}"
+                  ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) 2> /dev/null | grep -q "^${dist}|.*/${package}" || \
+                     ( cd "${REPREPRO}" || return ; reprepro includedeb ${dist} $HOME/upload/veracrypt/${dist}/${package} )
+                  ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) 2> /dev/null | grep "^${dist}|.*/${package}"
                fi
             fi
 

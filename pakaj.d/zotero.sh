@@ -104,9 +104,9 @@ END
       # Upload package
       for dist in ${distrib}
       do
-         ( cd ${REPREPRO} ; reprepro dumpreferences ) 2> /dev/null | grep -q "^${dist}|.*/${package}" || \
-            ( cd ${REPREPRO} ; reprepro includedeb ${dist} $HOME/upload/zotero/${package} )
-         ( cd ${REPREPRO} ; reprepro dumpreferences ) 2> /dev/null | grep "^${dist}|.*/zotero"
+         ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) 2> /dev/null | grep -q "^${dist}|.*/${package}" || \
+            ( cd "${REPREPRO}" || return ; reprepro includedeb ${dist} $HOME/upload/zotero/${package} )
+         ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) 2> /dev/null | grep "^${dist}|.*/zotero"
       done
    fi
 

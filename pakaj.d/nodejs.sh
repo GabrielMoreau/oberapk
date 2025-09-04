@@ -26,9 +26,9 @@ function oberpakaj_nodejs {
                # Upload package
                for dist in ${distrib}
                do
-                  ( cd ${REPREPRO} ; reprepro includedeb ${dist} $HOME/upload/nodejs/${package} )
+                  ( cd "${REPREPRO}" || return ; reprepro includedeb ${dist} $HOME/upload/nodejs/${package} )
                done
-               ( cd ${REPREPRO} ; reprepro dumpreferences ) | grep '/nodejs'
+               ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) | grep '/nodejs'
             fi
          fi
       fi

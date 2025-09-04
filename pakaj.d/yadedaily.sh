@@ -39,8 +39,8 @@ function oberpakaj_yadedaily {
                if [ -e "${shortpkg}" ]
                then
                   # Upload package
-                  ( cd ${REPREPRO} ; reprepro includedeb ${dist} $HOME/upload/yadedaily/${shortpkg} )
-                  ( cd ${REPREPRO} ; reprepro dumpreferences ) | grep '/yadedaily'
+                  ( cd "${REPREPRO}" || return ; reprepro includedeb ${dist} $HOME/upload/yadedaily/${shortpkg} )
+                  ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) | grep '/yadedaily'
                fi
             fi
          done

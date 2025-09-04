@@ -30,9 +30,9 @@ function oberpakaj_kopia {
          # Upload package
          for dist in ${distrib}
          do
-            ( cd ${REPREPRO} ; reprepro dumpreferences )  2> /dev/null | grep -q "^${dist}|.*/${package}" || \
-               ( cd ${REPREPRO} ; reprepro includedeb ${dist} $HOME/upload/kopia/${package} )
-            ( cd ${REPREPRO} ; reprepro dumpreferences ) | grep "^${dist}|.*/kopia"
+            ( cd "${REPREPRO}" || return ; reprepro dumpreferences )  2> /dev/null | grep -q "^${dist}|.*/${package}" || \
+               ( cd "${REPREPRO}" || return ; reprepro includedeb ${dist} $HOME/upload/kopia/${package} )
+            ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) | grep "^${dist}|.*/kopia"
          done
       fi
    done

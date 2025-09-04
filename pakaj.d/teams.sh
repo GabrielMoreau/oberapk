@@ -46,8 +46,8 @@ function oberpakaj_teams {
       for dist in ${distrib}
       do
          # Upload package
-         ( cd ${REPREPRO} ; reprepro includedeb ${dist} $HOME/upload/teams/${package} )
-         ( cd ${REPREPRO} ; reprepro dumpreferences ) | grep '/teams'
+         ( cd "${REPREPRO}" || return ; reprepro includedeb ${dist} $HOME/upload/teams/${package} )
+         ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) | grep '/teams'
       done
    fi
    # Clean old package - kept last 4 (put 4+1=5)

@@ -86,12 +86,12 @@ END
 
          for dist in ${distrib}
          do
-           ( cd ${REPREPRO} ; reprepro dumpreferences ) 2> /dev/null | grep -q "^${dist}|.*/${pkg_real}" || \
-              ( cd ${REPREPRO} ; reprepro includedeb ${dist} $HOME/upload/f-secure/${pkg_real} )
+           ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) 2> /dev/null | grep -q "^${dist}|.*/${pkg_real}" || \
+              ( cd "${REPREPRO}" || return ; reprepro includedeb ${dist} $HOME/upload/f-secure/${pkg_real} )
          done
       done
 
-      ( cd ${REPREPRO} ; reprepro dumpreferences ) | grep -i "/f-secure"
+      ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) | grep -i "/f-secure"
    fi
 
    # Clean old package - keep last 4 (put 4+1=5)

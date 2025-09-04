@@ -26,8 +26,8 @@ function oberpakaj_eduvpn {
          if [ -s "${package}" ] && file "${package}" | grep -q 'Debian binary package'
          then
            #echo "Upload ${package}"
-           ( cd ${REPREPRO} ; reprepro dumpreferences ) 2> /dev/null | grep -q "^${dist}|.*/${package}" || \
-                  ( cd ${REPREPRO} ; reprepro includedeb ${dist} $HOME/upload/eduvpn/${dist}/${package} )
+           ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) 2> /dev/null | grep -q "^${dist}|.*/${package}" || \
+                  ( cd "${REPREPRO}" || return ; reprepro includedeb ${dist} $HOME/upload/eduvpn/${dist}/${package} )
          fi
 
          # Clean old package

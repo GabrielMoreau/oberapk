@@ -106,9 +106,9 @@ END
          # Upload package
          for dist in ${distrib}
          do
-            ( cd ${REPREPRO} ; reprepro includedeb ${dist} $HOME/upload/yed/${package} )
+            ( cd "${REPREPRO}" || return ; reprepro includedeb ${dist} $HOME/upload/yed/${package} )
          done
-         ( cd ${REPREPRO} ; reprepro dumpreferences ) | grep '/yed'
+         ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) | grep '/yed'
       fi
    fi
    # Clean old package - kept last 4 (put 4+1=5)

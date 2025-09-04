@@ -47,9 +47,9 @@ function oberpakaj_xpipe {
    then
       for dist in ${distrib}
       do
-         ( cd ${REPREPRO} ; reprepro dumpreferences )  2> /dev/null | grep -q "^${dist}|.*/${package}" || \
-            ( cd ${REPREPRO} ; reprepro includedeb ${dist} $HOME/upload/xpipe/${package} )
-         ( cd ${REPREPRO} ; reprepro dumpreferences ) | grep "^${dist}|.*/xpipe"
+         ( cd "${REPREPRO}" || return ; reprepro dumpreferences )  2> /dev/null | grep -q "^${dist}|.*/${package}" || \
+            ( cd "${REPREPRO}" || return ; reprepro includedeb ${dist} $HOME/upload/xpipe/${package} )
+         ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) | grep "^${dist}|.*/xpipe"
       done
    fi
 

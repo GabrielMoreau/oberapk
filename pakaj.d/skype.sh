@@ -53,9 +53,9 @@ function oberpakaj_skype {
       for dist in ${distrib}
       do
          # Upload package
-         ( cd ${REPREPRO} ; reprepro dumpreferences )  2> /dev/null | grep -q "^${dist}|.*/${package}" || \
-            ( cd ${REPREPRO} ; reprepro includedeb ${dist} $HOME/upload/skype/${package} )
-         ( cd ${REPREPRO} ; reprepro dumpreferences ) | grep "^${dist}|.*/skype"
+         ( cd "${REPREPRO}" || return ; reprepro dumpreferences )  2> /dev/null | grep -q "^${dist}|.*/${package}" || \
+            ( cd "${REPREPRO}" || return ; reprepro includedeb ${dist} $HOME/upload/skype/${package} )
+         ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) | grep "^${dist}|.*/skype"
       done
    fi
 

@@ -25,9 +25,9 @@ function oberpakaj_apptainer {
          # Upload package
          for dist in ${distrib}
          do
-            ( cd ${REPREPRO} ; reprepro dumpreferences )  2> /dev/null | grep -q "^${dist}|.*/${package}" || \
-               ( cd ${REPREPRO} ; reprepro includedeb ${dist} $HOME/upload/apptainer/${package} )
-            ( cd ${REPREPRO} ; reprepro dumpreferences ) | grep "^${dist}|.*/apptainer"
+            ( cd "${REPREPRO}" || return ; reprepro dumpreferences )  2> /dev/null | grep -q "^${dist}|.*/${package}" || \
+               ( cd "${REPREPRO}" || return ; reprepro includedeb ${dist} $HOME/upload/apptainer/${package} )
+            ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) | grep "^${dist}|.*/apptainer"
          done
       fi
    done

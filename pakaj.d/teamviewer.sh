@@ -45,8 +45,8 @@ function oberpakaj_teamviewer {
          for dist in ${distrib}
          do
             # Upload package
-            ( cd ${REPREPRO} ; reprepro includedeb ${dist} $HOME/upload/teamviewer/${pkg} )
-            ( cd ${REPREPRO} ; reprepro dumpreferences ) | grep '/teamviewer'
+            ( cd "${REPREPRO}" || return ; reprepro includedeb ${dist} $HOME/upload/teamviewer/${pkg} )
+            ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) | grep '/teamviewer'
          done
       fi
    fi

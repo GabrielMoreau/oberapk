@@ -28,10 +28,10 @@ function oberpakaj_modular {
             # Upload package
             for dist in ${distrib}
             do
-               ( cd ${REPREPRO} ; reprepro dumpreferences ) 2> /dev/null | grep -q "^${dist}|.*/${package}" || \
-                  ( cd ${REPREPRO} ; reprepro includedeb ${dist} $HOME/upload/modular/${package} )
+               ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) 2> /dev/null | grep -q "^${dist}|.*/${package}" || \
+                  ( cd "${REPREPRO}" || return ; reprepro includedeb ${dist} $HOME/upload/modular/${package} )
             done
-            ( cd ${REPREPRO} ; reprepro dumpreferences ) | grep '/modular'
+            ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) | grep '/modular'
          fi
       fi
    fi

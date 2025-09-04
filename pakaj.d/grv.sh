@@ -89,10 +89,10 @@ END
                # Upload package
                for dist in ${distrib}
                do
-                  ( cd ${REPREPRO} ; reprepro includedeb ${dist} $HOME/upload/grv/${package} )
+                  ( cd "${REPREPRO}" || return ; reprepro includedeb ${dist} $HOME/upload/grv/${package} )
                done
-               ( cd ${REPREPRO} ; reprepro dumpreferences ) | grep '/grv'
-               #( cd ${REPREPRO} ; reprepro remove stretch grv )
+               ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) | grep '/grv'
+               #( cd "${REPREPRO}" || return ; reprepro remove stretch grv )
             fi
          fi
       fi   

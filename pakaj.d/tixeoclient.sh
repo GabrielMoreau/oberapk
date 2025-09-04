@@ -31,8 +31,8 @@ function oberpakaj_tixeoclient {
                if [ -e "${tixeoclient}" ]
                then
                   # Upload package
-                  ( cd ${REPREPRO} ; reprepro includedeb ${dist} $HOME/upload/tixeoclient/${dist}/${tixeoclient} )
-                  ( cd ${REPREPRO} ; reprepro dumpreferences ) | grep '/tixeoclient'
+                  ( cd "${REPREPRO}" || return ; reprepro includedeb ${dist} $HOME/upload/tixeoclient/${dist}/${tixeoclient} )
+                  ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) | grep '/tixeoclient'
                fi
             fi
          fi

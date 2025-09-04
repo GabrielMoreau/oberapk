@@ -41,10 +41,10 @@ function oberpakaj_quarto {
          # Upload package
          for dist in ${distrib}
          do
-            ( cd ${REPREPRO} ; reprepro dumpreferences ) 2> /dev/null | grep -q "^${dist}|.*/${package}" || \
-               ( cd ${REPREPRO} ; reprepro includedeb ${dist} $HOME/upload/quarto/${package} )
+            ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) 2> /dev/null | grep -q "^${dist}|.*/${package}" || \
+               ( cd "${REPREPRO}" || return ; reprepro includedeb ${dist} $HOME/upload/quarto/${package} )
          done
-         ( cd ${REPREPRO} ; reprepro dumpreferences ) | grep '/quarto'
+         ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) | grep '/quarto'
       fi
    fi
 

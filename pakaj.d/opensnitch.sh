@@ -38,10 +38,10 @@ function oberpakaj_opensnitch {
          # Upload package
          for dist in ${distrib}
          do
-            ( cd ${REPREPRO} ; reprepro dumpreferences ) 2> /dev/null | grep -q "^${dist}|.*/${pkg_real}" || \
-              ( cd ${REPREPRO} ; reprepro includedeb ${dist} $HOME/upload/opensnitch/${pkg_real} )
+            ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) 2> /dev/null | grep -q "^${dist}|.*/${pkg_real}" || \
+              ( cd "${REPREPRO}" || return ; reprepro includedeb ${dist} $HOME/upload/opensnitch/${pkg_real} )
          done
-         ( cd ${REPREPRO} ; reprepro dumpreferences ) | grep 'opensnitch'
+         ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) | grep 'opensnitch'
       fi
    done
 

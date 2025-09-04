@@ -59,10 +59,10 @@ function oberpakaj_spideroak {
             # Upload package
             for dist in ${distrib}
             do
-               ( cd ${REPREPRO} ; reprepro dumpreferences ) 2> /dev/null | grep -q "^${dist}|.*/${package}" || \
-                  ( cd ${REPREPRO} ; reprepro includedeb ${dist} $HOME/upload/spideroak/${package} )
+               ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) 2> /dev/null | grep -q "^${dist}|.*/${package}" || \
+                  ( cd "${REPREPRO}" || return ; reprepro includedeb ${dist} $HOME/upload/spideroak/${package} )
             done
-            ( cd ${REPREPRO} ; reprepro dumpreferences ) | grep '/spideroakone'
+            ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) | grep '/spideroakone'
          fi
       fi
    fi

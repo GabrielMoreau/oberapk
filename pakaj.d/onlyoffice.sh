@@ -50,9 +50,9 @@ function oberpakaj_onlyoffice {
    then
       for dist in ${distrib}
       do
-         ( cd ${REPREPRO} ; reprepro dumpreferences )  2> /dev/null | grep -q "^${dist}|.*/${package}" || \
-            ( cd ${REPREPRO} ; reprepro includedeb ${dist} $HOME/upload/onlyoffice/${package} )
-         ( cd ${REPREPRO} ; reprepro dumpreferences ) | grep "^${dist}|.*/onlyoffice-desktopeditors"
+         ( cd "${REPREPRO}" || return ; reprepro dumpreferences )  2> /dev/null | grep -q "^${dist}|.*/${package}" || \
+            ( cd "${REPREPRO}" || return ; reprepro includedeb ${dist} $HOME/upload/onlyoffice/${package} )
+         ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) | grep "^${dist}|.*/onlyoffice-desktopeditors"
       done
    fi
 

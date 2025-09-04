@@ -29,9 +29,9 @@ function oberpakaj_codium {
             # Upload package
             for dist in ${distrib}
             do
-               ( cd ${REPREPRO} ; reprepro includedeb ${dist} $HOME/upload/codium/$(basename ${codium}) )
+               ( cd "${REPREPRO}" || return ; reprepro includedeb ${dist} $HOME/upload/codium/$(basename ${codium}) )
             done
-            ( cd ${REPREPRO} ; reprepro dumpreferences ) | grep '/codium'
+            ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) | grep '/codium'
          fi
       fi
    fi

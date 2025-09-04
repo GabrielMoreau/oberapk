@@ -35,9 +35,9 @@ function oberpakaj_gestex {
 
          for dist in ${distrib}
          do
-           ( cd ${REPREPRO} ; reprepro includedeb ${dist} $HOME/upload/${PKG_NAME}/${package} )
+           ( cd "${REPREPRO}" || return ; reprepro includedeb ${dist} $HOME/upload/${PKG_NAME}/${package} )
          done
-         ( cd ${REPREPRO} ; reprepro dumpreferences ) | grep -i "/${PKG_NAME}"
+         ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) | grep -i "/${PKG_NAME}"
       fi
    fi
 

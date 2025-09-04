@@ -30,8 +30,8 @@ function oberpakaj_virtualbox {
                if [ -e "${package}" ]
                then
                   # Upload package
-                  ( cd ${REPREPRO} ; reprepro dumpreferences ) 2> /dev/null | grep -q "^${dist}|.*/${package}" || \
-                     ( cd ${REPREPRO} ; reprepro includedeb ${dist} $HOME/upload/virtualbox/${dist}/${package} )
+                  ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) 2> /dev/null | grep -q "^${dist}|.*/${package}" || \
+                     ( cd "${REPREPRO}" || return ; reprepro includedeb ${dist} $HOME/upload/virtualbox/${dist}/${package} )
                fi
             done
          fi

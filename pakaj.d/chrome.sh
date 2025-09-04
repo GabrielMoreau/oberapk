@@ -56,10 +56,10 @@ END
             # Upload package
             for dist in ${distrib}
             do
-               ( cd ${REPREPRO} ; reprepro dumpreferences )  2> /dev/null | grep -q "^${dist}|.*/${package}" || \
-                  ( cd ${REPREPRO} ; reprepro includedeb ${dist} $HOME/upload/chrome/${package} )
+               ( cd "${REPREPRO}" || return ; reprepro dumpreferences )  2> /dev/null | grep -q "^${dist}|.*/${package}" || \
+                  ( cd "${REPREPRO}" || return ; reprepro includedeb ${dist} $HOME/upload/chrome/${package} )
             done
-            ( cd ${REPREPRO} ; reprepro dumpreferences ) | grep '/google-chrome-stable'
+            ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) | grep '/google-chrome-stable'
          fi
       fi
    fi

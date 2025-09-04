@@ -59,8 +59,8 @@ END
          for dist in ${distrib}
          do
             # Upload package
-            ( cd ${REPREPRO} ; reprepro includedeb ${dist} $HOME/upload/discord/${package}-${PKG_VERSION}.deb )
-            ( cd ${REPREPRO} ; reprepro dumpreferences ) | grep '/discord'
+            ( cd "${REPREPRO}" || return ; reprepro includedeb ${dist} $HOME/upload/discord/${package}-${PKG_VERSION}.deb )
+            ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) | grep '/discord'
          done
       fi
    done

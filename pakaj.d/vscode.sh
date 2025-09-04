@@ -72,10 +72,10 @@ END
             # Upload package
             for dist in ${distrib}
             do
-               ( cd ${REPREPRO} ; reprepro includedeb ${dist} $HOME/upload/vscode/$(basename ${codeonly} _amd64.deb).${PKG_VERSION}_amd64.deb     )
-               ( cd ${REPREPRO} ; reprepro includedeb ${dist} $HOME/upload/vscode/$(basename ${codeinsiders} _amd64.deb).${PKG_VERSION}_amd64.deb )
+               ( cd "${REPREPRO}" || return ; reprepro includedeb ${dist} $HOME/upload/vscode/$(basename ${codeonly} _amd64.deb).${PKG_VERSION}_amd64.deb     )
+               ( cd "${REPREPRO}" || return ; reprepro includedeb ${dist} $HOME/upload/vscode/$(basename ${codeinsiders} _amd64.deb).${PKG_VERSION}_amd64.deb )
             done
-            ( cd ${REPREPRO} ; reprepro dumpreferences ) | grep '/code'
+            ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) | grep '/code'
          fi
       fi
    fi
