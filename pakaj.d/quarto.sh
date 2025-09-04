@@ -1,3 +1,5 @@
+#!/bin/bash
+#
 ## Date: 2023/02/15
 ## Pakaj: quarto
 ## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>

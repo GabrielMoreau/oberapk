@@ -1,3 +1,5 @@
+#!/bin/bash
+#
 ## Date: 2025/06/27
 ## Pakaj: xnview
 ## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>

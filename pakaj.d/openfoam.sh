@@ -1,3 +1,5 @@
+#!/bin/bash
+#
 ## Date: 2024/07/12
 ## Pakaj: openfoam
 ## Package: openfoam openfoam-common openfoam-default openfoam-dev openfoam-source openfoam-tools openfoam-tutorials

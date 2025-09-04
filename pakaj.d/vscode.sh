@@ -1,3 +1,5 @@
+#!/bin/bash
+#
 ## Date: 2018/08/30
 ## Pakaj: vscode
 ## Package: code code-insiders

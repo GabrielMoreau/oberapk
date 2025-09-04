@@ -1,3 +1,5 @@
+#!/bin/bash
+#
 ## Date: 2020/04/14
 ## Pakaj: tixeoclient
 ## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>

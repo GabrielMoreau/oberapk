@@ -1,3 +1,5 @@
+#!/bin/bash
+#
 ## Date: 2018/03/28
 ## Pakaj: firefox-latex
 ## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>

@@ -1,3 +1,5 @@
+#!/bin/bash
+#
 ## Date: 2024/01/31
 ## Pakaj: firefox
 ## Package: firefox firefox-l10n-fr

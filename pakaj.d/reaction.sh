@@ -1,3 +1,5 @@
+#!/bin/bash
+#
 ## Date: 2024/01/10
 ## Pakaj: reaction
 ## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>

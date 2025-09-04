@@ -1,3 +1,5 @@
+#!/bin/bash
+#
 ## Date: 2025/02/05
 ## Pakaj: udsclient3
 ## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>

@@ -1,3 +1,5 @@
+#!/bin/bash
+#
 ## Date: 2022/01/27
 ## Pakaj: kannad
 ## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>

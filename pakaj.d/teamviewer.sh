@@ -1,3 +1,5 @@
+#!/bin/bash
+#
 ## Date: 2020/09/15
 ## Pakaj: teamviewer
 ## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>

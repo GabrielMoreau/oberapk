@@ -1,3 +1,5 @@
+#!/bin/bash
+#
 ## Date: 2024/04/03
 ## Pakaj: webex
 ## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>

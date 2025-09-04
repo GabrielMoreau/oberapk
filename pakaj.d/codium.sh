@@ -1,3 +1,5 @@
+#!/bin/bash
+#
 ## Date: 2018/08/30
 ## Pakaj: codium
 ## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>

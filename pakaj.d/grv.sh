@@ -1,3 +1,5 @@
+#!/bin/bash
+#
 ## Date: 2018/11/16
 ## Pakaj: grv
 ## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>

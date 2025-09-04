@@ -1,3 +1,5 @@
+#!/bin/bash
+#
 ## Date: 2022/04/21
 ## Pakaj: bidiez
 ## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>

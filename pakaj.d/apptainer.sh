@@ -1,3 +1,5 @@
+#!/bin/bash
+#
 ## Date: 2022/01/25
 ## Pakaj: apptainer
 ## Package: apptainer apptainer-suid

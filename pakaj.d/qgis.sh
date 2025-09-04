@@ -1,3 +1,5 @@
+#!/bin/bash
+#
 ## Date: 2022/02/16
 ## Pakaj: qgis
 ## Package: libqgis python-qgis python3-qgis qgis

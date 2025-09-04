@@ -1,3 +1,5 @@
+#!/bin/bash
+#
 ## Date: 2023/10/05
 ## Pakaj: protonmail
 ## Description: Proton Mail Bridge is a desktop application encrypting and decrypting messages

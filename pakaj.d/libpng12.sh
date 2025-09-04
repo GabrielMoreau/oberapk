@@ -1,3 +1,5 @@
+#!/bin/bash
+#
 ## Date: 2022/03/24
 ## Pakaj: libpng12
 ## Package: libpng12-1

@@ -1,3 +1,5 @@
+#!/bin/bash
+#
 ## Date: 2023/01/23
 ## Pakaj: opensnitch
 ## Package: opensnitch python3-opensnitch-ui

@@ -1,3 +1,5 @@
+#!/bin/bash
+#
 ## Date: 2022/04/19
 ## Pakaj: slack
 ## Package: slack-desktop

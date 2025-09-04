@@ -1,3 +1,5 @@
+#!/bin/bash
+#
 ## Date: 2022/06/07
 ## Pakaj: f-secure
 ## Package: f-secure-policy-manager-console f-secure-policy-manager-proxy f-secure-policy-manager-server

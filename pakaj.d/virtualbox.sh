@@ -1,3 +1,5 @@
+#!/bin/bash
+#
 ## Date: 2022/04/19
 ## Pakaj: virtualbox
 ## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>

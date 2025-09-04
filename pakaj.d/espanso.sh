@@ -1,3 +1,5 @@
+#!/bin/bash
+#
 ## Date: 2023/04/15
 ## Pakaj: espanso
 ## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>

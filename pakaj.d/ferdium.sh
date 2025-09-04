@@ -1,3 +1,5 @@
+#!/bin/bash
+#
 ## Date: 2025/07/15
 ## Pakaj: ferdium
 ## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>

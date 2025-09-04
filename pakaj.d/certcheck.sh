@@ -1,3 +1,5 @@
+#!/bin/bash
+#
 ## Date: 2023/07/28
 ## Pakaj: certcheck
 ## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>

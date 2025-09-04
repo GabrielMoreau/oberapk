@@ -1,3 +1,5 @@
+#!/bin/bash
+#
 ## Date: 2024/06/07
 ## Pakaj: xpipe
 ## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>

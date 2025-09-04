@@ -1,3 +1,5 @@
+#!/bin/bash
+#
 ## Date: 2020/03/11
 ## Pakaj: zotero
 ## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>

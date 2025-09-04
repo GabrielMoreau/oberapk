@@ -1,3 +1,5 @@
+#!/bin/bash
+#
 ## Date: 2025/01/17
 ## Pakaj: eduvpn
 ## Package: eduvpn-client eduvpn-client-data libeduvpn-common libeduvpn-common-dbgsym python3-eduvpn-client python3-eduvpn-common

@@ -1,3 +1,5 @@
+#!/bin/bash
+#
 ## Date: 2025/01/13
 ## Pakaj: kopia
 ## Package: kopia kopia-ui

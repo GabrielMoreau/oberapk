@@ -1,3 +1,5 @@
+#!/bin/bash
+#
 ## Date: 2021/10/07
 ## Pakaj: master-pdf-editor
 ## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>

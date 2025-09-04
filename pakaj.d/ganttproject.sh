@@ -1,3 +1,5 @@
+#!/bin/bash
+#
 ## Date: 2021/01/19
 ## Pakaj: ganttproject
 ## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>

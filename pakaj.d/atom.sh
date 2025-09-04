@@ -1,3 +1,5 @@
+#!/bin/bash
+#
 ## Date: 2022/02/17
 ## Pakaj: atom
 ## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>

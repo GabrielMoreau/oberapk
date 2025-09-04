@@ -1,3 +1,5 @@
+#!/bin/bash
+#
 ## Date: 2020/04/28
 ## Pakaj: zoom
 ## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>

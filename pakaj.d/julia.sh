@@ -1,3 +1,5 @@
+#!/bin/bash
+#
 ## Date: 2025/07/10
 ## Pakaj: julia
 ## Package: julia-lts

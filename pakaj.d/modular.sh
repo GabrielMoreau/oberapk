@@ -1,3 +1,5 @@
+#!/bin/bash
+#
 ## Date: 2023/11/06
 ## Pakaj: modular
 ## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>

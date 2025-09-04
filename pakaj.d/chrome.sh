@@ -1,3 +1,5 @@
+#!/bin/bash
+#
 ## Date: 2021/06/19
 ## Pakaj: chrome
 ## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>

@@ -1,3 +1,5 @@
+#!/bin/bash
+#
 ## Date: 2019/04/26
 ## Pakaj: yadedaily
 ## Package: yadedaily python3-yadedaily libyadedaily

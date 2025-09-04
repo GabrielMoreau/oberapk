@@ -1,3 +1,5 @@
+#!/bin/bash
+#
 ## Date: 2021/08/19
 ## Pakaj: spideroak
 ## Package: spideroakone

@@ -1,3 +1,5 @@
+#!/bin/bash
+#
 ## Date: 2018/09/07
 ## Pakaj: nodejs + npm
 ## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>

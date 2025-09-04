@@ -1,3 +1,5 @@
+#!/bin/bash
+#
 ## Date: 2022/02/25
 ## Pakaj: tabby
 ## Description: A terminal for the modern age

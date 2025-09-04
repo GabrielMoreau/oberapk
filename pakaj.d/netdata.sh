@@ -1,3 +1,5 @@
+#!/bin/bash
+#
 ## Date: 2019/08/21
 ## Pakaj: netdata
 ## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>

@@ -1,3 +1,5 @@
+#!/bin/bash
+#
 ## Date: 2022/07/06
 ## Pakaj: icaclient
 ## Package: icaclient ctxusb
