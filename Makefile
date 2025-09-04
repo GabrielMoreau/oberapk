@@ -55,6 +55,7 @@ check-metadata:
 	@./check-metadata
 
 check-quality:
+	@shellcheck -e SC2034,SC2317,SC1091,SC1090 oberapk 
 	@(cd pakaj.d; shellcheck -e SC2012,SC2164,SC2166,SC2001 *.sh)
 
 list:

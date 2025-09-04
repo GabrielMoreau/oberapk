@@ -10,7 +10,7 @@
 export PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin
 export LANG=C
 
-VERSION='0.6.6'
+VERSION='0.7.1'
 
 # Global variables
 export CONF_FILE=/etc/oberapk/oberapk.conf
@@ -30,7 +30,7 @@ then
 fi
 
 # Not run as root
-if [ $(id --user) -eq 0 ]
+if [ "$(id --user)" -eq 0 ]
 then
    if [[ -n "${RUN_USER}" && $(id --user "${RUN_USER}" 2> /dev/null) -gt 0 ]]
    then
@@ -83,7 +83,7 @@ END_USAGE
 function get_pakaj () {
    kit=$1
    echo "${kit}" | grep -E -q '^[[:alpha:]][[:alpha:][:digit:]-]*$' || return
-   while read pakaj
+   while read -r pakaj
    do
       if echo "${pakaj}" | grep -q "^@"
       then
@@ -91,15 +91,15 @@ function get_pakaj () {
       else
          echo "${pakaj}" | grep -E '^[[:alpha:]][[:alpha:][:digit:]-]*$'
       fi
-   done < <(grep "^@${kit}:" ${CONF_FILE} | cut -f 2- -d ':' | sed -e 's/ /\n/g;' | grep .) | sort -uR
+   done < <(grep "^@${kit}:" "${CONF_FILE}" | cut -f 2- -d ':' | sed -e 's/ /\n/g;' | grep .) | sort -uR
    }
 
 ################################################################
 
 function cmd_avail () {
-   for pakaj in ${PAKAJ_FOLDER}/*.sh
+   for pakaj in "${PAKAJ_FOLDER}"/*.sh
    do
-      source ${pakaj}
+      source "${pakaj}"
    done
 
    set | grep -E '^oberpakaj_.*[[:space:]]()$' | cut -f 2- -d '_' | cut -f 1 -d ' ' | sed -e 's/_/-/g;' | grep -E '^[[:alpha:]][[:alpha:][:digit:]-]*$' | sort -u
@@ -108,7 +108,7 @@ function cmd_avail () {
 ################################################################
 
 function cmd_list () {
-   while read pakaj
+   while read -r pakaj
    do
       if [ -e "${PAKAJ_FOLDER}/${pakaj}.sh" ]
       then
@@ -116,13 +116,13 @@ function cmd_list () {
       else
          echo "${pakaj} # Error: no component"
       fi
-   done < <(egrep "^[[:alpha:]][[:alpha:][:digit:]-]*:[[:digit:]]*:" ${CONF_FILE} | cut -f 1 -d ':' | sort -u)
+   done < <(grep -E "^[[:alpha:]][[:alpha:][:digit:]-]*:[[:digit:]]*:" "${CONF_FILE}" | cut -f 1 -d ':' | sort -u)
    }
 
 ################################################################
 
 function cmd_kit () {
-   grep -E "^@[[:alpha:]][[:alpha:][:digit:]-]*: " ${CONF_FILE} | cut -f 1 -d ':' | sed -e 's/^@//;' | grep . | sort -u
+   grep -E "^@[[:alpha:]][[:alpha:][:digit:]-]*: " "${CONF_FILE}" | cut -f 1 -d ':' | sed -e 's/^@//;' | grep . | sort -u
    }
 
 ################################################################
@@ -137,8 +137,8 @@ function cmd_update () {
    fi
 
    # Conf file parameter by pakaj
-   keep=$(grep "^${pakaj}:" ${CONF_FILE} | cut -f 2 -d ':')
-   distrib=$(grep "^${pakaj}:" ${CONF_FILE} | cut -f 3- -d ':')
+   keep=$(grep "^${pakaj}:" "${CONF_FILE}" | cut -f 2 -d ':')
+   distrib=$(grep "^${pakaj}:" "${CONF_FILE}" | cut -f 3- -d ':')
    if [ "${keep}" = '' ]
    then
       keep=3
@@ -148,11 +148,11 @@ function cmd_update () {
       keep=3
    fi
 
-   source ${PAKAJ_FOLDER}/${pakaj}.sh
+   source "${PAKAJ_FOLDER}/${pakaj}.sh"
    pakaj_code=$(echo "oberpakaj_${pakaj}" | sed -e 's/-/_/g;')
 
    # Launch bash function
-   ${pakaj_code} ${keep} ${distrib}
+   ${pakaj_code} "${keep}" "${distrib}"
    }
 
 ################################################################
@@ -160,9 +160,9 @@ function cmd_update () {
 function cmd_pushed () {
    pakaj=$1
 
-   regex=$((echo "${pakaj}"; grep -E '^##[[:space:]](Pakaj|Package):' "${PAKAJ_FOLDER}/${pakaj}.sh" 2> /dev/null | cut -f 2 -d ':') | sed 's/[[:space:]]/\n/g;' | sort -u | grep . | paste -sd '|')
+   regex=$( (echo "${pakaj}"; grep -E '^##[[:space:]](Pakaj|Package):' "${PAKAJ_FOLDER}/${pakaj}.sh" 2> /dev/null | cut -f 2 -d ':') | sed 's/[[:space:]]/\n/g;' | sort -u | grep . | paste -sd '|')
 
-   ( cd "${REPREPRO}" ; reprepro dumpreferences ) 2> /dev/null | grep -E "/(${regex})[_-].*.deb"
+   ( cd "${REPREPRO}" || exit 3 ; reprepro dumpreferences ) 2> /dev/null | grep -E "/(${regex})[_-].*.deb"
    }
 
 ################################################################
@@ -178,7 +178,7 @@ function cmd_source () {
 
    echo "# eval this result"
    echo "export REPREPRO='${REPREPRO}';"
-   echo "source ${PAKAJ_FOLDER}/${pakaj}.sh;"
+   echo "source '${PAKAJ_FOLDER}/${pakaj}.sh';"
    echo "# oberpakaj_${pakaj} keep distrib;"
    }
 
@@ -188,12 +188,12 @@ function cmd_remove () {
    pakaj=$1
 
    # bookworm|main|amd64 pool/main/p/pkg-name/pkg-name_1.102.0-21567.1_amd64.deb
-   while read distcpu pool eol
+   while read -r distcpu pool eol
    do
       dist=${distcpu%%|*}
-      package=$(basename ${pool%%_*})
-      echo "( cd ${REPREPRO} ; reprepro remove ${dist} ${package} )"
-   done < <(oberapk pushed ${pakaj}) | sort -u
+      package=$(basename "${pool%%_*}")
+      echo "( cd '${REPREPRO}' ; reprepro remove '${dist}' '${package}' )"
+   done < <(oberapk pushed "${pakaj}") | sort -u
    }
 
 ################################################################
@@ -216,25 +216,25 @@ case $1 in
 
    source)
       pakaj=$2
-      cmd_source ${pakaj}
+      cmd_source "${pakaj}"
       exit
       ;;
 
    update)
       pakaj=$2
-      cmd_update ${pakaj}
+      cmd_update "${pakaj}"
       exit
       ;;
 
    pushed)
       pakaj=$2
-      cmd_pushed ${pakaj}
+      cmd_pushed "${pakaj}"
       exit
       ;;
 
    remove)
       pakaj=$2
-      cmd_remove ${pakaj}
+      cmd_remove "${pakaj}"
       exit
       ;;
 
@@ -244,13 +244,13 @@ case $1 in
       do
          echo ''
          echo "Info: begin update package ${pakaj}"
-         oberapk update ${pakaj}
+         oberapk update "${pakaj}"
       done
       exit
       ;;
 
    binaries)
-      grep -h '^## Binaries:' $0 ${PAKAJ_FOLDER}/*.sh | cut -f 2 -d ':' | sed 's/\s/\n/g;' | sort -u | grep . | paste -sd ' '
+      grep -h '^## Binaries:' "$0" "${PAKAJ_FOLDER}"/*.sh | cut -f 2 -d ':' | sed 's/\s/\n/g;' | sort -u | grep . | paste -sd ' '
       exit
       ;;
 
