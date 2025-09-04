@@ -31,20 +31,20 @@ function oberpakaj_openfoam {
       fi
 
       echo "${pkg_version}" | grep -q '^[[:digit:]][[:digit:]_]*$' || continue
-      while read poolfile
+      while read -r poolfile
       do
-         package=$(basename ${poolfile})
+         package=$(basename "${poolfile}")
          wget --timestamping "https://dl.openfoam.com/repos/deb/${poolfile}"
          if [ -s "${package}" ] && file "${package}" | grep -q 'Debian binary package'
          then
            #echo "Upload ${package}"
            ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) 2> /dev/null | grep -q "^${dist}|.*/${package}" || \
-                  ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" $HOME/upload/openfoam/${dist}/${package} )
+                  ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" "$HOME/upload/openfoam/${dist}/${package}" )
          fi
 
          # Clean old package
          basepkg=$(echo "${package}" | cut -f 1 -d '_')
-         ls -1t -- ${basepkg}_*.deb 2> /dev/null | tail -n +$((keep+1)) | xargs -r rm -f --
+         ls -1t -- "${basepkg}"_*.deb 2> /dev/null | tail -n +$((keep+1)) | xargs -r rm -f --
       done < <(grep "^Filename: .*/${pkg_version}/.*openfoam.*.deb" Packages-all Packages-amd64 | cut -f 2 -d ' ' | sort -u)
    done
    }

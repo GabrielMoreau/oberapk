@@ -25,27 +25,27 @@ function oberpakaj_f_secure {
       for pkg in wspmc wspmp wspms
       do
          url=$(grep "/${pkg}_" package.txt | tail -1)
-         package=$(basename ${url})
+         package=$(basename "${url}")
 
          if [ ! -e "${package}" ]
          then
             wget "https://download.f-secure.com/corpro/${url}"
-            file ${package} | grep -q 'Debian binary package .format 2.0' || { rm -f "${package}"; continue; }
+            file "${package}" | grep -q 'Debian binary package .format 2.0' || { rm -f "${package}"; continue; }
 
             tmp_folder=$(mktemp --directory /tmp/f-secure-XXXXXX)
-            (cd ${tmp_folder}
-               ar -x ${HOME}/upload/f-secure/${package} control.tar.xz
+            (cd "${tmp_folder}"
+               ar -x "${HOME}/upload/f-secure/${package}" control.tar.xz
                tar -xJf control.tar.xz ./control
                #ar -x ${HOME}/upload/f-secure/${package} control.tar.gz
                #tar -xzf control.tar.gz ./control
                )
-            pkg_name=$(grep '^Package:' ${tmp_folder}/control | cut -f 2 -d ' ')
-            pkg_vers=$(grep '^Version:' ${tmp_folder}/control | cut -f 2 -d ' ')
+            pkg_name=$(grep '^Package:' "${tmp_folder}/control" | cut -f 2 -d ' ')
+            pkg_vers=$(grep '^Version:' "${tmp_folder}/control" | cut -f 2 -d ' ')
             pkg_real="${pkg_name}_${pkg_vers}_amd64.deb"
 
-            if egrep -q 'Package: (f-secure-policy-manager-proxy|f-secure-policy-manager-server)' ${tmp_folder}/control
+            if grep -Eq 'Package: (f-secure-policy-manager-proxy|f-secure-policy-manager-server)' "${tmp_folder}/control"
             then
-               (cd ${tmp_folder}
+               (cd "${tmp_folder}"
                   sed -i -e 's/^\(Depends:.*\)/\1,libstdc++6:i386/;' ./control
                   #gunzip control.tar.gz
                   xz -d control.tar.xz
@@ -54,13 +54,13 @@ function oberpakaj_f_secure {
                   #gzip control.tar
                   xz control.tar
 
-                  cp -f ${HOME}/upload/f-secure/${package} ${HOME}/upload/f-secure/${pkg_real}
-                  #ar -r ${HOME}/upload/f-secure/${pkg_real} control.tar.gz
-                  ar -r ${HOME}/upload/f-secure/${pkg_real} control.tar.xz
+                  cp -f "${HOME}/upload/f-secure/${package}" "${HOME}/upload/f-secure/${pkg_real}"
+                  #ar -r "${HOME}/upload/f-secure/${pkg_real}" control.tar.gz
+                  ar -r "${HOME}/upload/f-secure/${pkg_real}" control.tar.xz
                   )
             else # f-secure-policy-manager-console
-               (cd ${tmp_folder}
-                  ar -x ${HOME}/upload/f-secure/${package}
+               (cd "${tmp_folder}"
+                  ar -x "${HOME}/upload/f-secure/${package}"
                   tar -xJf data.tar.xz
                   mkdir -p ./usr/bin
                   cat << END > ./usr/bin/fspmc
@@ -70,8 +70,8 @@ END
                   chmod a+rx ./usr/bin/fspmc
                   tar --owner root --group root -cJf data.tar.xz ./usr ./opt
                   #ar -r ${HOME}/upload/f-secure/${pkg_real} debian-binary control.tar.gz data.tar.xz
-                  echo ar -r ${HOME}/upload/f-secure/${pkg_real} debian-binary control.tar.xz data.tar.xz
-                  ar -r ${HOME}/upload/f-secure/${pkg_real} debian-binary control.tar.xz data.tar.xz
+                  echo ar -r "${HOME}/upload/f-secure/${pkg_real}" debian-binary control.tar.xz data.tar.xz
+                  ar -r "${HOME}/upload/f-secure/${pkg_real}" debian-binary control.tar.xz data.tar.xz
                   )
             fi
 
@@ -87,7 +87,7 @@ END
          for dist in ${distrib}
          do
            ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) 2> /dev/null | grep -q "^${dist}|.*/${pkg_real}" || \
-              ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" $HOME/upload/f-secure/${pkg_real} )
+              ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" "$HOME/upload/f-secure/${pkg_real}" )
          done
       done
 

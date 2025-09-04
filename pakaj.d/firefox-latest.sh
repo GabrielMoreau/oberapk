@@ -20,7 +20,7 @@ function oberpakaj_firefox_latest {
    if wget --timestamping "https://download.mozilla.org/?product=firefox-latest&os=linux64&lang=en-US"
    then
       previous_package="$(cat timestamp.sig)"
-      if [ $(stat -c '%Y' "index.html?product=firefox-latest&os=linux64&lang=en-US") -gt $(stat -c '%Y' "timestamp.sig") ] || [ ! -s "${previous_package}" ]
+      if [ "$(stat -c '%Y' "index.html?product=firefox-latest&os=linux64&lang=en-US")" -gt "$(stat -c '%Y' "timestamp.sig")" ] || [ ! -s "${previous_package}" ]
       then
          rm -rf ./firefox
          tar xjf "$HOME/upload/firefox-latest/index.html?product=firefox-latest&os=linux64&lang=en-US" firefox/application.ini
@@ -30,7 +30,7 @@ function oberpakaj_firefox_latest {
          package="firefox-latest_${CODE_VERSION}-${PKG_VERSION}_amd64.deb"
 
          tmp_folder=$(mktemp --directory /tmp/firefox-latest-XXXXXX)
-         (cd ${tmp_folder}
+         (cd "${tmp_folder}"
             mkdir -p usr/lib/firefox-latest
             (cd usr/lib/firefox-latest
                tar xjf "$HOME/upload/firefox-latest/index.html?product=firefox-latest&os=linux64&lang=en-US"
@@ -81,7 +81,7 @@ END
             )
 
          # Create package (control before data)
-         ar -r ${package} "${tmp_folder}/debian-binary" "${tmp_folder}/control.tar.xz" "${tmp_folder}/data.tar.xz" \
+         ar -r "${package}" "${tmp_folder}/debian-binary" "${tmp_folder}/control.tar.xz" "${tmp_folder}/data.tar.xz" \
             && echo "${package}" > timestamp.sig
 
          # Clean
@@ -95,7 +95,7 @@ END
          for dist in ${distrib}
          do
             ( cd "${REPREPRO}" || return ; reprepro dumpreferences )  2> /dev/null | grep -q "^${dist}|.*/${package}" || \
-               ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" $HOME/upload/firefox-latest/${package} )
+               ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" "$HOME/upload/firefox-latest/${package}" )
             ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) | grep "^${dist}|.*/firefox-latest"
          done
       fi

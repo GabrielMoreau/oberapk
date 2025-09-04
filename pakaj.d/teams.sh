@@ -26,11 +26,11 @@ function oberpakaj_teams {
    if [ ! -e "${package}" ]
    then
       tmp_folder=$(mktemp --directory /tmp/teams-XXXXXX)
-      cd ${tmp_folder}
-      wget https://packages.microsoft.com/repos/ms-teams/pool/main/t/teams/${package}
+      cd "${tmp_folder}"
+      wget "https://packages.microsoft.com/repos/ms-teams/pool/main/t/teams/${package}"
       mkdir teams
       cd teams
-      ar -x ../${package}
+      ar -x "../${package}"
       tar xzf control.tar.gz
 
       # On ajoute le champs Section a la pace du champs Source qui ne sers a rien
@@ -38,7 +38,7 @@ function oberpakaj_teams {
 
       # On ne met pas le script postinst qui ajoute le depot Microsoft
       tar --owner root --group root -czf control.tar.gz control
-      ar -r $HOME/upload/teams/${package} debian-binary control.tar.gz data.tar.xz
+      ar -r "$HOME/upload/teams/${package}" debian-binary control.tar.gz data.tar.xz
 
       # Clean
       rm -rf "${tmp_folder}"
@@ -46,7 +46,7 @@ function oberpakaj_teams {
       for dist in ${distrib}
       do
          # Upload package
-         ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" $HOME/upload/teams/${package} )
+         ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" "$HOME/upload/teams/${package}" )
          ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) | grep '/teams'
       done
    fi

@@ -21,14 +21,14 @@ function oberpakaj_chrome {
          google_chrome=$(zgrep ^Filename Packages.gz | grep '/google-chrome-stable/' | head -1 | awk '{print $2}')
 
          wget --timestamping "https://dl.google.com/linux/chrome/deb/${google_chrome}"
-         count=$(($(echo $(basename ${google_chrome}) | cut -f 4 -d '-' | cut -f 1 -d '_') + 1))
-         version=$(basename ${google_chrome} | cut -f 3 -d '-' | cut -f 2 -d '_')
+         count=$(($(basename "${google_chrome}" | cut -f 4 -d '-' | cut -f 1 -d '_') + 1))
+         version=$(basename "${google_chrome}" | cut -f 3 -d '-' | cut -f 2 -d '_')
          package="google-chrome-stable_${version}-${count}_amd64.deb"
 
          # chrome
          tmp_folder=$(mktemp --directory /tmp/chrome-XXXXXX)
-         (cd ${tmp_folder}
-            ar -x "$HOME/upload/chrome/$(basename ${google_chrome})"
+         (cd "${tmp_folder}"
+            ar -x "$HOME/upload/chrome/$(basename "${google_chrome}")"
             tar -xJf control.tar.xz 
             sed -i -e 's/^\(#!\/bin\/\)sh/\1bash/; s/^\([[:space:]]*\)nohup /\1# nohup /;' postrm
             sed -i -e 's/^\(#!\/bin\/\)sh/\1bash/; s/^\([[:space:]]*\)nohup /\1# nohup /;' prerm
@@ -43,7 +43,7 @@ do
   fi
 done
 END
-            size=$(du -ks ${tmp_folder} | cut -f 1)
+            size=$(du -ks "${tmp_folder}" | cut -f 1)
             sed -i -e "s/^Installed-Size: .*$/Installed-Size: ${size}/;
                        s/^Version: .*$/Version: ${version}-${count}/;" control
             tar --owner root --group root -cJf control.tar.xz ./control ./postinst ./postrm ./prerm
@@ -57,7 +57,7 @@ END
             for dist in ${distrib}
             do
                ( cd "${REPREPRO}" || return ; reprepro dumpreferences )  2> /dev/null | grep -q "^${dist}|.*/${package}" || \
-                  ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" $HOME/upload/chrome/${package} )
+                  ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" "$HOME/upload/chrome/${package}" )
             done
             ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) | grep '/google-chrome-stable'
          fi

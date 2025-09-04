@@ -24,12 +24,12 @@ function oberpakaj_codium {
 
       if wget --timestamping "https://github.com/${codium}"
       then
-         if [ -e "$(basename ${codium})" ]
+         if [ -e "$(basename "${codium}")" ]
          then
             # Upload package
             for dist in ${distrib}
             do
-               ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" $HOME/upload/codium/$(basename ${codium}) )
+               ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" "$HOME/upload/codium/$(basename "${codium}")" )
             done
             ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) | grep '/codium'
          fi

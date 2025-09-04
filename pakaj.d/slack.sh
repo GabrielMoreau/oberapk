@@ -20,17 +20,17 @@ function oberpakaj_slack {
    if [ -s "Packages" ]
    then
       url='https://packagecloud.io/slacktechnologies/slack/debian/'$(grep ^Filename Packages | grep '/slack-desktop_' | awk '{print $2}' | tail -1)
-      #package_file=$(basename ${url})
+      #package_file=$(basename "${url}")
       package_file='slack-desktop-amd64.deb'
       before=$(stat -c %Y "${package_file}" 2> /dev/null || echo 0)
-      curl -# --time-cond ${package_file} -o ${package_file} -L "${url}"
+      curl -# --time-cond "${package_file}" -o "${package_file}" -L "${url}"
       LANG=C file "${package_file}" | grep -q 'Debian binary package' || return
       after=$(stat -c %Y "${package_file}" 2> /dev/null || echo 0)
       previous_package="$(cat timestamp.sig)"
       if [ "${after}" -gt "${before}" ] || [ ! -s "${previous_package}" ]
       then
          tmp_folder=$(mktemp --directory /tmp/slack-XXXXXX)
-         (cd ${tmp_folder}
+         (cd "${tmp_folder}"
             ar -x "$HOME/upload/slack/${package_file}"
             tar -xJf control.tar.xz 
             tar -xJf data.tar.xz
@@ -42,7 +42,7 @@ function oberpakaj_slack {
             # On ne met pas le dossier etc dans data
             tar --owner root --group root -czf control.tar.gz control
             tar --owner root --group root -cJf data.tar.xz usr
-            ar -r $HOME/upload/slack/${package} debian-binary control.tar.gz data.tar.xz \
+            ar -r "$HOME/upload/slack/${package}" debian-binary control.tar.gz data.tar.xz \
                && echo "${package}" > "$HOME/upload/slack/timestamp.sig"
             )
 
@@ -59,7 +59,7 @@ function oberpakaj_slack {
       do
          # Upload package
          ( cd "${REPREPRO}" || return ; reprepro dumpreferences )  2> /dev/null | grep -q "^${dist}|.*/${package}" || \
-            ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" $HOME/upload/slack/${package} )
+            ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" "$HOME/upload/slack/${package}" )
          ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) | grep "^${dist}|.*/slack-desktop"
       done
    fi

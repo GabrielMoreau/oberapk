@@ -18,7 +18,7 @@ function oberpakaj_quarto {
    version_old=$(cat "$HOME/upload/quarto/version")
    version=$(wget --quiet 'https://github.com/quarto-dev/quarto-cli/releases/latest' -O - | grep 'title.Release' | awk '{print $2}' | cut -f 2 -d 'v')
    PKG_VERSION=1
-   PKG_NAME=quarto
+   #PKG_NAME=quarto
    package=quarto-${version}-linux-amd64.deb
 
    if [ "${version}_${PKG_VERSION}" != "${version_old}" ]
@@ -29,12 +29,12 @@ function oberpakaj_quarto {
       if file "${package}" | grep -q 'Debian binary package'
       then
          tmp_folder=$(mktemp --directory /tmp/quarto-XXXXXX)
-         (cd ${tmp_folder}
+         (cd "${tmp_folder}"
             ar -x "$HOME/upload/quarto/${package}"
             tar xzf control.tar.gz
             sed -i -e 's/^Package: Quarto/Package: quarto/;' control
             tar --owner root --group root -czf control.tar.gz ./control ./copyright ./postinst ./postrm
-            ar -r $HOME/upload/quarto/${package} debian-binary control.tar.gz data.tar.gz
+            ar -r "$HOME/upload/quarto/${package}" debian-binary control.tar.gz data.tar.gz
             )
          rm -rf "${tmp_folder}"
 
@@ -42,7 +42,7 @@ function oberpakaj_quarto {
          for dist in ${distrib}
          do
             ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) 2> /dev/null | grep -q "^${dist}|.*/${package}" || \
-               ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" $HOME/upload/quarto/${package} )
+               ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" "$HOME/upload/quarto/${package}" )
          done
          ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) | grep '/quarto'
       fi

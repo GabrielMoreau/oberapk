@@ -16,13 +16,13 @@ function oberpakaj_powershell {
    do
       mkdir -p "$HOME/upload/powershell/${dist}"
       cd "$HOME/upload/powershell/${dist}"
-      PKG_VERSION=1
+      #PKG_VERSION=1
       if wget --timestamping "https://packages.microsoft.com/repos/microsoft-debian-${dist}-prod/dists/${dist}/main/binary-amd64/Packages.gz"
       then
          if [ -e "Packages.gz" ]
          then
             url=$(zgrep ^Filename Packages.gz | grep '/powershell/' | head -1 | awk '{print $2}')
-            package=$(basename ${url})
+            package=$(basename "${url}")
 
             wget --timestamping "https://packages.microsoft.com/repos/microsoft-debian-${dist}-prod/${url}"
 
@@ -30,7 +30,7 @@ function oberpakaj_powershell {
             then
                # Upload package
                ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) 2> /dev/null | grep -q "^${dist}|.*/${package}" || \
-                  ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" $HOME/upload/powershell/${dist}/${package} )
+                  ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" "$HOME/upload/powershell/${dist}/${package}" )
                ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) 2> /dev/null | grep "^${dist}|.*/${package}"
             fi
          fi

@@ -25,8 +25,8 @@ function oberpakaj_discord {
          package=$(basename "${url}" .deb)
 
          tmp_folder=$(mktemp --directory /tmp/discord-XXXXXX)
-         (cd ${tmp_folder}
-            ar -x $HOME/upload/discord/${package}.deb data.tar.gz control.tar.gz
+         (cd "${tmp_folder}"
+            ar -x "$HOME/upload/discord/${package}.deb" data.tar.gz control.tar.gz
             tar --preserve-permissions -xzf data.tar.gz
             tar -xzf control.tar.gz
 

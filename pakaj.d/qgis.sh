@@ -21,19 +21,19 @@ function oberpakaj_qgis {
       mkdir -p "$HOME/upload/qgis/${dist}"
       cd "$HOME/upload/qgis/${dist}"
 
-      while read poolfile
+      while read -r poolfile
       do
-         package=$(basename ${poolfile})
+         package=$(basename "${poolfile}")
          wget --timestamping "http://qgis.org/debian-ltr/${poolfile}"
          if [ -e "${package}" ]
          then
            ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) 2> /dev/null | grep -q "^${dist}|.*/${package}" || \
-                  ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" $HOME/upload/qgis/${dist}/${package} )
+                  ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" "$HOME/upload/qgis/${dist}/${package}" )
          fi
 
          # Clean old package
          basepkg=$(echo "${package}" | cut -f 1 -d '_')
-         ls -1t -- ${basepkg}_*.deb 2> /dev/null | tail -n +$((keep+1)) | xargs -r rm -f --
-      done < <(wget -q http://qgis.org/debian-ltr/dists/${dist}/main/binary-amd64/Packages.gz -O - | zgrep -E '^Filename: pool/main/q/qgis/(libqgis|python-qgis|python3-qgis|qgis).*.deb' | cut -f 2 -d ' ')
+         ls -1t -- "${basepkg}"_*.deb 2> /dev/null | tail -n +$((keep+1)) | xargs -r rm -f --
+      done < <(wget -q "http://qgis.org/debian-ltr/dists/${dist}/main/binary-amd64/Packages.gz" -O - | zgrep -E '^Filename: pool/main/q/qgis/(libqgis|python-qgis|python3-qgis|qgis).*.deb' | cut -f 2 -d ' ')
    done
    }

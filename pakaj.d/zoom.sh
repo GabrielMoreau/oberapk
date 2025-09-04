@@ -19,7 +19,7 @@ function oberpakaj_zoom {
 
    PKG_VERSION=1
    url="https://zoom.us/client/latest/zoom_amd64.deb"
-   package_file=$(basename ${url})
+   package_file=$(basename "${url}")
    before=$(stat -c %Y "${package_file}" 2> /dev/null || echo 0)
    wget --timestamping "${url}" --no-if-modified-since
    after=$(stat -c %Y "${package_file}" 2> /dev/null || echo 0)

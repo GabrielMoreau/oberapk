@@ -14,14 +14,14 @@ function oberpakaj_modular {
 
    mkdir -p "$HOME/upload/modular"
    cd "$HOME/upload/modular"
-   PKG_VERSION=1
+   #PKG_VERSION=1
    if curl -s -o 'Packages.gz' -L "https://dl.modular.com/public/installer/deb/debian/dists/wheezy/main/binary-amd64/Packages.gz"
    then
       if [ -e 'Packages.gz' ]
       then
          modular=$(zgrep ^Filename Packages.gz | grep '/modular-' | head -1 | awk '{print $2}')
-         package=$(basename $modular  | sed -e 's/-v/_/; s/-/_/;')
-         [ -n "${package}" ] && curl -s --time-cond ${package} -o ${package} -L "https://dl.modular.com/public/installer/deb/debian/${modular}"
+         package=$(basename "$modular" | sed -e 's/-v/_/; s/-/_/;')
+         [ -n "${package}" ] && curl -s --time-cond "${package}" -o "${package}" -L "https://dl.modular.com/public/installer/deb/debian/${modular}"
 
          if [ -e "${package}" ]
          then
@@ -29,7 +29,7 @@ function oberpakaj_modular {
             for dist in ${distrib}
             do
                ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) 2> /dev/null | grep -q "^${dist}|.*/${package}" || \
-                  ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" $HOME/upload/modular/${package} )
+                  ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" "$HOME/upload/modular/${package}" )
             done
             ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) | grep '/modular'
          fi

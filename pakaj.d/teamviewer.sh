@@ -18,10 +18,10 @@ function oberpakaj_teamviewer {
    url="https://download.teamviewer.com/download/linux/teamviewer_amd64.deb"
    if wget --quiet --timestamping "${url}"
    then
-      package=$(basename ${url})
+      package=$(basename "${url}")
       
       rm -f control.tar.xz data.tar.xz debian-binary control.tar data.tar control
-      ar -x ${package}
+      ar -x "${package}"
 
       # On ne rajoute pas le depot Teamviewer sur la machine
       unxz data.tar.xz
@@ -40,12 +40,12 @@ function oberpakaj_teamviewer {
 
       if [ ! -e "${pkg}" ]
       then
-         ar -r $HOME/upload/teamviewer/${pkg} debian-binary control.tar.xz data.tar.xz
+         ar -r "$HOME/upload/teamviewer/${pkg}" debian-binary control.tar.xz data.tar.xz
 
          for dist in ${distrib}
          do
             # Upload package
-            ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" $HOME/upload/teamviewer/${pkg} )
+            ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" "$HOME/upload/teamviewer/${pkg}" )
             ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) | grep '/teamviewer'
          done
       fi

@@ -14,19 +14,19 @@ function oberpakaj_nodejs {
 
    mkdir -p "$HOME/upload/nodejs"
    cd "$HOME/upload/nodejs"
-   if wget https://deb.nodesource.com/node_10.x/pool/main/n/nodejs/ -O index.html
+   if wget "https://deb.nodesource.com/node_10.x/pool/main/n/nodejs/" -O index.html
    then
       if [ -e "index.html" ]
       then
          package=$(grep '_amd64.deb' index.html | cut -f 2 -d '"' | sort --version-sort --field-separator=_ --key=2 | tail -1)
          if [ -n "${package}" -a ! -e "${package}" ]
          then
-            if wget --timestamping https://deb.nodesource.com/node_10.x/pool/main/n/nodejs/${package}
+            if wget --timestamping "https://deb.nodesource.com/node_10.x/pool/main/n/nodejs/${package}"
             then
                # Upload package
                for dist in ${distrib}
                do
-                  ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" $HOME/upload/nodejs/${package} )
+                  ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" "$HOME/upload/nodejs/${package}" )
                done
                ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) | grep '/nodejs'
             fi

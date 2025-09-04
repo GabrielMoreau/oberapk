@@ -18,12 +18,12 @@ function oberpakaj_grv {
       if [ -e "index.html" ]
       then
          url=$(grep 'wget -O grv' index.html | sed -e 's/.*\(https:\)/\1/;' | grep 'grv_.*linux64' | head -1)
-         binary=$(basename $(echo ${url}))
-         version=$(echo ${binary} | cut -f 2 -d '_' | sed -e 's/^v//;')
+         binary=$(basename "${url}")
+         #version=$(echo "${binary}" | cut -f 2 -d '_' | sed -e 's/^v//;')
 
          # Set Name and Version
          PKG_NAME=grv
-         CODE_VERSION=$(echo ${binary} | cut -f 2 -d '_' | sed -e 's/^v//;')
+         CODE_VERSION=$(echo "${binary}" | cut -f 2 -d '_' | sed -e 's/^v//;')
          PKG_VERSION=1
 
          package=${PKG_NAME}_${CODE_VERSION}-${PKG_VERSION}_all.deb
@@ -54,7 +54,7 @@ Tag: implemented-in::go, interface::commandline, role::program
 Priority: optional
 Depends: git
 Architecture: all
-Installed-Size: $(du -sk ${tmp_folder} | cut -f 1)
+Installed-Size: $(du -sk "${tmp_folder}" | cut -f 1)
 Maintainer: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
 Description: Git Repository Viewer
  GRV is a terminal based interface for viewing Git repositories.

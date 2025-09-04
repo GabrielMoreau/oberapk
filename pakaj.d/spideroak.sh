@@ -20,8 +20,8 @@ function oberpakaj_spideroak {
       if [ -e "Packages.gz" ]
       then
          url=$(zgrep ^Filename Packages.gz | grep '/spideroakone_' | head -1 | awk '{print $2}')
-         pkg=$(basename ${url})
-         version=$(echo ${pkg} | cut -f 2 -d '_')'-1'
+         pkg=$(basename "${url}")
+         version=$(echo "${pkg}" | cut -f 2 -d '_')'-1'
          package="spideroakone_${version}_amd64.deb"
 
          wget --timestamping "https://apt.spideroak.com/ubuntu-spideroak-hardy/${url}"
@@ -29,7 +29,7 @@ function oberpakaj_spideroak {
          if [ -e "${pkg}" ]
          then
             tmp_folder=$(mktemp --directory /tmp/spideroak-XXXXXX)
-            (cd ${tmp_folder}
+            (cd "${tmp_folder}"
                ar -x "$HOME/upload/spideroak/${pkg}"
                tar -xzf control.tar.gz
                tar -xJf data.tar.xz
@@ -48,7 +48,7 @@ function oberpakaj_spideroak {
                )
 
             # Create package (control before data)
-            ar -r ${package} ${tmp_folder}/debian-binary ${tmp_folder}/control.tar.gz ${tmp_folder}/data.tar.xz
+            ar -r "${package}" "${tmp_folder}/debian-binary" "${tmp_folder}/control.tar.gz" "${tmp_folder}/data.tar.xz"
  
             # Clean
             rm -rf "${tmp_folder}"
@@ -60,7 +60,7 @@ function oberpakaj_spideroak {
             for dist in ${distrib}
             do
                ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) 2> /dev/null | grep -q "^${dist}|.*/${package}" || \
-                  ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" $HOME/upload/spideroak/${package} )
+                  ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" "$HOME/upload/spideroak/${package}" )
             done
             ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) | grep '/spideroakone'
          fi

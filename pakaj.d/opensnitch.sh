@@ -22,16 +22,16 @@ function oberpakaj_opensnitch {
       # python3-opensnitch-ui_1.5.2-1_all.deb
       for pkg in opensnitch python3-opensnitch-ui
       do
-         url=$(egrep "/${pkg}_.*_(amd64|all).deb" releases | cut -f 2 -d '"' | grep -v -- '-rc\.' | head -1)
-         package=$(basename ${url})
+         url=$(grep -E "/${pkg}_.*_(amd64|all).deb" releases | cut -f 2 -d '"' | grep -v -- '-rc\.' | head -1)
+         package=$(basename "${url}")
          wget -q --timestamping "${url}"
-         file ${package} | grep -q 'Debian binary package .format 2.0' || { rm -f "${package}"; continue; }
+         file "${package}" | grep -q 'Debian binary package .format 2.0' || { rm -f "${package}"; continue; }
       done
    fi
 
    for pkg in opensnitch python3-opensnitch-ui
    do
-      pkg_real=$(ls -1tr ${pkg}_*.deb | tail -1)
+      pkg_real=$(ls -1tr "${pkg}"_*.deb | tail -1)
     
       if [ -e "${pkg_real}" ]
       then
@@ -39,7 +39,7 @@ function oberpakaj_opensnitch {
          for dist in ${distrib}
          do
             ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) 2> /dev/null | grep -q "^${dist}|.*/${pkg_real}" || \
-              ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" $HOME/upload/opensnitch/${pkg_real} )
+              ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" "$HOME/upload/opensnitch/${pkg_real}" )
          done
          ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) | grep 'opensnitch'
       fi

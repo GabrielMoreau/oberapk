@@ -16,12 +16,12 @@ function oberpakaj_kopia {
    cd "$HOME/upload/kopia"
 
    version=$(curl -s -L 'https://github.com/kopia/kopia/releases/latest' | sed 's/</\n/g;'| grep '^meta property.*og:title' | cut -f 4 -d ' ' | sed -e 's/^v//;')
-   for package in kopia_${version}_linux_amd64.deb kopia-ui_${version}_amd64.deb
+   for package in "kopia_${version}_linux_amd64.deb" "kopia-ui_${version}_amd64.deb"
    do
       wget --timestamping "https://github.com/kopia/kopia/releases/download/v${version}/${package}"
       if echo "${package}" | grep -q '_linux_'
       then
-         ln -f kopia_${version}_linux_amd64.deb kopia_${version}_amd64.deb
+         ln -f "kopia_${version}_linux_amd64.deb" "kopia_${version}_amd64.deb"
          package=kopia_${version}_amd64.deb
       fi
 
@@ -31,13 +31,13 @@ function oberpakaj_kopia {
          for dist in ${distrib}
          do
             ( cd "${REPREPRO}" || return ; reprepro dumpreferences )  2> /dev/null | grep -q "^${dist}|.*/${package}" || \
-               ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" $HOME/upload/kopia/${package} )
+               ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" "$HOME/upload/kopia/${package}" )
             ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) | grep "^${dist}|.*/kopia"
          done
       fi
    done
 
    # Clean old package - kept last 4 (put 4+1=5)
-   ls -1t -- kopia_*.deb    | tail -n +$((2 * (${keep} + 1))) | xargs -r rm -f
-   ls -1t -- kopia-ui_*.deb | tail -n +$((${keep} + 1))       | xargs -r rm -f
+   ls -1t -- kopia_*.deb    | tail -n +$((2 * (keep+1))) | xargs -r rm -f
+   ls -1t -- kopia-ui_*.deb | tail -n +$((keep+1))       | xargs -r rm -f
    }

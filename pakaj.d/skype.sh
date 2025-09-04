@@ -18,7 +18,7 @@ function oberpakaj_skype {
    cd "$HOME/upload/skype"
 
    url="https://go.skype.com/skypeforlinux-64.deb"
-   package_file=$(basename ${url})
+   package_file=$(basename "${url}")
    before=$(stat -c %Y "${package_file}" 2> /dev/null || echo 0)
    wget --quiet --timestamping "${url}"
    LANG=C file "${package_file}" | grep -q 'Debian binary package' || return
@@ -27,8 +27,8 @@ function oberpakaj_skype {
    if [ "${after}" -gt "${before}" ] || [ ! -s "${previous_package}" ]
    then
       tmp_folder=$(mktemp --directory /tmp/skype-XXXXXX)
-      (cd ${tmp_folder}
-         ar -x $HOME/upload/skype/${package_file}
+      (cd "${tmp_folder}"
+         ar -x "$HOME/upload/skype/${package_file}"
          tar xzf control.tar.gz
 
          version=$(grep '^Version:' control | awk '{print $2}')
@@ -38,7 +38,7 @@ function oberpakaj_skype {
          sed -i -e 's/nohup/# nohup/;' postinst
 
          tar --owner root --group root -czf control.tar.gz control md5sums postinst
-         ar -r $HOME/upload/skype/${package} debian-binary control.tar.* data.tar.* \
+         ar -r "$HOME/upload/skype/${package}" debian-binary control.tar.* data.tar.* \
             && echo "${package}" > "$HOME/upload/skype/timestamp.sig"
          )
 
@@ -54,7 +54,7 @@ function oberpakaj_skype {
       do
          # Upload package
          ( cd "${REPREPRO}" || return ; reprepro dumpreferences )  2> /dev/null | grep -q "^${dist}|.*/${package}" || \
-            ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" $HOME/upload/skype/${package} )
+            ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" "$HOME/upload/skype/${package}" )
          ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) | grep "^${dist}|.*/skype"
       done
    fi

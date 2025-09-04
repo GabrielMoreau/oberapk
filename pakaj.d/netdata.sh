@@ -20,9 +20,9 @@ function oberpakaj_netdata {
       then
          if [ -e 'Packages.gz' ]
          then
-            pool=$(zgrep 'netdata/netdata_'$(zgrep '^Version:' Packages.gz | awk '{print $2}' | sort -V | tail -1) Packages.gz | awk '{print $2}')
-            upload_pkg=$(basename ${pool})
-            package=$(echo ${upload_pkg} | sed -e "s/nightly/${dist}/;")
+            pool=$(zgrep 'netdata/netdata_'"$(zgrep '^Version:' Packages.gz | awk '{print $2}' | sort -V | tail -1)" Packages.gz | awk '{print $2}')
+            upload_pkg=$(basename "${pool}")
+            package=$(echo "${upload_pkg}" | sed -e "s/nightly/${dist}/;")
 
             if wget --timestamping "https://packagecloud.io/netdata/netdata-edge/debian/${pool}"
             then
@@ -31,7 +31,7 @@ function oberpakaj_netdata {
                   if [ ! -e "${package}" ]
                   then
                      tmp_folder=$(mktemp --directory /tmp/netdata-XXXXXX)
-                     (cd ${tmp_folder}
+                     (cd "${tmp_folder}"
                         ar -x "$HOME/upload/netdata/${dist}/${upload_pkg}"
                         [ -e "control.tar.xz" ] && tar -xJf control.tar.xz
                         [ -e "control.tar.gz" ] && tar -xzf control.tar.gz

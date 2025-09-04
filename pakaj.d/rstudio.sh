@@ -19,7 +19,7 @@ function oberpakaj_rstudio {
    mkdir -p "$HOME/upload/rstudio"
    cd "$HOME/upload/rstudio"
 
-   curl -s -L 'https://www.rstudio.com/products/rstudio/download/#download' | sed 's/"/\n/g;' | egrep '^https://.*/rstudio-.*-amd64.deb$' > Packages.txt
+   curl -s -L 'https://www.rstudio.com/products/rstudio/download/#download' | sed 's/"/\n/g;' | grep -E '^https://.*/rstudio-.*-amd64.deb$' > Packages.txt
    if [ -s "Packages.txt" ]
    then
       for dist in ${distrib}
@@ -31,11 +31,11 @@ function oberpakaj_rstudio {
          esac
 
          url=$(grep "/${DEBGREP}/" Packages.txt | head -1)
-         pkgfile=$(basename ${url})
+         pkgfile=$(basename "${url}")
          mkdir -p "$HOME/upload/rstudio/${dist}"
          (cd "$HOME/upload/rstudio/${dist}"; wget --timestamping "${url}")
          tmp_folder=$(mktemp --directory /tmp/rstudio-XXXXXX)
-         (cd ${tmp_folder}
+         (cd "${tmp_folder}"
             if LANG=C file "$HOME/upload/rstudio/${dist}/${pkgfile}" 2> /dev/null | grep -q 'Debian binary package'
             then
                ar -x "$HOME/upload/rstudio/${dist}/${pkgfile}"
@@ -46,7 +46,7 @@ function oberpakaj_rstudio {
 
                if ! grep -q "${pkg}_${VERSION}_amd64.deb" "$HOME/upload/rstudio/${dist}/timestamp.sig"
                then
-                  ar -r "$HOME/upload/rstudio/${dist}/${pkg}_${VERSION}_amd64.deb" ${tmp_folder}/debian-binary ${tmp_folder}/control.tar.gz ${tmp_folder}/data.tar.xz \
+                  ar -r "$HOME/upload/rstudio/${dist}/${pkg}_${VERSION}_amd64.deb" "${tmp_folder}/debian-binary" "${tmp_folder}/control.tar.gz" "${tmp_folder}/data.tar.xz" \
                      && echo "${pkg}_${VERSION}_amd64.deb" >> "$HOME/upload/rstudio/${dist}/timestamp.sig"
                fi
             fi
@@ -62,7 +62,7 @@ function oberpakaj_rstudio {
             then
               # Upload package
                ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) 2> /dev/null | grep -q "^${dist}|.*/${package}" || \
-                  ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" $HOME/upload/rstudio/${dist}/${package} )
+                  ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" "$HOME/upload/rstudio/${dist}/${package}" )
                ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) 2> /dev/null | grep "^${dist}|.*/${package}"
             fi
          fi

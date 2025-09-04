@@ -18,7 +18,7 @@ function oberpakaj_xpipe {
 
    #PKG_VERSION=1
    url="https://github.com/xpipe-io/xpipe/releases/latest/download/xpipe-installer-linux-x86_64.deb"
-   package_file=$(basename ${url})
+   package_file=$(basename "${url}")
    before=$(stat -c %Y "${package_file}" 2> /dev/null || echo 0)
    wget --timestamping "${url}"
    after=$(stat -c %Y "${package_file}" 2> /dev/null || echo 0)

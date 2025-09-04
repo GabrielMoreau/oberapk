@@ -13,12 +13,12 @@ function oberpakaj_reaction {
 
    mkdir -p "$HOME/upload/reaction"
    cd "$HOME/upload/reaction"
-   PKG_VERSION=1
+   #PKG_VERSION=1
    version=$(curl -s --insecure -L 'https://framagit.org/api/v4/projects/90566/releases' | sed -e 's/,/\n/g;' | grep '"tag_name"' | cut -f 4 -d '"' | sed -e 's/^v//;' | head -1)
    if echo "${version}" | grep -q '^[[:digit:]][\.[:digit:]][\.[:digit:]]*$'
    then
       package=reaction_${version}_amd64.deb
-      curl -s --time-cond --insecure -L "https://static.ppom.me/reaction/releases/v${version}/reaction.deb" -o ${package}
+      curl -s --time-cond --insecure -L "https://static.ppom.me/reaction/releases/v${version}/reaction.deb" -o "${package}"
 
       if [ -e "${package}" ] && file "${package}" | grep 'Debian binary package'
       then
@@ -26,7 +26,7 @@ function oberpakaj_reaction {
          for dist in ${distrib}
          do
             ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) 2> /dev/null | grep -q "^${dist}|.*/${package}" || \
-               ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" $HOME/upload/reaction/${package} )
+               ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" "$HOME/upload/reaction/${package}" )
          done
          ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) | grep '/reaction'
       fi

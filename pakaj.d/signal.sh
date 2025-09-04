@@ -23,12 +23,12 @@ function oberpakaj_signal {
 
          wget --timestamping "https://updates.signal.org/desktop/apt/${pkg_signal}"
 
-         if [ -e "$(basename ${pkg_signal})" ]
+         if [ -e "$(basename "${pkg_signal}")" ]
          then
             # Upload package
             for dist in ${distrib}
             do
-               ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" $HOME/upload/signal/$(basename ${pkg_signal}) )
+               ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" "$HOME/upload/signal/$(basename "${pkg_signal}")" )
             done
             ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) | grep '/signal-desktop'
          fi

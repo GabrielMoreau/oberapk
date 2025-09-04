@@ -16,7 +16,7 @@ function oberpakaj_webex {
 
    package=''
    url='https://binaries.webex.com/WebexDesktop-Ubuntu-Official-Package/Webex.deb'
-   package_file=$(basename ${url})
+   package_file=$(basename "${url}")
    before=$(stat -c %Y "${package_file}" 2> /dev/null || echo 0)
    wget --quiet --timestamping "${url}"
    LANG=C file "${package_file}" | grep -q 'Debian binary package' || return

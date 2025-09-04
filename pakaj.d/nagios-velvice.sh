@@ -34,7 +34,7 @@ function oberpakaj_nagios_velvice {
 
          for dist in ${distrib}
          do
-           ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" $HOME/upload/nagios-velvice/${package} )
+           ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" "$HOME/upload/nagios-velvice/${package}" )
          done
          ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) | grep -i "/${PKG_NAME}"
       fi

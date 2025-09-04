@@ -19,18 +19,18 @@ function oberpakaj_atom {
    cd "$HOME/upload/atom"
 
    poolfile=$(wget -q 'https://packagecloud.io/AtomEditor/atom/any/dists/any/main/binary-amd64/Packages.gz' -O - | zgrep '^Filename: pool/any/main/a/atom/atom_.*.deb' | sort -u | tail -1 | cut -f 2 -d ' ')
-   package=$(basename ${poolfile})
+   package=$(basename "${poolfile}")
    wget --timestamping "https://packagecloud.io/AtomEditor/atom/any/${poolfile}"
    if [ -e "${package}" ]
    then
       for dist in ${distrib}
       do
          ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) 2> /dev/null | grep -q "^${dist}|.*/${package}" || \
-            ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" $HOME/upload/atom/${package} )
+            ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" "$HOME/upload/atom/${package}" )
       done
    fi
 
    # Clean old package
    basepkg=$(echo "${package}" | cut -f 1 -d '_')
-   ls -1t -- ${basepkg}_*.deb 2> /dev/null | tail -n +$((keep+1)) | xargs -r rm -f --
+   ls -1t -- "${basepkg}"_*.deb 2> /dev/null | tail -n +$((keep+1)) | xargs -r rm -f --
    }

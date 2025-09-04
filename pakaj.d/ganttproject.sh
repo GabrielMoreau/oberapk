@@ -18,15 +18,15 @@ function oberpakaj_ganttproject {
    url=$(wget --quiet https://dl.ganttproject.biz/ -O - | sed -e 's/Key/\nKey/g;' | grep '^Key>ganttproject-.*.deb' | cut -f 2 -d '>' | cut -f 1 -d '<' | tail -1)
    if wget --quiet --timestamping "https://dl.ganttproject.biz/${url}"
    then
-      package=$(basename ${url})
-      pkg_basename=$(echo ${package} | cut -f 1 -d '_')
-      if [ -s "${package}" ] && LANG=C file "${package}" | grep -q 'Debian binary package' && [ $(ar t "${package}" | wc -l) -ge 3 ]
+      package=$(basename "${url}")
+      pkg_basename=$(echo "${package}" | cut -f 1 -d '_')
+      if [ -s "${package}" ] && LANG=C file "${package}" | grep -q 'Debian binary package' && [ "$(ar t "${package}" | wc -l)" -ge 3 ]
       then
          for dist in ${distrib}
          do
             # Upload package
             ( cd "${REPREPRO}" || return ; reprepro dumpreferences )  2> /dev/null | grep -q "^${dist}|.*/${package}" || \
-               ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" $HOME/upload/ganttproject/${package} )
+               ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" "$HOME/upload/ganttproject/${package}" )
             ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) | grep "^${dist}|.*/${pkg_basename}"
          done
       fi

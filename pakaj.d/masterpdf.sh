@@ -20,7 +20,7 @@ function oberpakaj_masterpdf {
    url="http://code-industry.net/public/${package}"
    # Version 5
    #url=$(wget -q https://code-industry.net/free-pdf-editor/ -O - | sed -e 's/"/\n/g;' | grep '^https://.*master-pdf-editor.*.deb$' | head -1)
-   #package=$(basename ${url})
+   #package=$(basename "${url}")
    if wget --timestamping "${url}"
    then
       if [ -e "${package}" ]
@@ -28,7 +28,7 @@ function oberpakaj_masterpdf {
          # Upload package
          for dist in ${distrib}
          do
-            ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" $HOME/upload/masterpdf/${package} )
+            ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" "$HOME/upload/masterpdf/${package}" )
          done
          ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) | grep '/master-pdf-editor'
       fi

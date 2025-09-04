@@ -23,7 +23,7 @@ function oberpakaj_udsclient3 {
    url="https://mydesk.unimore.it/uds/res/clients/udsclient3_${version}_all.deb"
    if wget --quiet --timestamping "${url}"
    then
-      package=$(basename ${url})
+      package=$(basename "${url}")
 
       if [ -s "${package}" ] && LANG=C file "${package}" 2> /dev/null | grep -q 'Debian binary package'
       then

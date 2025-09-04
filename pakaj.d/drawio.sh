@@ -18,7 +18,7 @@ function oberpakaj_drawio {
 
    package=''
    url=$(wget --quiet https://github.com/jgraph/drawio-desktop/releases -O - | sed -e 's/"/\n/g;' | grep '^https://github.com/.*/drawio-amd64-.*.deb' | head -1)
-   package_file=$(basename ${url})
+   package_file=$(basename "${url}")
    before=$(stat -c %Y "${package_file}" 2> /dev/null || echo 0)
    wget --quiet --timestamping "${url}"
    LANG=C file "${package_file}" | grep -q 'Debian binary package' || return
@@ -27,8 +27,8 @@ function oberpakaj_drawio {
    if [ "${after}" -gt "${before}" ] || [ ! -s "${previous_package}" ]
    then
       tmp_folder=$(mktemp --directory /tmp/drawio-XXXXXX)
-      (cd ${tmp_folder}
-         ar -x $HOME/upload/drawio/${package_file}
+      (cd "${tmp_folder}"
+         ar -x "$HOME/upload/drawio/${package_file}"
          tar xzf control.tar.gz
 
          package='drawio'
@@ -38,7 +38,7 @@ function oberpakaj_drawio {
          tar --owner root --group root -czf control.tar.gz ./control ./postinst ./postrm ./md5sums
 
          # Create package (control before data)
-         ar -r "$HOME/upload/drawio/${package}_${VERSION}_amd64.deb" ${tmp_folder}/debian-binary ${tmp_folder}/control.tar.gz ${tmp_folder}/data.tar.xz \
+         ar -r "$HOME/upload/drawio/${package}_${VERSION}_amd64.deb" "${tmp_folder}/debian-binary" "${tmp_folder}/control.tar.gz" "${tmp_folder}/data.tar.xz" \
             && echo "${package}_${VERSION}_amd64.deb" > "$HOME/upload/drawio/timestamp.sig"
          )
 
@@ -53,7 +53,7 @@ function oberpakaj_drawio {
       for dist in ${distrib}
       do
          ( cd "${REPREPRO}" || return ; reprepro dumpreferences )  2> /dev/null | grep -q "^${dist}|.*/${package}" || \
-            ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" $HOME/upload/drawio/${package} )
+            ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" "$HOME/upload/drawio/${package}" )
          ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) | grep "^${dist}|.*/drawio"
       done
    fi
