@@ -13,10 +13,10 @@ all: man pkg
 clean:
 	@rm -rf public $(SOFT).1.gz $(SOFT).html pod2htmd.tmp
 
-%.1.gz: $(SOFT) Makefile
+%.1.gz: $(SOFT).pod Makefile
 	@pod2man $< | gzip > $@
 
-%.html: $(SOFT) Makefile podstyle.css
+%.html: $(SOFT).pod Makefile podstyle.css
 	@pod2html --css podstyle.css --index --header $< > $@
 
 man: $(SOFT).1.gz $(SOFT).html

@@ -1,0 +1,215 @@
+################################################################
+# Documentation in POD format (like Perl)
+################################################################
+
+=head1 NAME
+
+oberapk - automated Debian package download, modification and local upload
+
+=head1 SYNOPSIS
+
+ oberapk avail
+ oberapk list
+ oberapk kit
+ oberapk update pkg
+ oberapk upgrade kit
+ oberapk pushed pkg
+ oberapk remove pkg
+ oberapk source pkg
+ oberapk binaries
+ oberapk version
+ oberapk help
+
+=head1 DESCRIPTION
+
+Oberapk is a tool to automate the uploading of Debian packages
+to a local Reprepro repository.
+The goal is to simplify the provision of software on a local park
+without having them fetch the packages on remote sites.
+For each package, there is a specific recipe to get the latest version,
+if any, and then push it to the right Debian distribution(s)
+that your Reprepro instance manages locally.
+
+It is however possible to slightly modify the package during the recipe,
+or to build very simple packages in which the programs are written
+in scripting languages that do not need to be compiled
+or complex build steps.
+
+=head1 COMMANDS
+
+=head2 avail
+
+The `avail` command allows you to know all the available packaging
+in the Oberapk distribution.
+
+ oberapk avail
+
+=head2 list
+
+The `list` command allows you to know all the configure packaging
+defined in your configuration file.
+
+ oberapk list
+
+=head2 kit
+
+The `kit` command lets you know the packaging set
+defined in your configuration file.
+
+ oberapk kit
+
+=head2 update
+
+The `update` command is used to start a recipe, and thus ultimately
+to update the packages that this packaging manages.
+The `pkg` packaging must be defined in your configuration file.
+
+ oberapk update pkg
+
+=head2 upgrade
+
+The `upgrade` command allows to apply all the packaging defined
+by a `kit`.
+If a kit with the name `all` exists on your installation, then you can
+update with a single command the software of your local repository
+which are managed by Oberapk.
+The `kit` must be defined in your configuration file.
+
+ oberapk upgrade kit
+
+=head2 pushed
+
+The `pushed` command lists all versions of the packages in this
+packaging that are already in the Reprepro package manager.
+These are the packages that are in practice available to end users
+The `pkg` packaging must be defined in your configuration file.
+
+ oberapk pushed pkg
+
+=head2 remove
+
+The `remove` command remove the last version of the package in the
+Reprepro package manager.
+It is then possible to push it again via the `update` command.
+In a normal life, you do not need to use this command.
+The `pkg` packaging must be defined in your configuration file.
+
+ oberapk remove pkg | bash
+
+For security reasons, the command does not take any direct action.
+You have to pipe to bash the output of the command to really remove the
+package from the Reprepro package manager.
+
+=head2 source
+
+The `source` command is for developers.
+It allows to test a new recipe.
+It allows to set the global variables useful for the bash function. 
+The `pkg` here is a packaging defined in the oberpak distribution
+(see the L<avail> command).
+It is not only a recipe declared in the configuration file.
+
+ oberapk source pkg
+
+=head2 binaries
+
+The `binaries` command is for developers.
+It allows to list all the commands that have been used
+in the other recipes.
+It is preferable if possible to restrict yourself to these commands
+in order not to add any additional dependency to Oberapk. 
+
+ oberapk binaries
+
+=head2 version
+
+The `version` command returns the current version installed
+on the computer.
+
+ oberapk version
+
+=head2 help
+
+The `help` command provides a little minimal help.
+
+ oberapk help
+
+
+=head1 Configuration files
+
+There are two configuration files.
+They can be under `/etc/oberapk` folder or under `$HOME/.local/oberapk`.
+
+=over
+
+=item * The `oberapk.conf` file describes the local configuration of your site.
+It indicates which kits are available and which packages can be
+applied to which versions of the distribution (based on the
+distribution name).
+In this way, each site has the choice of pushing the packages it
+wants onto its local Reprepro repository and only onto the
+distribution version(s) it needs.
+Please note that the recipes will certainly not work on all
+distributions.
+Oberapk is intended to be a simple tool for managing a reasonable
+number of machines.
+Not all cases are taken into account.
+
+ @all: @free @non-free
+ @free: grv codium nodejs
+ @non-free: discord teams teamviewer
+
+ @daily: @free teams
+ @weekly: teamviewer
+
+ grv:4:        bullseye buster stretch
+ codium:3:     bullseye buster
+ nodejs:3:              buster stretch
+ discord:2:             buster
+ teams:2:      bullseye buster
+ teamviewer:2: bullseye buster stretch
+
+For packaging, the second parameter is the number of old package
+to kept each time a new one is uploaded.
+If the new package is not functional,
+it is always possible to manually push one of the old versions
+to your local reprepo repository.
+
+=item * `oberapk.sh` is a file in Bash format which defines
+the global variables.
+
+ #CONF_FILE=/etc/oberapk/oberapk.conf
+ #PAKAJ_FOLDER=/usr/share/oberapk/pakaj.d
+ REPREPRO=/var/www/debian
+ RUN_USER=lambda
+
+=back
+
+
+=head1 SEE ALSO
+
+L<reprepro|https://wiki.debian.org/DebianRepository/SetupWithReprepro>
+
+Own project ressources:
+
+=over
+
+=item * L<Web site|https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/oberapk>
+
+=item * L<Online Manual|https://legi.gricad-pages.univ-grenoble-alpes.fr/soft/trokata/oberapk/>
+
+=item * L<Download package (Debian)|https://legi.gricad-pages.univ-grenoble-alpes.fr/soft/trokata/oberapk/download/>
+
+=back
+
+
+=head1 AUTHORS
+
+Written by Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>, Grenoble - France
+
+
+=head1 COPYRIGHT
+
+Copyright (C) 2017-2025, LEGI UMR 5519 / CNRS UGA G-INP, Grenoble, France
+
+Licence: GNU GPL version 2 or later
