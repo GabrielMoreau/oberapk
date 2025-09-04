@@ -89,7 +89,8 @@ in the folder [pakaj.d](pakaj.d/):
 * [backuppc-silzigan](https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/backuppc-silizan),
   [bidiez](https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/bidiez);
 * [certcheck](https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/certcheck),
-  [chrome](https://www.google.com/chrome/);
+  [chrome](https://www.google.com/chrome/),
+  [codium](https://github.com/VSCodium/vscodium);
 * [ddt](https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/ddt),
   [discord](https://discord.com/),
   [drawio](https://app.diagrams.net/);
@@ -118,6 +119,7 @@ in the folder [pakaj.d](pakaj.d/):
   [netdata](https://github.com/netdata/netdata),
   [nodejs](https://stackoverflow.com/questions/48943416/bash-npm-command-not-found-in-debian-9-3);
 * [oberapk](https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/oberapk),
+  [ocs-webutils](https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/ocs-webutils),
   [onlyoffice](https://www.onlyoffice.com/desktop.aspx) [onlyoffice-desktopeditors],
   [openfoam](https://openfoam.com) [openfoam openfoam-common openfoam-default openfoam-dev openfoam-source openfoam-tools openfoam-tutorials],
   [opensnitch](https://github.com/evilsocket/opensnitch/) [opensnitch python3-opensnitch-ui];
@@ -140,8 +142,7 @@ in the folder [pakaj.d](pakaj.d/):
 * [udsclient3](http://www.udsenterprise.com);
 * [veracrypt](https://www.veracrypt.fr/) [veracrypt veracrypt-console],
   [virtualbox](https://www.virtualbox.org/wiki/Linux_Downloads),
-  [vscode](https://github.com/microsoft/vscode) [code code-insiders],
-  [codium](https://github.com/VSCodium/vscodium);
+  [vscode](https://github.com/microsoft/vscode) [code code-insiders];
 * [webex](https://www.webex.com/downloads.html);
 * [xnview](https://www.xnview.com),
   [xpipe](https://xpipe.io);
