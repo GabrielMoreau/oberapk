@@ -54,12 +54,12 @@ END
          ar -r ${package}-${PKG_VERSION}.deb ${tmp_folder}/debian-binary ${tmp_folder}/control.tar.gz ${tmp_folder}/data.tar.gz
  
          # Clean
-         rm -rf ${tmp_folder}
+         rm -rf "${tmp_folder}"
 
          for dist in ${distrib}
          do
             # Upload package
-            ( cd "${REPREPRO}" || return ; reprepro includedeb ${dist} $HOME/upload/discord/${package}-${PKG_VERSION}.deb )
+            ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" $HOME/upload/discord/${package}-${PKG_VERSION}.deb )
             ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) | grep '/discord'
          done
       fi

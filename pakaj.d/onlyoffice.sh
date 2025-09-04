@@ -16,16 +16,16 @@ function oberpakaj_onlyoffice {
    mkdir -p "$HOME/upload/onlyoffice"
    cd "$HOME/upload/onlyoffice"
    [ -e "timestamp.sig" ] \
-      || touch -t $(date +%Y)01010000 timestamp.sig
+      || touch -t "$(date +%Y)01010000" timestamp.sig
 
    PKG_VERSION=1
    url="https://download.onlyoffice.com/install/desktop/editors/linux/onlyoffice-desktopeditors_amd64.deb"
    package_file=$(basename ${url})
-   before=$(stat -c %Y ${package_file} 2> /dev/null || echo 0)
+   before=$(stat -c %Y "${package_file}" 2> /dev/null || echo 0)
    wget --timestamping "${url}"
-   after=$(stat -c %Y ${package_file} 2> /dev/null || echo 0)
+   after=$(stat -c %Y "${package_file}" 2> /dev/null || echo 0)
    previous_package="$(cat timestamp.sig)"
-   if [ ${after} -gt ${before} ] || [ ! -s "${previous_package}" ]
+   if [ "${after}" -gt "${before}" ] || [ ! -s "${previous_package}" ]
    then
       package=$(basename ${url} _amd64.deb)
 
@@ -41,7 +41,7 @@ function oberpakaj_onlyoffice {
             )
 
       # Clean
-      rm -rf ${tmp_folder}
+      rm -rf "${tmp_folder}"
    fi
 
    # Upload package
@@ -51,7 +51,7 @@ function oberpakaj_onlyoffice {
       for dist in ${distrib}
       do
          ( cd "${REPREPRO}" || return ; reprepro dumpreferences )  2> /dev/null | grep -q "^${dist}|.*/${package}" || \
-            ( cd "${REPREPRO}" || return ; reprepro includedeb ${dist} $HOME/upload/onlyoffice/${package} )
+            ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" $HOME/upload/onlyoffice/${package} )
          ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) | grep "^${dist}|.*/onlyoffice-desktopeditors"
       done
    fi

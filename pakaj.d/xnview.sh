@@ -14,17 +14,17 @@ function oberpakaj_xnview {
    mkdir -p "$HOME/upload/xnview"
    cd "$HOME/upload/xnview"
    [ -e "timestamp.sig" ] \
-      || touch -t $(date +%Y)01010000 timestamp.sig
+      || touch -t "$(date +%Y)01010000" timestamp.sig
 
    package=''
    url=https://download.xnview.com/XnViewMP-linux-x64.deb
    package_file=$(basename ${url})
-   before=$(stat -c %Y ${package_file} 2> /dev/null || echo 0)
+   before=$(stat -c %Y "${package_file}" 2> /dev/null || echo 0)
    wget --quiet --timestamping "${url}"
    LANG=C file ${package_file} | grep -q 'Debian binary package' || return
-   after=$(stat -c %Y ${package_file} 2> /dev/null || echo 0)
+   after=$(stat -c %Y "${package_file}" 2> /dev/null || echo 0)
    previous_package="$(cat timestamp.sig)"
-   if [ ${after} -gt ${before} ] || [ ! -s "${previous_package}" ]
+   if [ "${after}" -gt "${before}" ] || [ ! -s "${previous_package}" ]
    then
       tmp_folder=$(mktemp --directory /tmp/xnview-XXXXXX)
       (cd ${tmp_folder}
@@ -43,7 +43,7 @@ function oberpakaj_xnview {
          )
 
       # Clean
-      rm -rf ${tmp_folder}
+      rm -rf "${tmp_folder}"
    fi
 
    # Upload package
@@ -53,7 +53,7 @@ function oberpakaj_xnview {
       for dist in ${distrib}
       do
          ( cd "${REPREPRO}" || return ; reprepro dumpreferences )  2> /dev/null | grep -q "^${dist}|.*/${package}" || \
-            ( cd "${REPREPRO}" || return ; reprepro includedeb ${dist} $HOME/upload/xnview/${package} )
+            ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" $HOME/upload/xnview/${package} )
          ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) | grep "^${dist}|.*/xnview"
       done
    fi

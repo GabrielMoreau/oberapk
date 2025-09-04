@@ -34,7 +34,7 @@ function oberpakaj_project_meta {
 
          for dist in ${distrib}
          do
-           ( cd "${REPREPRO}" || return ; reprepro includedeb ${dist} $HOME/upload/${PKG_NAME}/${package} )
+           ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" $HOME/upload/${PKG_NAME}/${package} )
          done
          ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) | grep -i "/${PKG_NAME}"
       fi

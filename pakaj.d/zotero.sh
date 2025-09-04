@@ -95,7 +95,7 @@ END
          ar -r ${package} ${tmp_folder}/debian-binary ${tmp_folder}/control.tar.gz ${tmp_folder}/data.tar.gz
  
          # Clean
-         rm -rf ${tmp_folder}
+         rm -rf "${tmp_folder}"
       fi
    fi
 
@@ -105,7 +105,7 @@ END
       for dist in ${distrib}
       do
          ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) 2> /dev/null | grep -q "^${dist}|.*/${package}" || \
-            ( cd "${REPREPRO}" || return ; reprepro includedeb ${dist} $HOME/upload/zotero/${package} )
+            ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" $HOME/upload/zotero/${package} )
          ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) 2> /dev/null | grep "^${dist}|.*/zotero"
       done
    fi

@@ -49,7 +49,7 @@ END
             tar --owner root --group root -cJf control.tar.xz ./control ./postinst ./postrm ./prerm
             )
          ar -r "${package}" ${tmp_folder}/debian-binary ${tmp_folder}/control.tar.xz ${tmp_folder}/data.tar.xz
-         rm -rf ${tmp_folder}
+         rm -rf "${tmp_folder}"
 
          if [ -e "${package}" ]
          then
@@ -57,7 +57,7 @@ END
             for dist in ${distrib}
             do
                ( cd "${REPREPRO}" || return ; reprepro dumpreferences )  2> /dev/null | grep -q "^${dist}|.*/${package}" || \
-                  ( cd "${REPREPRO}" || return ; reprepro includedeb ${dist} $HOME/upload/chrome/${package} )
+                  ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" $HOME/upload/chrome/${package} )
             done
             ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) | grep '/google-chrome-stable'
          fi

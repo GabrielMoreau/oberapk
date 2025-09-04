@@ -28,7 +28,7 @@ function oberpakaj_qgis {
          if [ -e "${package}" ]
          then
            ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) 2> /dev/null | grep -q "^${dist}|.*/${package}" || \
-                  ( cd "${REPREPRO}" || return ; reprepro includedeb ${dist} $HOME/upload/qgis/${dist}/${package} )
+                  ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" $HOME/upload/qgis/${dist}/${package} )
          fi
 
          # Clean old package

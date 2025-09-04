@@ -19,12 +19,12 @@ function oberpakaj_skype {
 
    url="https://go.skype.com/skypeforlinux-64.deb"
    package_file=$(basename ${url})
-   before=$(stat -c %Y ${package_file} 2> /dev/null || echo 0)
+   before=$(stat -c %Y "${package_file}" 2> /dev/null || echo 0)
    wget --quiet --timestamping "${url}"
    LANG=C file ${package_file} | grep -q 'Debian binary package' || return
-   after=$(stat -c %Y ${package_file} 2> /dev/null || echo 0)
+   after=$(stat -c %Y "${package_file}" 2> /dev/null || echo 0)
    previous_package="$(cat timestamp.sig)"
-   if [ ${after} -gt ${before} ] || [ ! -s "${previous_package}" ]
+   if [ "${after}" -gt "${before}" ] || [ ! -s "${previous_package}" ]
    then
       tmp_folder=$(mktemp --directory /tmp/skype-XXXXXX)
       (cd ${tmp_folder}
@@ -43,7 +43,7 @@ function oberpakaj_skype {
          )
 
       # Clean
-      rm -rf ${tmp_folder}
+      rm -rf "${tmp_folder}"
    fi
 
    # Upload package
@@ -54,7 +54,7 @@ function oberpakaj_skype {
       do
          # Upload package
          ( cd "${REPREPRO}" || return ; reprepro dumpreferences )  2> /dev/null | grep -q "^${dist}|.*/${package}" || \
-            ( cd "${REPREPRO}" || return ; reprepro includedeb ${dist} $HOME/upload/skype/${package} )
+            ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" $HOME/upload/skype/${package} )
          ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) | grep "^${dist}|.*/skype"
       done
    fi

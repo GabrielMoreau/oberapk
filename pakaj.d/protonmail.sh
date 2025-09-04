@@ -24,7 +24,7 @@ function oberpakaj_protonmail {
       for dist in ${distrib}
       do
          ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) 2> /dev/null | grep -q "^${dist}|.*/${package}" || \
-            ( cd "${REPREPRO}" || return ; reprepro includedeb ${dist} $HOME/upload/protonmail/${package} )
+            ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" $HOME/upload/protonmail/${package} )
       done
    fi
 

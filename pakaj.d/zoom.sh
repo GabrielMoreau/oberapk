@@ -15,16 +15,16 @@ function oberpakaj_zoom {
    mkdir -p "$HOME/upload/zoom"
    cd "$HOME/upload/zoom"
    [ -e "timestamp.sig" ] \
-      || touch -t $(date +%Y)01010000 timestamp.sig
+      || touch -t "$(date +%Y)01010000" timestamp.sig
 
    PKG_VERSION=1
    url="https://zoom.us/client/latest/zoom_amd64.deb"
    package_file=$(basename ${url})
-   before=$(stat -c %Y ${package_file} 2> /dev/null || echo 0)
+   before=$(stat -c %Y "${package_file}" 2> /dev/null || echo 0)
    wget --timestamping "${url}" --no-if-modified-since
-   after=$(stat -c %Y ${package_file} 2> /dev/null || echo 0)
+   after=$(stat -c %Y "${package_file}" 2> /dev/null || echo 0)
    previous_package="$(cat timestamp.sig)"
-   if [ ${after} -gt ${before} ] || [ ! -s "${previous_package}" ]
+   if [ "${after}" -gt "${before}" ] || [ ! -s "${previous_package}" ]
    then
       package=$(basename ${url} _amd64.deb)
 
@@ -60,7 +60,7 @@ END
             )
 
       # Clean
-      rm -rf ${tmp_folder}
+      rm -rf "${tmp_folder}"
    fi
 
    # Upload package
@@ -70,7 +70,7 @@ END
       for dist in ${distrib}
       do
          ( cd "${REPREPRO}" || return ; reprepro dumpreferences )  2> /dev/null | grep -q "^${dist}|.*/${package}" || \
-            ( cd "${REPREPRO}" || return ; reprepro includedeb ${dist} $HOME/upload/zoom/${package} )
+            ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" $HOME/upload/zoom/${package} )
          ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) | grep "^${dist}|.*/zoom"
       done
    fi

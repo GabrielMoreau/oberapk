@@ -51,7 +51,7 @@ function oberpakaj_spideroak {
             ar -r ${package} ${tmp_folder}/debian-binary ${tmp_folder}/control.tar.gz ${tmp_folder}/data.tar.xz
  
             # Clean
-            rm -rf ${tmp_folder}
+            rm -rf "${tmp_folder}"
          fi
 
          if [ -e "${package}" ]
@@ -60,7 +60,7 @@ function oberpakaj_spideroak {
             for dist in ${distrib}
             do
                ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) 2> /dev/null | grep -q "^${dist}|.*/${package}" || \
-                  ( cd "${REPREPRO}" || return ; reprepro includedeb ${dist} $HOME/upload/spideroak/${package} )
+                  ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" $HOME/upload/spideroak/${package} )
             done
             ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) | grep '/spideroakone'
          fi

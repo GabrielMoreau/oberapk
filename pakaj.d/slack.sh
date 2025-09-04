@@ -22,12 +22,12 @@ function oberpakaj_slack {
       url='https://packagecloud.io/slacktechnologies/slack/debian/'$(grep ^Filename Packages | grep '/slack-desktop_' | awk '{print $2}' | tail -1)
       #package_file=$(basename ${url})
       package_file='slack-desktop-amd64.deb'
-      before=$(stat -c %Y ${package_file} 2> /dev/null || echo 0)
+      before=$(stat -c %Y "${package_file}" 2> /dev/null || echo 0)
       curl -# --time-cond ${package_file} -o ${package_file} -L "${url}"
       LANG=C file ${package_file} | grep -q 'Debian binary package' || return
-      after=$(stat -c %Y ${package_file} 2> /dev/null || echo 0)
+      after=$(stat -c %Y "${package_file}" 2> /dev/null || echo 0)
       previous_package="$(cat timestamp.sig)"
-      if [ ${after} -gt ${before} ] || [ ! -s "${previous_package}" ]
+      if [ "${after}" -gt "${before}" ] || [ ! -s "${previous_package}" ]
       then
          tmp_folder=$(mktemp --directory /tmp/slack-XXXXXX)
          (cd ${tmp_folder}
@@ -47,7 +47,7 @@ function oberpakaj_slack {
             )
 
          # Clean
-         rm -rf ${tmp_folder}
+         rm -rf "${tmp_folder}"
       fi
    fi
 
@@ -59,7 +59,7 @@ function oberpakaj_slack {
       do
          # Upload package
          ( cd "${REPREPRO}" || return ; reprepro dumpreferences )  2> /dev/null | grep -q "^${dist}|.*/${package}" || \
-            ( cd "${REPREPRO}" || return ; reprepro includedeb ${dist} $HOME/upload/slack/${package} )
+            ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" $HOME/upload/slack/${package} )
          ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) | grep "^${dist}|.*/slack-desktop"
       done
    fi

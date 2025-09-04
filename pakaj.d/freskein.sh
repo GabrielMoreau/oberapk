@@ -35,7 +35,7 @@ function oberpakaj_freskein {
          for dist in ${distrib}
          do
            ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) 2> /dev/null | grep -q "^${dist}|.*/${package}" || \
-              ( cd "${REPREPRO}" || return ; reprepro includedeb ${dist} $HOME/upload/${PKG_NAME}/${package} )
+              ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" $HOME/upload/${PKG_NAME}/${package} )
          done
          ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) | grep -i "/${PKG_NAME}"
       fi

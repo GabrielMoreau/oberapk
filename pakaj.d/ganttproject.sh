@@ -26,7 +26,7 @@ function oberpakaj_ganttproject {
          do
             # Upload package
             ( cd "${REPREPRO}" || return ; reprepro dumpreferences )  2> /dev/null | grep -q "^${dist}|.*/${package}" || \
-               ( cd "${REPREPRO}" || return ; reprepro includedeb ${dist} $HOME/upload/ganttproject/${package} )
+               ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" $HOME/upload/ganttproject/${package} )
             ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) | grep "^${dist}|.*/${pkg_basename}"
          done
       fi

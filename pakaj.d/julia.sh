@@ -103,7 +103,7 @@ END
          fi
       )
       # Clean
-      rm -rf ${tmp_folder}
+      rm -rf "${tmp_folder}"
    fi
 
    if [ -s "${package}" ] && file "${package}" | grep -q 'Debian binary package'

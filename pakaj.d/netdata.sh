@@ -39,12 +39,12 @@ function oberpakaj_netdata {
                         tar --owner root --group root -cJf control.tar.xz ./conffiles ./control ./md5sums ./postinst ./postrm ./preinst ./prerm
                         )
                      ar -r "$HOME/upload/netdata/${dist}/${package}" ${tmp_folder}/debian-binary ${tmp_folder}/control.tar.xz ${tmp_folder}/data.tar.xz
-                     rm -rf ${tmp_folder}
+                     rm -rf "${tmp_folder}"
                   fi
 
                   # Upload package
                   ( cd "${REPREPRO}" || return ; reprepro dumpreferences )  2> /dev/null | grep -q "^${dist}|.*/${package}" || \
-                     ( cd "${REPREPRO}" || return ; reprepro includedeb ${dist} $HOME/upload/netdata/${dist}/${package} )
+                     ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" $HOME/upload/netdata/${dist}/${package} )
                   ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) | grep "^${dist}|.*/netdata"
                fi
             fi

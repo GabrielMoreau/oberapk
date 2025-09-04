@@ -26,7 +26,7 @@ function oberpakaj_reaction {
          for dist in ${distrib}
          do
             ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) 2> /dev/null | grep -q "^${dist}|.*/${package}" || \
-               ( cd "${REPREPRO}" || return ; reprepro includedeb ${dist} $HOME/upload/reaction/${package} )
+               ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" $HOME/upload/reaction/${package} )
          done
          ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) | grep '/reaction'
       fi

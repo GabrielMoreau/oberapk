@@ -14,17 +14,17 @@ function oberpakaj_drawio {
    mkdir -p "$HOME/upload/drawio"
    cd "$HOME/upload/drawio"
    [ -e "timestamp.sig" ] \
-      || touch -t $(date +%Y)01010000 timestamp.sig
+      || touch -t "$(date +%Y)01010000" timestamp.sig
 
    package=''
    url=$(wget --quiet https://github.com/jgraph/drawio-desktop/releases -O - | sed -e 's/"/\n/g;' | grep '^https://github.com/.*/drawio-amd64-.*.deb' | head -1)
    package_file=$(basename ${url})
-   before=$(stat -c %Y ${package_file} 2> /dev/null || echo 0)
+   before=$(stat -c %Y "${package_file}" 2> /dev/null || echo 0)
    wget --quiet --timestamping "${url}"
    LANG=C file ${package_file} | grep -q 'Debian binary package' || return
-   after=$(stat -c %Y ${package_file} 2> /dev/null || echo 0)
+   after=$(stat -c %Y "${package_file}" 2> /dev/null || echo 0)
    previous_package="$(cat timestamp.sig)"
-   if [ ${after} -gt ${before} ] || [ ! -s "${previous_package}" ]
+   if [ "${after}" -gt "${before}" ] || [ ! -s "${previous_package}" ]
    then
       tmp_folder=$(mktemp --directory /tmp/drawio-XXXXXX)
       (cd ${tmp_folder}
@@ -43,7 +43,7 @@ function oberpakaj_drawio {
          )
 
       # Clean
-      rm -rf ${tmp_folder}
+      rm -rf "${tmp_folder}"
    fi
 
    # Upload package
@@ -53,7 +53,7 @@ function oberpakaj_drawio {
       for dist in ${distrib}
       do
          ( cd "${REPREPRO}" || return ; reprepro dumpreferences )  2> /dev/null | grep -q "^${dist}|.*/${package}" || \
-            ( cd "${REPREPRO}" || return ; reprepro includedeb ${dist} $HOME/upload/drawio/${package} )
+            ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" $HOME/upload/drawio/${package} )
          ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) | grep "^${dist}|.*/drawio"
       done
    fi

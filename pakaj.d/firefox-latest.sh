@@ -15,7 +15,7 @@ function oberpakaj_firefox_latest {
    mkdir -p "$HOME/upload/firefox-latest"
    cd "$HOME/upload/firefox-latest"
    [ -e "timestamp.sig" ] \
-      || touch -t $(date +%Y)01010000 timestamp.sig
+      || touch -t "$(date +%Y)01010000" timestamp.sig
 
    if wget --timestamping "https://download.mozilla.org/?product=firefox-latest&os=linux64&lang=en-US"
    then
@@ -85,7 +85,7 @@ END
             && echo "${package}" > timestamp.sig
 
          # Clean
-         rm -rf ${tmp_folder}
+         rm -rf "${tmp_folder}"
       fi
 
       # Upload package
@@ -95,7 +95,7 @@ END
          for dist in ${distrib}
          do
             ( cd "${REPREPRO}" || return ; reprepro dumpreferences )  2> /dev/null | grep -q "^${dist}|.*/${package}" || \
-               ( cd "${REPREPRO}" || return ; reprepro includedeb ${dist} $HOME/upload/firefox-latest/${package} )
+               ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" $HOME/upload/firefox-latest/${package} )
             ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) | grep "^${dist}|.*/firefox-latest"
          done
       fi

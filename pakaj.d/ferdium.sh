@@ -25,7 +25,7 @@ function oberpakaj_ferdium {
    LANG=C file "${package_file}" | grep -q 'Debian binary package' || return
    after=$(stat -c %Y "${package_file}" 2> /dev/null || echo 0)
    previous_package="$(cat timestamp.sig)"
-   if [ ${after} -gt ${before} ] || [ ! -s "${previous_package}" ]
+   if [ "${after}" -gt "${before}" ] || [ ! -s "${previous_package}" ]
    then
       tmp_folder=$(mktemp --directory /tmp/ferdium-XXXXXX)
       (cd "${tmp_folder}" || return

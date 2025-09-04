@@ -41,12 +41,12 @@ function oberpakaj_teams {
       ar -r $HOME/upload/teams/${package} debian-binary control.tar.gz data.tar.xz
 
       # Clean
-      rm -rf ${tmp_folder}
+      rm -rf "${tmp_folder}"
 
       for dist in ${distrib}
       do
          # Upload package
-         ( cd "${REPREPRO}" || return ; reprepro includedeb ${dist} $HOME/upload/teams/${package} )
+         ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" $HOME/upload/teams/${package} )
          ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) | grep '/teams'
       done
    fi

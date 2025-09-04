@@ -48,7 +48,7 @@ function oberpakaj_veracrypt {
                fi
                )
             # Clean
-            rm -rf ${tmp_folder}
+            rm -rf "${tmp_folder}"
 
             # Upload
             if [ -s "$HOME/upload/veracrypt/${dist}/timestamp.sig" ]
@@ -58,7 +58,7 @@ function oberpakaj_veracrypt {
                then
                  # Upload package
                   ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) 2> /dev/null | grep -q "^${dist}|.*/${package}" || \
-                     ( cd "${REPREPRO}" || return ; reprepro includedeb ${dist} $HOME/upload/veracrypt/${dist}/${package} )
+                     ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" $HOME/upload/veracrypt/${dist}/${package} )
                   ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) 2> /dev/null | grep "^${dist}|.*/${package}"
                fi
             fi

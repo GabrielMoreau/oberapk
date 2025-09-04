@@ -17,11 +17,11 @@ function oberpakaj_espanso {
    package=''
    url=$(wget -q https://espanso.org/docs/install/linux/ -O - | sed -e 's/[<>[:space:]]/\n/g;' | grep '^https://.*espanso-debian-x11-amd64.deb')
    package_file=$(basename ${url})
-   before=$(stat -c %Y ${package_file} 2> /dev/null || echo 0)
+   before=$(stat -c %Y "${package_file}" 2> /dev/null || echo 0)
    wget --quiet --timestamping "${url}"
    LANG=C file ${package_file} | grep -q 'Debian binary package' || return
-   after=$(stat -c %Y ${package_file} 2> /dev/null || echo 0)
-   if [ ${after} -gt ${before} ]
+   after=$(stat -c %Y "${package_file}" 2> /dev/null || echo 0)
+   if [ "${after}" -gt "${before}" ]
    then
       tmp_folder=$(mktemp --directory /tmp/espanso-XXXXXX)
       (cd ${tmp_folder}
@@ -34,7 +34,7 @@ function oberpakaj_espanso {
       cp -a ${package_file} ${package}
 
       # Clean
-      rm -rf ${tmp_folder}
+      rm -rf "${tmp_folder}"
    fi
 
    # Upload package
@@ -44,7 +44,7 @@ function oberpakaj_espanso {
       do
          # Upload package
          ( cd "${REPREPRO}" || return ; reprepro dumpreferences )  2> /dev/null | grep -q "^${dist}|.*/${package}" || \
-            ( cd "${REPREPRO}" || return ; reprepro includedeb ${dist} $HOME/upload/espanso/${package} )
+            ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" $HOME/upload/espanso/${package} )
          ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) | grep "^${dist}|.*/espanso"
       done
    fi

@@ -52,7 +52,7 @@ function oberpakaj_rstudio {
             fi
             )
          # Clean
-         rm -rf ${tmp_folder}
+         rm -rf "${tmp_folder}"
 
          # Upload
          if [ -s "$HOME/upload/rstudio/${dist}/timestamp.sig" ]
@@ -62,7 +62,7 @@ function oberpakaj_rstudio {
             then
               # Upload package
                ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) 2> /dev/null | grep -q "^${dist}|.*/${package}" || \
-                  ( cd "${REPREPRO}" || return ; reprepro includedeb ${dist} $HOME/upload/rstudio/${dist}/${package} )
+                  ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" $HOME/upload/rstudio/${dist}/${package} )
                ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) 2> /dev/null | grep "^${dist}|.*/${package}"
             fi
          fi

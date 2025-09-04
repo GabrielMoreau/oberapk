@@ -97,12 +97,12 @@ END
          ar -r ${package} ${tmp_folder}/debian-binary ${tmp_folder}/control.tar.gz ${tmp_folder}/data.tar.gz
  
          # Clean
-         rm -rf ${tmp_folder}
+         rm -rf "${tmp_folder}"
 
          # Upload package
          for dist in ${distrib}
          do
-            ( cd "${REPREPRO}" || return ; reprepro includedeb ${dist} $HOME/upload/yq/${package} )
+            ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" $HOME/upload/yq/${package} )
          done
          ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) | grep '/yq'
       fi

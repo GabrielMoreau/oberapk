@@ -28,7 +28,7 @@ function oberpakaj_masterpdf {
          # Upload package
          for dist in ${distrib}
          do
-            ( cd "${REPREPRO}" || return ; reprepro includedeb ${dist} $HOME/upload/masterpdf/${package} )
+            ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" $HOME/upload/masterpdf/${package} )
          done
          ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) | grep '/master-pdf-editor'
       fi
