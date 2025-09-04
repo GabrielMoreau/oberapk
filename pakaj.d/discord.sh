@@ -22,7 +22,7 @@ function oberpakaj_discord {
       url="https://dl.discordapp.net/apps/linux/0.0.${index}/discord-0.0.${index}.deb"
       if wget --quiet --timestamping "${url}"
       then
-         package=$(basename ${url} .deb)
+         package=$(basename "${url}" .deb)
 
          tmp_folder=$(mktemp --directory /tmp/discord-XXXXXX)
          (cd ${tmp_folder}
@@ -47,11 +47,11 @@ END
             tar --owner root --group root -czf control.tar.gz ./control ./postinst
 
             # Format deb package
-            echo 2.0 > ${tmp_folder}/debian-binary
+            echo 2.0 > "${tmp_folder}/debian-binary"
             )
 
          # Create package (control before data)
-         ar -r ${package}-${PKG_VERSION}.deb ${tmp_folder}/debian-binary ${tmp_folder}/control.tar.gz ${tmp_folder}/data.tar.gz
+         ar -r "${package}-${PKG_VERSION}.deb" "${tmp_folder}/debian-binary" "${tmp_folder}/control.tar.gz" "${tmp_folder}/data.tar.gz"
  
          # Clean
          rm -rf "${tmp_folder}"
@@ -59,7 +59,7 @@ END
          for dist in ${distrib}
          do
             # Upload package
-            ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" $HOME/upload/discord/${package}-${PKG_VERSION}.deb )
+            ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" "$HOME/upload/discord/${package}-${PKG_VERSION}.deb" )
             ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) | grep '/discord'
          done
       fi

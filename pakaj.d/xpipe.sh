@@ -16,7 +16,7 @@ function oberpakaj_xpipe {
    [ -e "timestamp.sig" ] \
       || touch -t "$(date +%Y)01010000" timestamp.sig
 
-   PKG_VERSION=1
+   #PKG_VERSION=1
    url="https://github.com/xpipe-io/xpipe/releases/latest/download/xpipe-installer-linux-x86_64.deb"
    package_file=$(basename ${url})
    before=$(stat -c %Y "${package_file}" 2> /dev/null || echo 0)
@@ -25,8 +25,8 @@ function oberpakaj_xpipe {
    if [ "${after}" -gt "${before}" ] && file "${package_file}" | grep -q 'Debian binary package'
    then
       tmp_folder=$(mktemp --directory /tmp/xpipe-XXXXXX)
-      (cd ${tmp_folder}
-         ar -x $HOME/upload/xpipe/${package_file} control.tar.gz
+      (cd "${tmp_folder}"
+         ar -x "$HOME/upload/xpipe/${package_file} control.tar.gz"
          tar -xzf control.tar.gz
 
          VERSION=$(grep '^Version:' ./control | cut -f 2 -d ' ')
@@ -48,7 +48,7 @@ function oberpakaj_xpipe {
       for dist in ${distrib}
       do
          ( cd "${REPREPRO}" || return ; reprepro dumpreferences )  2> /dev/null | grep -q "^${dist}|.*/${package}" || \
-            ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" $HOME/upload/xpipe/${package} )
+            ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" "$HOME/upload/xpipe/${package}" )
          ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) | grep "^${dist}|.*/xpipe"
       done
    fi

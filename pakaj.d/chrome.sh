@@ -48,7 +48,7 @@ END
                        s/^Version: .*$/Version: ${version}-${count}/;" control
             tar --owner root --group root -cJf control.tar.xz ./control ./postinst ./postrm ./prerm
             )
-         ar -r "${package}" ${tmp_folder}/debian-binary ${tmp_folder}/control.tar.xz ${tmp_folder}/data.tar.xz
+         ar -r "${package}" "${tmp_folder}/debian-binary" "${tmp_folder}/control.tar.xz" "${tmp_folder}/data.tar.xz"
          rm -rf "${tmp_folder}"
 
          if [ -e "${package}" ]

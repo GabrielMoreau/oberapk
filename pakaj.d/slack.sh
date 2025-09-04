@@ -24,7 +24,7 @@ function oberpakaj_slack {
       package_file='slack-desktop-amd64.deb'
       before=$(stat -c %Y "${package_file}" 2> /dev/null || echo 0)
       curl -# --time-cond ${package_file} -o ${package_file} -L "${url}"
-      LANG=C file ${package_file} | grep -q 'Debian binary package' || return
+      LANG=C file "${package_file}" | grep -q 'Debian binary package' || return
       after=$(stat -c %Y "${package_file}" 2> /dev/null || echo 0)
       previous_package="$(cat timestamp.sig)"
       if [ "${after}" -gt "${before}" ] || [ ! -s "${previous_package}" ]

@@ -23,15 +23,15 @@ function oberpakaj_tixeoclient {
       then
          if [ -e 'Packages.gz' ]
          then
-            pool=$(zgrep 'tixeoclient/tixeoclient_'$(zgrep '^Version:' Packages.gz | awk '{print $2}' | sort -V | tail -1) Packages.gz | awk '{print $2}')
-            tixeoclient=$(basename ${pool})
+            pool=$(zgrep 'tixeoclient/tixeoclient_'"$(zgrep '^Version:' Packages.gz | awk '{print $2}' | sort -V | tail -1)" Packages.gz | awk '{print $2}')
+            tixeoclient=$(basename "${pool}")
 
             if wget --timestamping "http://repos.tixeo.com/debian/${pool}"
             then
                if [ -e "${tixeoclient}" ]
                then
                   # Upload package
-                  ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" $HOME/upload/tixeoclient/${dist}/${tixeoclient} )
+                  ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" "$HOME/upload/tixeoclient/${dist}/${tixeoclient}" )
                   ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) | grep '/tixeoclient'
                fi
             fi

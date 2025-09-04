@@ -31,8 +31,8 @@ function oberpakaj_vscode {
 
          # vscode
          tmp_folder=$(mktemp --directory /tmp/vscode-XXXXXX)
-         (cd ${tmp_folder}
-            ar -x "$HOME/upload/vscode/$(basename ${codeonly})"
+         (cd "${tmp_folder}"
+            ar -x "$HOME/upload/vscode/$(basename "${codeonly}")"
             tar -xJf control.tar.xz
             sed -i -e 's/^\(Version:.*\)$/\1.'${PKG_VERSION}'/;' control
             sed -i 's/^\([[:space:]]*\)eval /\1exit; eval /;' postinst
@@ -45,13 +45,13 @@ exit
 END
             tar --owner root --group root -cJf control.tar.xz ./control ./postinst ./postrm ./prerm
             )
-         ar -r "$HOME/upload/vscode/$(basename ${codeonly} _amd64.deb).${PKG_VERSION}_amd64.deb" ${tmp_folder}/debian-binary ${tmp_folder}/control.tar.xz ${tmp_folder}/data.tar.xz
+         ar -r "$HOME/upload/vscode/$(basename "${codeonly}" _amd64.deb).${PKG_VERSION}_amd64.deb" "${tmp_folder}/debian-binary" "${tmp_folder}/control.tar.xz" "${tmp_folder}/data.tar.xz"
          rm -rf "${tmp_folder}"
 
          # codeinsiders
          tmp_folder=$(mktemp --directory /tmp/codeinsiders-XXXXXX)
-         (cd ${tmp_folder}
-            ar -x "$HOME/upload/vscode/$(basename ${codeinsiders})"
+         (cd "${tmp_folder}"
+            ar -x "$HOME/upload/vscode/$(basename "${codeinsiders}")"
             tar -xJf control.tar.xz 
             sed -i -e 's/^\(Version:.*\)$/\1.'${PKG_VERSION}'/;' control
             sed -i 's/^\([[:space:]]*\)eval /\1exit; eval /;' postinst
@@ -64,16 +64,16 @@ exit
 END
             tar --owner root --group root -cJf control.tar.xz ./control ./postinst ./postrm ./prerm
             )
-         ar -r "$HOME/upload/vscode/$(basename ${codeinsiders} _amd64.deb).${PKG_VERSION}_amd64.deb" ${tmp_folder}/debian-binary ${tmp_folder}/control.tar.xz ${tmp_folder}/data.tar.xz
+         ar -r "$HOME/upload/vscode/$(basename "${codeinsiders}" _amd64.deb).${PKG_VERSION}_amd64.deb" "${tmp_folder}/debian-binary" "${tmp_folder}/control.tar.xz" "${tmp_folder}/data.tar.xz"
          rm -rf "${tmp_folder}"
 
-         if [ -e "$(basename ${codeonly})" -a -e "$(basename ${codeinsiders})" ]
+         if [ -e "$(basename "${codeonly}")" -a -e "$(basename "${codeinsiders}")" ]
          then
             # Upload package
             for dist in ${distrib}
             do
-               ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" $HOME/upload/vscode/$(basename ${codeonly} _amd64.deb).${PKG_VERSION}_amd64.deb     )
-               ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" $HOME/upload/vscode/$(basename ${codeinsiders} _amd64.deb).${PKG_VERSION}_amd64.deb )
+               ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" "$HOME/upload/vscode/$(basename "${codeonly}" _amd64.deb).${PKG_VERSION}_amd64.deb"     )
+               ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" "$HOME/upload/vscode/$(basename "${codeinsiders}" _amd64.deb).${PKG_VERSION}_amd64.deb" )
             done
             ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) | grep '/code'
          fi

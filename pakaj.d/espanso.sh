@@ -19,7 +19,7 @@ function oberpakaj_espanso {
    package_file=$(basename ${url})
    before=$(stat -c %Y "${package_file}" 2> /dev/null || echo 0)
    wget --quiet --timestamping "${url}"
-   LANG=C file ${package_file} | grep -q 'Debian binary package' || return
+   LANG=C file "${package_file}" | grep -q 'Debian binary package' || return
    after=$(stat -c %Y "${package_file}" 2> /dev/null || echo 0)
    if [ "${after}" -gt "${before}" ]
    then

@@ -29,8 +29,8 @@ function oberpakaj_zoom {
       package=$(basename ${url} _amd64.deb)
 
       tmp_folder=$(mktemp --directory /tmp/zoom-XXXXXX)
-      (cd ${tmp_folder}
-         ar -x $HOME/upload/zoom/${package}_amd64.deb data.tar.xz control.tar.xz
+      (cd "${tmp_folder}"
+         ar -x "$HOME/upload/zoom/${package}_amd64.deb data.tar.xz control.tar.xz"
          tar --preserve-permissions -xJf data.tar.xz
          tar -xJf control.tar.xz
 
@@ -52,10 +52,10 @@ END
          tar --preserve-permissions --owner root --group root -cJf data.tar.xz ./usr ./opt
          tar --owner root --group root -cJf control.tar.xz ./control ./postinst ./postrm ./md5sums
 
-         echo 2.0 > ${tmp_folder}/debian-binary
+         echo 2.0 > "${tmp_folder}/debian-binary"
 
          # Create package (control before data)
-         ar -r "$HOME/upload/zoom/${package}_${VERSION}_amd64.deb" ${tmp_folder}/debian-binary ${tmp_folder}/control.tar.xz ${tmp_folder}/data.tar.xz \
+         ar -r "$HOME/upload/zoom/${package}_${VERSION}_amd64.deb" "${tmp_folder}/debian-binary" "${tmp_folder}/control.tar.xz" "${tmp_folder}/data.tar.xz" \
             && echo "${package}_${VERSION}_amd64.deb" > "$HOME/upload/zoom/timestamp.sig"
             )
 
@@ -70,7 +70,7 @@ END
       for dist in ${distrib}
       do
          ( cd "${REPREPRO}" || return ; reprepro dumpreferences )  2> /dev/null | grep -q "^${dist}|.*/${package}" || \
-            ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" $HOME/upload/zoom/${package} )
+            ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" "$HOME/upload/zoom/${package}" )
          ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) | grep "^${dist}|.*/zoom"
       done
    fi

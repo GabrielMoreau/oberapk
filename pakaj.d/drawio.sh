@@ -21,7 +21,7 @@ function oberpakaj_drawio {
    package_file=$(basename ${url})
    before=$(stat -c %Y "${package_file}" 2> /dev/null || echo 0)
    wget --quiet --timestamping "${url}"
-   LANG=C file ${package_file} | grep -q 'Debian binary package' || return
+   LANG=C file "${package_file}" | grep -q 'Debian binary package' || return
    after=$(stat -c %Y "${package_file}" 2> /dev/null || echo 0)
    previous_package="$(cat timestamp.sig)"
    if [ "${after}" -gt "${before}" ] || [ ! -s "${previous_package}" ]

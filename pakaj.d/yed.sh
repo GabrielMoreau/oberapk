@@ -18,7 +18,7 @@ function oberpakaj_yed {
    cd "$HOME/upload/yed"
    
    version_old=$(cat "$HOME/upload/yed/version")
-   version=$(curl --silent https://www.yworks.com/products/yed/download -o - | sed -e 's#[[:space:]/_]#\n#g;' | egrep '^yEd-[[:digit:]]' | head -1 | cut -f 2 -d '-')
+   version=$(curl --silent https://www.yworks.com/products/yed/download -o - | sed -e 's#[[:space:]/_]#\n#g;' | grep -E '^yEd-[[:digit:]]' | head -1 | cut -f 2 -d '-')
    PKG_VERSION=2
    PKG_NAME=yed-latest
    package=${PKG_NAME}_${version}-${PKG_VERSION}_all.deb
@@ -35,14 +35,14 @@ function oberpakaj_yed {
          [ -n "${tmp_folder}" -a -d "${tmp_folder}" ] || exit 1
 
          # Create future tree
-         mkdir -p ${tmp_folder}/usr/bin
-         mkdir -p ${tmp_folder}/usr/lib
-         mkdir -p ${tmp_folder}/usr/share/applications
+         mkdir -p "${tmp_folder}/usr/bin"
+         mkdir -p "${tmp_folder}/usr/lib"
+         mkdir -p "${tmp_folder}/usr/share/applications"
 
-         (cd ${tmp_folder}/usr/lib; unzip -q $HOME/upload/yed/yEd-${version}.zip)
-         mv ${tmp_folder}/usr/lib/yed-${version} ${tmp_folder}/usr/lib/yed-latest
+         (cd "${tmp_folder}/usr/lib"; unzip -q "$HOME/upload/yed/yEd-${version}.zip")
+         mv "${tmp_folder}/usr/lib/yed-${version}" "${tmp_folder}/usr/lib/yed-latest"
 
-         cat << 'END_DESK' > ${tmp_folder}/usr/share/applications/yed.desktop
+         cat << 'END_DESK' > "${tmp_folder}/usr/share/applications/yed.desktop"
 [Desktop Entry]
 Name=yEd Graph Editor
 Exec=bash -c "yed %f"
@@ -53,27 +53,27 @@ Categories=Graphics;2DGraphics;FlowChart;VectorGraphics;
 MimeType=application/graphml+xml
 END_DESK
 
-         cat << 'END_EXEC' > ${tmp_folder}/usr/bin/yed
+         cat << 'END_EXEC' > "${tmp_folder}/usr/bin/yed"
 #!/bin/bash
 #
 exec java -jar /usr/lib/yed-latest/yed.jar
 END_EXEC
-         chmod    a+rx ${tmp_folder}/usr/bin/yed
-         chmod -R a+rX ${tmp_folder}/usr
+         chmod    a+rx "${tmp_folder}/usr/bin/yed"
+         chmod -R a+rX "${tmp_folder}/usr"
 
          # Data archive
-         rm -f ${tmp_folder}/data.tar.gz
-         (cd ${tmp_folder}; tar --owner root --group root -czf data.tar.gz ./usr)
+         rm -f "${tmp_folder}/data.tar.gz"
+         (cd "${tmp_folder}"; tar --owner root --group root -czf data.tar.gz ./usr)
 
          # Control file
-         cat <<END > ${tmp_folder}/control
+         cat <<END > "${tmp_folder}/control"
 Package: ${PKG_NAME}
 Version: ${version}-${PKG_VERSION}
 Section: graphics
 Priority: optional
 Depends: default-jre | java6-runtime
 Architecture: all
-Installed-Size: $(du -ks ${tmp_folder}/usr|cut -f 1)
+Installed-Size: $(du -ks "${tmp_folder}/usr"|cut -f 1)
 Maintainer: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
 Description: yEd Graph Editor
  yEd is a powerful desktop application that can be used to quickly
@@ -90,14 +90,14 @@ Tag: implemented-in::java, interface::graphical, interface::x11,
 END
 
          # Control archive
-         rm -f ${tmp_folder}/control.tar.gz
-         (cd ${tmp_folder}; tar --owner root --group root -czf control.tar.gz control)
+         rm -f "${tmp_folder}/control.tar.gz"
+         (cd "${tmp_folder}"; tar --owner root --group root -czf control.tar.gz control)
 
          # Format deb package
-         echo 2.0 > ${tmp_folder}/debian-binary
+         echo 2.0 > "${tmp_folder}/debian-binary"
 
          # Create package (control before data)
-         ar -r ${package} ${tmp_folder}/debian-binary ${tmp_folder}/control.tar.gz ${tmp_folder}/data.tar.gz
+         ar -r "${package}" "${tmp_folder}/debian-binary" "${tmp_folder}/control.tar.gz" "${tmp_folder}/data.tar.gz"
  
          # Clean
          rm -rf "${tmp_folder}"
@@ -106,7 +106,7 @@ END
          # Upload package
          for dist in ${distrib}
          do
-            ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" $HOME/upload/yed/${package} )
+            ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" "$HOME/upload/yed/${package}" )
          done
          ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) | grep '/yed'
       fi

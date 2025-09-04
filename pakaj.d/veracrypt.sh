@@ -1,4 +1,6 @@
-# Date: 2024/01/31
+#!/bin/bash
+#
+## Date: 2024/01/31
 ## Pakaj: veracrypt
 ## Package: veracrypt veracrypt-console
 ## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
@@ -31,7 +33,7 @@ function oberpakaj_veracrypt {
             mkdir -p "$HOME/upload/veracrypt/${dist}"
             (cd "$HOME/upload/veracrypt/${dist}"; wget --timestamping "${url}")
             tmp_folder=$(mktemp --directory /tmp/veracrypt-XXXXXX)
-            (cd ${tmp_folder}
+            (cd "${tmp_folder}"
                if LANG=C file "$HOME/upload/veracrypt/${dist}/${pkgfile}" 2> /dev/null | grep -q 'Debian binary package'
                then
                   ar -x "$HOME/upload/veracrypt/${dist}/${pkgfile}"
@@ -42,7 +44,7 @@ function oberpakaj_veracrypt {
 
                   if ! grep -q "${pkg}_${VERSION}_amd64.deb" "$HOME/upload/veracrypt/${dist}/timestamp.sig"
                   then
-                     ar -r "$HOME/upload/veracrypt/${dist}/${pkg}_${VERSION}_amd64.deb" ${tmp_folder}/debian-binary ${tmp_folder}/control.tar.gz ${tmp_folder}/data.tar.gz \
+                     ar -r "$HOME/upload/veracrypt/${dist}/${pkg}_${VERSION}_amd64.deb" "${tmp_folder}/debian-binary" "${tmp_folder}/control.tar.gz" "${tmp_folder}/data.tar.gz" \
                         && echo "${pkg}_${VERSION}_amd64.deb" >> "$HOME/upload/veracrypt/${dist}/timestamp.sig"
                   fi
                fi
@@ -58,7 +60,7 @@ function oberpakaj_veracrypt {
                then
                  # Upload package
                   ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) 2> /dev/null | grep -q "^${dist}|.*/${package}" || \
-                     ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" $HOME/upload/veracrypt/${dist}/${package} )
+                     ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" "$HOME/upload/veracrypt/${dist}/${package}" )
                   ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) 2> /dev/null | grep "^${dist}|.*/${package}"
                fi
             fi

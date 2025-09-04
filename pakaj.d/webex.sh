@@ -19,20 +19,20 @@ function oberpakaj_webex {
    package_file=$(basename ${url})
    before=$(stat -c %Y "${package_file}" 2> /dev/null || echo 0)
    wget --quiet --timestamping "${url}"
-   LANG=C file ${package_file} | grep -q 'Debian binary package' || return
+   LANG=C file "${package_file}" | grep -q 'Debian binary package' || return
    after=$(stat -c %Y "${package_file}" 2> /dev/null || echo 0)
    previous_package="$(cat timestamp.sig)"
    if [ "${after}" -gt "${before}" ] || [ ! -s "${previous_package}" ]
    then
       tmp_folder=$(mktemp --directory /tmp/webex-XXXXXX)
-      (cd ${tmp_folder}
-         ar -x $HOME/upload/webex/${package_file}
+      (cd "${tmp_folder}"
+         ar -x "$HOME/upload/webex/${package_file}"
          tar xzf control.tar.gz
          )
 
-      version=$(grep '^Version:' ${tmp_folder}/control | awk '{print $2}')
-      package=$(grep '^Package:' ${tmp_folder}/control | awk '{print $2}')_${version}_amd64.deb
-      cp -a ${package_file} ${package}
+      version=$(grep '^Version:' "${tmp_folder}/control" | awk '{print $2}')
+      package=$(grep '^Package:' "${tmp_folder}/control" | awk '{print $2}')_${version}_amd64.deb
+      cp -a "${package_file}" "${package}"
       [ -s "${package}" ] && echo "${package}" > 'timestamp.sig'
 
       # Clean
@@ -47,7 +47,7 @@ function oberpakaj_webex {
       do
          # Upload package
          ( cd "${REPREPRO}" || return ; reprepro dumpreferences )  2> /dev/null | grep -q "^${dist}|.*/${package}" || \
-            ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" $HOME/upload/webex/${package} )
+            ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" "$HOME/upload/webex/${package}" )
          ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) | grep "^${dist}|.*/webex"
       done
    fi

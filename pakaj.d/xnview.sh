@@ -21,14 +21,14 @@ function oberpakaj_xnview {
    package_file=$(basename ${url})
    before=$(stat -c %Y "${package_file}" 2> /dev/null || echo 0)
    wget --quiet --timestamping "${url}"
-   LANG=C file ${package_file} | grep -q 'Debian binary package' || return
+   LANG=C file "${package_file}" | grep -q 'Debian binary package' || return
    after=$(stat -c %Y "${package_file}" 2> /dev/null || echo 0)
    previous_package="$(cat timestamp.sig)"
    if [ "${after}" -gt "${before}" ] || [ ! -s "${previous_package}" ]
    then
       tmp_folder=$(mktemp --directory /tmp/xnview-XXXXXX)
-      (cd ${tmp_folder}
-         ar -x $HOME/upload/xnview/${package_file}
+      (cd "${tmp_folder}"
+         ar -x "$HOME/upload/xnview/${package_file}"
          tar xzf control.tar.gz
 
          package='xnview'
@@ -53,7 +53,7 @@ function oberpakaj_xnview {
       for dist in ${distrib}
       do
          ( cd "${REPREPRO}" || return ; reprepro dumpreferences )  2> /dev/null | grep -q "^${dist}|.*/${package}" || \
-            ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" $HOME/upload/xnview/${package} )
+            ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" "$HOME/upload/xnview/${package}" )
          ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) | grep "^${dist}|.*/xnview"
       done
    fi

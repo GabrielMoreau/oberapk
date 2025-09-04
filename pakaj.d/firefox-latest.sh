@@ -81,7 +81,7 @@ END
             )
 
          # Create package (control before data)
-         ar -r ${package} ${tmp_folder}/debian-binary ${tmp_folder}/control.tar.xz ${tmp_folder}/data.tar.xz \
+         ar -r ${package} "${tmp_folder}/debian-binary" "${tmp_folder}/control.tar.xz" "${tmp_folder}/data.tar.xz" \
             && echo "${package}" > timestamp.sig
 
          # Clean

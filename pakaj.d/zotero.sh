@@ -34,41 +34,41 @@ function oberpakaj_zotero {
          [ -n "${tmp_folder}" -a -d "${tmp_folder}" ] || exit 1
 
          # Create future tree
-         mkdir -p ${tmp_folder}/usr/bin
-         mkdir -p ${tmp_folder}/usr/lib
-         mkdir -p ${tmp_folder}/usr/share/applications
+         mkdir -p "${tmp_folder}/usr/bin"
+         mkdir -p "${tmp_folder}/usr/lib"
+         mkdir -p "${tmp_folder}/usr/share/applications"
 
-         (cd ${tmp_folder}/usr/lib; tar xjf $HOME/upload/zotero/Zotero-${version}_linux-x86_64.tar.bz2)
-         mv ${tmp_folder}/usr/lib/Zotero_linux-x86_64 ${tmp_folder}/usr/lib/zotero-latest
-         mv ${tmp_folder}/usr/lib/zotero-latest/zotero.desktop ${tmp_folder}/usr/share/applications/
+         (cd "${tmp_folder}/usr/lib"; tar xjf "$HOME/upload/zotero/Zotero-${version}_linux-x86_64.tar.bz2")
+         mv "${tmp_folder}/usr/lib/Zotero_linux-x86_64" "${tmp_folder}/usr/lib/zotero-latest"
+         mv "${tmp_folder}/usr/lib/zotero-latest/zotero.desktop" "${tmp_folder}/usr/share/applications/"
 
          sed -i -e '
             s|^Exec=.*$|Exec=bash -c "/usr/bin/zotero -url %U"|;
             s|^Icon=.*$|Icon=/usr/lib/zotero-latest/chrome/icons/default/main-window.ico|;
-            ' ${tmp_folder}/usr/share/applications/zotero.desktop
+            ' "${tmp_folder}/usr/share/applications/zotero.desktop"
 
-         cat << 'END_EXEC' > ${tmp_folder}/usr/bin/zotero
+         cat << 'END_EXEC' > "${tmp_folder}/usr/bin/zotero"
 #!/bin/bash
 
 CALLDIR="/usr/lib/zotero-latest"
 exec "$CALLDIR/zotero-bin" -app "$CALLDIR/app/application.ini" "$@"
 END_EXEC
-         chmod    a+rx ${tmp_folder}/usr/bin/zotero
-         chmod -R a+rX ${tmp_folder}/usr
+         chmod    a+rx "${tmp_folder}/usr/bin/zotero"
+         chmod -R a+rX "${tmp_folder}/usr"
 
          # Data archive
-         rm -f ${tmp_folder}/data.tar.gz
-         (cd ${tmp_folder}; tar --owner root --group root -czf data.tar.gz ./usr)
+         rm -f "${tmp_folder}/data.tar.gz"
+         (cd "${tmp_folder}"; tar --owner root --group root -czf data.tar.gz ./usr)
 
          # Control file
-         cat <<END > ${tmp_folder}/control
+         cat <<END > "${tmp_folder}/control"
 Package: zotero-latest
 Version: ${version}-${PKG_VERSION}
 Section: text
 Priority: optional
 Depends: firefox-esr | firefox, libegl1|libwayland-egl1, libegl-mesa0, libasound2, libatk1.0-0, libc6, libcairo-gobject2, libcairo2, libdbus-1-3, libdbus-glib-1-2, libfontconfig1, libfreetype6, libgdk-pixbuf2.0-0, libglib2.0-0, libgtk-3-0, libharfbuzz0b, libpango-1.0-0, libpangocairo-1.0-0, libstdc++6, libx11-6, libx11-xcb1, libxcb-shm0, libxcb1, libxcomposite1, libxcursor1, libxdamage1, libxext6, libxfixes3, libxi6, libxrandr2, libxrender1, libxtst6, gnupg
 Architecture: amd64
-Installed-Size: $(du -ks ${tmp_folder}/usr|cut -f 1)
+Installed-Size: $(du -ks "${tmp_folder}/usr"|cut -f 1)
 Maintainer: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
 Description: collect, organize and share your research sources (bibliography)
  Zotero helps you collect, manage, and cite your research sources.
@@ -85,14 +85,14 @@ Homepage: http://www.zotero.org/
 END
 
          # Control archive
-         rm -f ${tmp_folder}/control.tar.gz
-         (cd ${tmp_folder}; tar --owner root --group root -czf control.tar.gz control)
+         rm -f "${tmp_folder}/control.tar.gz"
+         (cd "${tmp_folder}"; tar --owner root --group root -czf control.tar.gz control)
 
          # Format deb package
-         echo 2.0 > ${tmp_folder}/debian-binary
+         echo 2.0 > "${tmp_folder}/debian-binary"
 
          # Create package (control before data)
-         ar -r ${package} ${tmp_folder}/debian-binary ${tmp_folder}/control.tar.gz ${tmp_folder}/data.tar.gz
+         ar -r "${package}" "${tmp_folder}/debian-binary" "${tmp_folder}/control.tar.gz" "${tmp_folder}/data.tar.gz"
  
          # Clean
          rm -rf "${tmp_folder}"
@@ -105,7 +105,7 @@ END
       for dist in ${distrib}
       do
          ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) 2> /dev/null | grep -q "^${dist}|.*/${package}" || \
-            ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" $HOME/upload/zotero/${package} )
+            ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" "$HOME/upload/zotero/${package}" )
          ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) 2> /dev/null | grep "^${dist}|.*/zotero"
       done
    fi

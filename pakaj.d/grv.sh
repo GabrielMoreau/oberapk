@@ -37,16 +37,16 @@ function oberpakaj_grv {
                [ -n "${tmp_folder}" -a -d "${tmp_folder}" ] || exit 1
 
                # Create future tree
-               mkdir -p ${tmp_folder}/usr/bin
-               cp ${binary}  ${tmp_folder}/usr/bin/${PKG_NAME}
-               chmod -R a+rx ${tmp_folder}/usr/bin/${PKG_NAME}
+               mkdir -p "${tmp_folder}/usr/bin"
+               cp "${binary}" "${tmp_folder}/usr/bin/${PKG_NAME}"
+               chmod -R a+rx  "${tmp_folder}/usr/bin/${PKG_NAME}"
 
                # Data archive
-               rm -f ${tmp_folder}/data.tar.gz
-               (cd ${tmp_folder}; tar --owner root --group root -czf data.tar.gz ./usr)
+               rm -f "${tmp_folder}/data.tar.gz"
+               (cd "${tmp_folder}"; tar --owner root --group root -czf data.tar.gz ./usr)
 
                # Control file
-               cat <<END > ${tmp_folder}/control
+               cat <<END > "${tmp_folder}/control"
 Package: ${PKG_NAME}
 Version: ${CODE_VERSION}-${PKG_VERSION}
 Section: utils
@@ -74,14 +74,14 @@ Homepage: https://github.com/rgburke/grv
 END
 
                # Control archive
-               rm -f ${tmp_folder}/control.tar.gz
-               (cd ${tmp_folder}; tar --owner root --group root -czf control.tar.gz control)
+               rm -f "${tmp_folder}/control.tar.gz"
+               (cd "${tmp_folder}"; tar --owner root --group root -czf control.tar.gz control)
 
                # Format deb package
-               echo 2.0 > ${tmp_folder}/debian-binary
+               echo 2.0 > "${tmp_folder}/debian-binary"
 
                # Create package (control before data)
-               ar -r ${package} ${tmp_folder}/debian-binary ${tmp_folder}/control.tar.gz ${tmp_folder}/data.tar.gz
+               ar -r "${package}" "${tmp_folder}/debian-binary" "${tmp_folder}/control.tar.gz" "${tmp_folder}/data.tar.gz"
  
                # Clean
                rm -rf "${tmp_folder}"
@@ -89,7 +89,7 @@ END
                # Upload package
                for dist in ${distrib}
                do
-                  ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" $HOME/upload/grv/${package} )
+                  ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" "$HOME/upload/grv/${package}" )
                done
                ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) | grep '/grv'
                #( cd "${REPREPRO}" || return ; reprepro remove stretch grv )

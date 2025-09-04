@@ -16,9 +16,9 @@ function oberpakaj_yadedaily {
    cd "$HOME/upload/yadedaily"
    for dist in ${distrib}
    do
-      [ -s "${dist}" ] && mv -f ${dist} ${dist}.old
+      [ -s "${dist}" ] && mv -f "${dist}" "${dist}.old"
       
-      wget "http://www.yade-dem.org/packages/dists/${dist}/main/binary-amd64/Packages" -O - | grep '^Filename:' > ${dist}
+      wget "http://www.yade-dem.org/packages/dists/${dist}/main/binary-amd64/Packages" -O - | grep '^Filename:' > "${dist}"
       
       # FILE exists and has a size greater than zero
       if [ -s "${dist}" ]
@@ -27,19 +27,19 @@ function oberpakaj_yadedaily {
          # Filename: pool/main/y/yadedaily/python3-yadedaily_20200327-3657~b92082c~stretch1-1_amd64.deb
          # Filename: pool/main/y/yadedaily/yadedaily_20200327-3657~b92082c~stretch1-1_amd64.deb
          # Filename: pool/main/y/yadedaily/yadedaily-doc_20200327-3657~b92082c~stretch1-1_all.deb
-         yadedaily=$(grep "/yadedaily_.*${dist}.*_amd64.deb"         ${dist} | awk '{print $2}' | head -1)
-         pytyade=$(  grep "/python3-yadedaily_.*${dist}.*_amd64.deb" ${dist} | awk '{print $2}' | head -1)
-         libyade=$(  grep "/libyadedaily_.*${dist}.*_amd64.deb"      ${dist} | awk '{print $2}' | head -1)
+         yadedaily=$(grep "/yadedaily_.*${dist}.*_amd64.deb"         "${dist}" | awk '{print $2}' | head -1)
+         pytyade=$(  grep "/python3-yadedaily_.*${dist}.*_amd64.deb" "${dist}" | awk '{print $2}' | head -1)
+         libyade=$(  grep "/libyadedaily_.*${dist}.*_amd64.deb"      "${dist}" | awk '{print $2}' | head -1)
 
-         for pkg in ${yadedaily} ${pytyade} ${libyade}
+         for pkg in "${yadedaily}" "${pytyade}" "${libyade}"
          do
             if wget --timestamping "http://www.yade-dem.org/packages/${pkg}"
             then
-               shortpkg=$(echo ${pkg} | xargs -r basename)
+               shortpkg=$(echo "${pkg}" | xargs -r basename)
                if [ -e "${shortpkg}" ]
                then
                   # Upload package
-                  ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" $HOME/upload/yadedaily/${shortpkg} )
+                  ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" "$HOME/upload/yadedaily/${shortpkg}" )
                   ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) | grep '/yadedaily'
                fi
             fi
