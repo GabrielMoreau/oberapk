@@ -13,7 +13,7 @@ function oberpakaj_libpng12 {
    local distrib=$*
 
    mkdir -p "$HOME/upload/libpng12"
-   cd "$HOME/upload/libpng12"
+   cd "$HOME/upload/libpng12" || return
 
    # carrefull with usrmerge compatibility / change -0 to -1
    version=1.2.54-1
@@ -30,7 +30,7 @@ function oberpakaj_libpng12 {
                  s/^Version: .*/Version: ${version}/;" control
       tar --owner root --group root -cJf control.tar.xz control
       tar --owner root --group root -cJf data.tar.xz usr
-      ar -r $HOME/upload/libpng12/${package} debian-binary control.tar.* data.tar.*
+      ar -r "$HOME/upload/libpng12/${package}" debian-binary control.tar.* data.tar.*
 
       rm -rf control control.tar.xz data.tar.xz debian-binary md5sums shlibs triggers usr
 
@@ -39,9 +39,9 @@ function oberpakaj_libpng12 {
          for dist in ${distrib}
          do
             # Upload package
-            ( cd ${REPREPRO} ; reprepro dumpreferences ) 2> /dev/null | grep -q "^${dist}|.*/${package}" || \
-                  ( cd ${REPREPRO} ; reprepro includedeb ${dist} $HOME/upload/libpng12/${package} )
-            ( cd ${REPREPRO} ; reprepro dumpreferences ) 2> /dev/null | grep "^${dist}|.*/libpng12"
+            ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) 2> /dev/null | grep -q "^${dist}|.*/${package}" || \
+                  ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" "$HOME/upload/libpng12/${package}" )
+            ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) 2> /dev/null | grep "^${dist}|.*/libpng12"
          done
       fi
    fi
