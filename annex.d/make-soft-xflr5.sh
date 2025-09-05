@@ -17,25 +17,25 @@ CODE_VERSION=$(curl -s 'https://raw.githubusercontent.com/polmes/xflr5-ubuntu/ma
 sudo apt install qt5-qmake libgl1-mesa-dev qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools
 
 tmp_folder=$(mktemp --directory /tmp/xflr5-XXXXXX)
-cd ${tmp_folder}
+cd "${tmp_folder}" || exit 1
 
 git clone https://github.com/polmes/xflr5-ubuntu.git
-cd xflr5-ubuntu/xflr5/
+cd xflr5-ubuntu/xflr5/ || exit 1
 
-mkdir -p ${tmp_folder}/local/xflr5/usr
+mkdir -p "${tmp_folder}/local/xflr5/usr"
 
 LOCAL_VERSION=$(grep 'define .*_VERSION' xflr5v6/xflcore/gui_params.h | awk '{print $3}' | paste -s -d '.')
-if ("${LOCAL_VERSION}" -ne "${CODE_VERSION}")
+if [ "${LOCAL_VERSION}" -ne "${CODE_VERSION}" ]
 then
    echo "Error: version problem on git clone"
    exit 1
 fi
 
-qmake PREFIX=${tmp_folder}/local/xflr5/usr
+qmake PREFIX="${tmp_folder}/local/xflr5/usr"
 make
 make install
 
-cd ${tmp_folder}/local/xflr5
+cd "${tmp_folder}/local/xflr5" || exit 1
 find . -mtime -1
 
 sed -i -e 's/\/local//;' ./usr/share/xflr5/xflr5.desktop
@@ -68,14 +68,14 @@ Description: airfoil, wings and plane analysis tool
 END
 
 # Control archive
-rm -f ${tmp_folder}/control.tar.gz
+rm -f "${tmp_folder}/control.tar.gz"
 tar --owner root --group root -czf control.tar.gz control
 
 # Format deb package
 echo 2.0 >  debian-binary
 
 # Create package (control before data)
-ar -r ${PKG_NAME}_${CODE_VERSION}-${PKG_VERSION}_amd64.deb ./debian-binary ./control.tar.gz ./data.tar.gz
+ar -r "${PKG_NAME}_${CODE_VERSION}-${PKG_VERSION}_amd64.deb" ./debian-binary ./control.tar.gz ./data.tar.gz
 
 
 # Specific post-install / Copy on reprepro server
