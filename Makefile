@@ -49,6 +49,7 @@ check-metadata: ## Check metadata in packaging definition
 check-quality: ## Shellcheck packaging script code
 	@shellcheck -e SC2034,SC2317,SC1091,SC1090 oberapk 
 	@(cd pakaj.d; shellcheck -e SC2012,SC2164,SC2166,SC2001 *.sh)
+	@(cd annex.d; shellcheck *.sh)
 
 list: ## List packaging for README
 	@./list-pakaj

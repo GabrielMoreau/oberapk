@@ -47,8 +47,8 @@ tmp_folder=$(mktemp --directory /tmp/anyconnect-XXXXXX)
       /usr/share/icons/hicolor/128x128/apps/cisco-secure-client.png \
       /usr/share/desktop-directories/cisco-secure-client.directory
    do
-      mkdir -p ".$(dirname ${file})"
-      cp -p ${file} .${file}
+      mkdir -p ".$(dirname "${file}")"
+      cp -p "${file}" ".${file}"
    done
 
    find . -perm /0100 -a -name '*.png'  -a -type f -exec chmod a-x {} \+
