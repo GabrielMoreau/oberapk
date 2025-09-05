@@ -69,7 +69,7 @@ tmp_folder=$(mktemp --directory /tmp/anyconnect-XXXXXX)
       )
 
    # Control archive
-cat <<'END' > postinst
+   cat <<'END' > postinst
 #!/bin/sh
 # Updating GTK icon cache
 #which gtk-update-icon-cache > /dev/null && gtk-update-icon-cache -f -t /usr/share/icons/hicolor
