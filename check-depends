@@ -9,16 +9,16 @@
 declare -A binok
 declare -A fphash
 
-while read binary
+while read -r binary
 do
    # package and binary have the same name: awk for example
    # saves processing time
-   egrep -q "^(Depends|Recommends|## MetaBin):.*\b${binary}\b" make-package-debian && continue
+   grep -Eq "^(Depends|Recommends|## MetaBin):.*\b${binary}\b" make-package-debian && continue
 
    echo "Warning: long search for binary ${binary}"
-   while read pkg fullpath
+   while read -r pkg fullpath
    do
-     if egrep -q "^(Depends|Recommends):.*\b${pkg/:}\b" make-package-debian
+     if grep -Eq "^(Depends|Recommends):.*\b${pkg/:}\b" make-package-debian
      then
        # keep already define binary in a pkg
        binok["${binary}"]="${pkg}"
@@ -33,8 +33,8 @@ done < <(grep -h '^## Binaries:' oberapk check-* list-pakaj pakaj.d/*.sh | cut -
 for fullpath in ${!fphash[*]}
 do
   # check if binary is in another pkg
-  binary=$(echo ${fullpath} | sed 's#.*/##;')
-  echo ${!binok[*]} | grep -q "\b${binary}\b" && continue
+  binary=$(echo "${fullpath}" | sed 's#.*/##;')
+  echo "${!binok[*]}" | grep -q "\b${binary}\b" && continue
   
   # print new dep to add (be careful with virtual package like awk)
   echo "${fphash[${fullpath}]} ${fullpath}"

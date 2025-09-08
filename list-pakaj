@@ -8,13 +8,13 @@
 prev_letter=''
 
 (
-   while read pakaj
+   while read -r pakaj
    do
       echo ","
-      name=$(basename ${pakaj/.sh})
-      website=$(grep '^##[[:space:]]See-Also' ${pakaj} | cut -f 3 -d ' ')
-      pkg_list=$(grep '^## Package: ' ${pakaj} | cut -f 3- -d ' ')
-      obsolete=$(grep '^## Obsolete: ' ${pakaj} | cut -f 3- -d ' ' | sed -e 's/^\(.*\)/ (obsolete since \1)/;')
+      name=$(basename "${pakaj/.sh}")
+      website=$(grep '^##[[:space:]]See-Also' "${pakaj}" | cut -f 3 -d ' ')
+      pkg_list=$(grep '^## Package: ' "${pakaj}" | cut -f 3- -d ' ')
+      obsolete=$(grep '^## Obsolete: ' "${pakaj}" | cut -f 3- -d ' ' | sed -e 's/^\(.*\)/ (obsolete since \1)/;')
       if [ -n "${pkg_list}" ]
       then
         pkg_list=' ['${pkg_list}']'

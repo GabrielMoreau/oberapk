@@ -7,18 +7,18 @@
 
 for pkg in pakaj.d/*
 do
-   nbmeta=$(egrep '^##[[:space:]](Date|Pakaj|Author|See-Also|Description|Binaries):[[:space:]]' ${pkg} | wc -l)
-   if [ $nbmeta -ne 6 ]
+   nbmeta=$(grep -E '^##[[:space:]](Date|Pakaj|Author|See-Also|Description|Binaries):[[:space:]]' "${pkg}" | wc -l)
+   if [ "${nbmeta}" -ne 6 ]
    then
-      echo "Warning: some metadata ($((6 - ${nbmeta}))) are missing on the packaging $(basename ${pkg})"
+      echo "Warning: some metadata ($((6 - nbmeta))) are missing on the packaging $(basename "${pkg}")"
    fi
    
-   badmeta=$(grep -h '^##[[:space:]][[:alnum:]-][[:alnum:]-]*:[[:space:]]' ${pkg} \
-      | egrep -v '^##[[:space:]](Date|Pakaj|Author|See-Also|Description|Binaries|Wikipedia|Package):[[:space:]]' \
+   badmeta=$(grep -h '^##[[:space:]][[:alnum:]-][[:alnum:]-]*:[[:space:]]' "${pkg}" \
+      | grep -Ev '^##[[:space:]](Date|Pakaj|Author|See-Also|Description|Binaries|Wikipedia|Package):[[:space:]]' \
       | cut -f 2 -d ' ' | sed 's/:$//;' | paste -sd ' ')
    if [ -n "${badmeta}" ]
    then
-      echo "Warning: bad metadata for the packaging $(basename ${pkg}) - ${badmeta}"
+      echo "Warning: bad metadata for the packaging $(basename "${pkg}") - ${badmeta}"
    fi
   
 done
