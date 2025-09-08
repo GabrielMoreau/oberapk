@@ -11,7 +11,7 @@ export PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin
 export LANG=C
 
 tmp_folder=$(mktemp --directory /tmp/oberapk-XXXXXX)
-[ -n "${tmp_folder}" -a -d "${tmp_folder}" ] || exit 1
+[ -n "${tmp_folder}" ] && [ -d "${tmp_folder}" ] || exit 1
 
 # Set Name and Version
 PKG_NAME=oberapk
@@ -19,38 +19,38 @@ CODE_VERSION=$(grep '^VERSION=' oberapk | cut -f 2 -d "'")
 PKG_VERSION=1
 
 # Create future tree
-mkdir -p ${tmp_folder}/usr/bin
-mkdir -p ${tmp_folder}/usr/share/man/man1
-mkdir -p ${tmp_folder}/usr/share/oberapk
-mkdir -p ${tmp_folder}/usr/lib/oberapk/pakaj.d
-mkdir -p ${tmp_folder}/etc/oberapk
-mkdir -p ${tmp_folder}/etc/cron.daily
-mkdir -p ${tmp_folder}/etc/cron.weekly
-mkdir -p ${tmp_folder}/etc/bash_completion.d
-cp oberapk                   ${tmp_folder}/usr/bin/
-pod2man oberapk.pod | gzip > ${tmp_folder}/usr/share/man/man1/oberapk.1.gz # Manual
-cp LICENSE.md                ${tmp_folder}/usr/share/oberapk/
-cp AUTHORS.md                ${tmp_folder}/usr/share/oberapk/
-cp COPYRIGHT.md              ${tmp_folder}/usr/share/oberapk/
-cp README.md                 ${tmp_folder}/usr/share/oberapk/
-cp oberapk.sample.conf       ${tmp_folder}/usr/share/oberapk/
-cp oberapk.sample.sh         ${tmp_folder}/usr/share/oberapk/
-cp oberapk.sample.conf       ${tmp_folder}/etc/oberapk/
-cp oberapk.sample.sh         ${tmp_folder}/etc/oberapk/
-cp oberapk.bash_completion   ${tmp_folder}/etc/bash_completion.d/oberapk
-cp cron.daily.sh             ${tmp_folder}/etc/cron.daily/oberapk
-cp cron.weekly.sh            ${tmp_folder}/etc/cron.weekly/oberapk
-cp pakaj.d/*.sh              ${tmp_folder}/usr/lib/oberapk/pakaj.d/
-chmod -R a+rx        ${tmp_folder}/usr/bin/oberapk
-chmod -R a+rX,go-w   ${tmp_folder}/usr
-chmod -R a+rX,go-w   ${tmp_folder}/etc
+mkdir -p "${tmp_folder}/usr/bin"
+mkdir -p "${tmp_folder}/usr/share/man/man1"
+mkdir -p "${tmp_folder}/usr/share/oberapk"
+mkdir -p "${tmp_folder}/usr/lib/oberapk/pakaj.d"
+mkdir -p "${tmp_folder}/etc/oberapk"
+mkdir -p "${tmp_folder}/etc/cron.daily"
+mkdir -p "${tmp_folder}/etc/cron.weekly"
+mkdir -p "${tmp_folder}/etc/bash_completion.d"
+cp oberapk                   "${tmp_folder}/usr/bin/"
+pod2man oberapk.pod | gzip > "${tmp_folder}/usr/share/man/man1/oberapk.1.gz" # Manual
+cp LICENSE.md                "${tmp_folder}/usr/share/oberapk/"
+cp AUTHORS.md                "${tmp_folder}/usr/share/oberapk/"
+cp COPYRIGHT.md              "${tmp_folder}/usr/share/oberapk/"
+cp README.md                 "${tmp_folder}/usr/share/oberapk/"
+cp oberapk.sample.conf       "${tmp_folder}/usr/share/oberapk/"
+cp oberapk.sample.sh         "${tmp_folder}/usr/share/oberapk/"
+cp oberapk.sample.conf       "${tmp_folder}/etc/oberapk/"
+cp oberapk.sample.sh         "${tmp_folder}/etc/oberapk/"
+cp oberapk.bash_completion   "${tmp_folder}/etc/bash_completion.d/oberapk"
+cp cron.daily.sh             "${tmp_folder}/etc/cron.daily/oberapk"
+cp cron.weekly.sh            "${tmp_folder}/etc/cron.weekly/oberapk"
+cp pakaj.d/*.sh              "${tmp_folder}/usr/lib/oberapk/pakaj.d/"
+chmod -R a+rx        "${tmp_folder}/usr/bin/oberapk"
+chmod -R a+rX,go-w   "${tmp_folder}/usr"
+chmod -R a+rX,go-w   "${tmp_folder}/etc"
 
 # Data archive
-rm -f ${tmp_folder}/data.tar.gz
-(cd ${tmp_folder}; tar --owner root --group root -czf data.tar.gz ./usr ./etc)
+rm -f "${tmp_folder}/data.tar.gz"
+(cd "${tmp_folder}" || exit 1; tar --owner root --group root -czf data.tar.gz ./usr ./etc)
 
 # Control file
-cat <<END > ${tmp_folder}/control
+cat <<END > "${tmp_folder}/control"
 Package: ${PKG_NAME}
 Version: ${CODE_VERSION}-${PKG_VERSION}
 Section: utils
@@ -59,21 +59,21 @@ Priority: optional
 Depends: bash, coreutils, findutils, binutils, util-linux, debianutils, tar, sed, grep, awk, wget, curl, reprepro, git, make, perl, gzip, unzip, xz-utils, file
 Recommends: apt-file
 Architecture: all
-Installed-Size: $(du -ks ${tmp_folder}|cut -f 1)
+Installed-Size: $(du -ks "${tmp_folder}"|cut -f 1)
 Maintainer: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
 Description: wget Debian package and build simple package and push them on local reprepro
 Homepage: https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/oberapk
 END
 
 # Control archive
-rm -f ${tmp_folder}/control.tar.gz
-(cd ${tmp_folder}; tar --owner root --group root -czf control.tar.gz control)
+rm -f "${tmp_folder}/control.tar.gz"
+(cd "${tmp_folder}" || exit 1; tar --owner root --group root -czf control.tar.gz control)
 
 # Format deb package
-echo 2.0 > ${tmp_folder}/debian-binary
+echo 2.0 > "${tmp_folder}/debian-binary"
 
 # Create package (control before data)
-ar -r ${PKG_NAME}_${CODE_VERSION}-${PKG_VERSION}_all.deb ${tmp_folder}/debian-binary ${tmp_folder}/control.tar.gz ${tmp_folder}/data.tar.gz
+ar -r "${PKG_NAME}_${CODE_VERSION}-${PKG_VERSION}_all.deb" "${tmp_folder}/debian-binary" "${tmp_folder}/control.tar.gz" "${tmp_folder}/data.tar.gz"
       
 # Clean
-rm -rf ${tmp_folder}
+rm -rf "${tmp_folder}"
