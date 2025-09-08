@@ -18,9 +18,6 @@ PKG_NAME=oberapk
 CODE_VERSION=$(grep '^VERSION=' oberapk | cut -f 2 -d "'")
 PKG_VERSION=1
 
-# Manual
-pod2man oberapk.pod | gzip > oberapk.1.gz
-
 # Create future tree
 mkdir -p ${tmp_folder}/usr/bin
 mkdir -p ${tmp_folder}/usr/share/man/man1
@@ -30,20 +27,20 @@ mkdir -p ${tmp_folder}/etc/oberapk
 mkdir -p ${tmp_folder}/etc/cron.daily
 mkdir -p ${tmp_folder}/etc/cron.weekly
 mkdir -p ${tmp_folder}/etc/bash_completion.d
-cp oberapk                 ${tmp_folder}/usr/bin/
-cp oberapk.1.gz            ${tmp_folder}/usr/share/man/man1/
-cp LICENSE.md              ${tmp_folder}/usr/share/oberapk/
-cp AUTHORS.md              ${tmp_folder}/usr/share/oberapk/
-cp COPYRIGHT.md            ${tmp_folder}/usr/share/oberapk/
-cp README.md               ${tmp_folder}/usr/share/oberapk/
-cp oberapk.sample.conf     ${tmp_folder}/usr/share/oberapk/
-cp oberapk.sample.sh       ${tmp_folder}/usr/share/oberapk/
-cp oberapk.sample.conf     ${tmp_folder}/etc/oberapk/
-cp oberapk.sample.sh       ${tmp_folder}/etc/oberapk/
-cp oberapk.bash_completion ${tmp_folder}/etc/bash_completion.d/oberapk
-cp cron.daily.sh           ${tmp_folder}/etc/cron.daily/oberapk
-cp cron.weekly.sh          ${tmp_folder}/etc/cron.weekly/oberapk
-cp pakaj.d/*.sh            ${tmp_folder}/usr/lib/oberapk/pakaj.d/
+cp oberapk                   ${tmp_folder}/usr/bin/
+pod2man oberapk.pod | gzip > ${tmp_folder}/usr/share/man/man1/oberapk.1.gz # Manual
+cp LICENSE.md                ${tmp_folder}/usr/share/oberapk/
+cp AUTHORS.md                ${tmp_folder}/usr/share/oberapk/
+cp COPYRIGHT.md              ${tmp_folder}/usr/share/oberapk/
+cp README.md                 ${tmp_folder}/usr/share/oberapk/
+cp oberapk.sample.conf       ${tmp_folder}/usr/share/oberapk/
+cp oberapk.sample.sh         ${tmp_folder}/usr/share/oberapk/
+cp oberapk.sample.conf       ${tmp_folder}/etc/oberapk/
+cp oberapk.sample.sh         ${tmp_folder}/etc/oberapk/
+cp oberapk.bash_completion   ${tmp_folder}/etc/bash_completion.d/oberapk
+cp cron.daily.sh             ${tmp_folder}/etc/cron.daily/oberapk
+cp cron.weekly.sh            ${tmp_folder}/etc/cron.weekly/oberapk
+cp pakaj.d/*.sh              ${tmp_folder}/usr/lib/oberapk/pakaj.d/
 chmod -R a+rx        ${tmp_folder}/usr/bin/oberapk
 chmod -R a+rX,go-w   ${tmp_folder}/usr
 chmod -R a+rX,go-w   ${tmp_folder}/etc
