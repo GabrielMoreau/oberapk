@@ -13,13 +13,13 @@ function oberpakaj_kannad {
 
    if [ ! -d "${HOME}/upload/kannad" ]
    then
-      cd "${HOME}/upload/"
+      cd "${HOME}/upload/" || return
       git clone https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/kannad.git
    fi
 
    if [ -d "${HOME}/upload/kannad/.git" ]
    then
-      cd "${HOME}/upload/kannad"
+      cd "${HOME}/upload/kannad" || return
       git pull
 
       PKG_NAME=$(grep '^PKG_NAME=' make-package-debian | cut -f 2 -d "=")
@@ -27,14 +27,18 @@ function oberpakaj_kannad {
       PKG_VERSION=$(grep '^PKG_VERSION=' make-package-debian | cut -f 2 -d "=")
       package=${PKG_NAME}_${CODE_VERSION}-${PKG_VERSION}_all.deb
 
-      if [ ! -e "${PKG_NAME}_${CODE_VERSION}-${PKG_VERSION}_all.deb" ]
+      if [ ! -s "${package}" ]
       then
          make
          make pkg
+      fi
 
+      if [ -s "${package}" ] && file "${package}" | grep -q 'Debian binary package'
+      then
          for dist in ${distrib}
          do
-           ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" "$HOME/upload/${PKG_NAME}/${package}" )
+            ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) 2> /dev/null | grep -q "^${dist}|.*/${package}" || \
+               ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" "$HOME/upload/${PKG_NAME}/${package}" )
          done
          ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) | grep -i "/${PKG_NAME}"
       fi
@@ -43,7 +47,7 @@ function oberpakaj_kannad {
    # Clean old package - keep last 4 (put 4+1=5)
    if [ -d "${HOME}/upload/kannad" ]
    then
-      cd "${HOME}/upload/kannad"
+      cd "${HOME}/upload/kannad" || return
       ls -1t -- kannad_*.deb 2> /dev/null | tail -n +$((keep+1)) | xargs -r rm -f --
    fi
    }
