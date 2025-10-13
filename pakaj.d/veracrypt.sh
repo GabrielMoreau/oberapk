@@ -24,6 +24,7 @@ function oberpakaj_veracrypt {
          for dist in ${distrib}
          do
             case "${dist}" in
+               trixie)   DEBVERSION=13 ;;
                bookworm) DEBVERSION=12 ;;
                bullseye) DEBVERSION=11 ;;
                *) DEBVERSION=''
