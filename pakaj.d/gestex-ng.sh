@@ -13,13 +13,13 @@ function oberpakaj_gestex_ng {
 
    if [ ! -d "${HOME}/upload/gestex" ]
    then
-      cd "${HOME}/upload/"
+      cd "${HOME}/upload/" || return
       git clone https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/gestex.git
    fi
 
    if [ -d "${HOME}/upload/gestex/.git" ]
    then
-      cd "${HOME}/upload/gestex"
+      cd "${HOME}/upload/gestex" || return
       git checkout devel
       git pull
 
@@ -28,14 +28,18 @@ function oberpakaj_gestex_ng {
       PKG_VERSION=$(grep '^PKG_VERSION=' make-package-debian | cut -f 2 -d "=")
       package=${PKG_NAME}_${CODE_VERSION}-${PKG_VERSION}_all.deb
 
-      if [ ! -e "${PKG_NAME}_${CODE_VERSION}-${PKG_VERSION}_all.deb" ]
+      if [ ! -s "${package}" ]
       then
          make
          make pkg-ng
+      fi
 
+      if [ -s "${package}" ] && file "${package}" | grep -q 'Debian binary package'
+      then
          for dist in ${distrib}
          do
-           ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" "$HOME/upload/gestex/${package}" )
+            ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) 2> /dev/null | grep -q "^${dist}|.*/${package}" || \
+               ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" "$HOME/upload/gestex/${package}" )
          done
          ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) | grep -i "/${PKG_NAME}"
       fi
@@ -44,7 +48,7 @@ function oberpakaj_gestex_ng {
    # Clean old package - keep last 4 (put 4+1=5)
    if [ -d "${HOME}/upload/gestex" ]
    then
-      cd "${HOME}/upload/gestex"
+      cd "${HOME}/upload/gestex" || return
       ls -1t -- gestex-ng_*.deb 2> /dev/null | tail -n +$((keep+1)) | xargs -r rm -f --
    fi
    }
