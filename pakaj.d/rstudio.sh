@@ -17,7 +17,7 @@ function oberpakaj_rstudio {
 
    pkg='rstudio'
    mkdir -p "$HOME/upload/rstudio"
-   cd "$HOME/upload/rstudio"
+   cd "$HOME/upload/rstudio" || return
 
    curl -s -L 'https://www.rstudio.com/products/rstudio/download/#download' | sed 's/"/\n/g;' | grep -E '^https://.*/rstudio-.*-amd64.deb$' > Packages.txt
    if [ -s "Packages.txt" ]
@@ -25,6 +25,7 @@ function oberpakaj_rstudio {
       for dist in ${distrib}
       do
          case "${dist}" in
+            trixie)   DEBVERSION=13 ; DEBGREP='jammy' ;;
             bookworm) DEBVERSION=12 ; DEBGREP='jammy' ;;
             bullseye) DEBVERSION=11 ; DEBGREP='focal' ;;
             *)        DEBVERSION='' ; DEBGREP=''
@@ -33,9 +34,9 @@ function oberpakaj_rstudio {
          url=$(grep "/${DEBGREP}/" Packages.txt | head -1)
          pkgfile=$(basename "${url}")
          mkdir -p "$HOME/upload/rstudio/${dist}"
-         (cd "$HOME/upload/rstudio/${dist}"; wget --timestamping "${url}")
+         (cd "$HOME/upload/rstudio/${dist}" || return; wget --timestamping "${url}")
          tmp_folder=$(mktemp --directory /tmp/rstudio-XXXXXX)
-         (cd "${tmp_folder}"
+         (cd "${tmp_folder}" || return
             if LANG=C file "$HOME/upload/rstudio/${dist}/${pkgfile}" 2> /dev/null | grep -q 'Debian binary package'
             then
                ar -x "$HOME/upload/rstudio/${dist}/${pkgfile}"
@@ -68,9 +69,9 @@ function oberpakaj_rstudio {
          fi
 
          # Clean old package - keep last 4 (put 4+1=5)
-         [ -d "$HOME/upload/rstudio/${dist}" ] && (cd "$HOME/upload/rstudio/${dist}"
+         [ -d "$HOME/upload/rstudio/${dist}" ] && (cd "$HOME/upload/rstudio/${dist}" || return
             ls -1t -- ${pkg}-[123456789]*.deb 2> /dev/null | tail -n +$((keep+1)) | xargs -r rm -f --
-           ls -1t -- ${pkg}_*.deb            2> /dev/null | tail -n +$((keep+1)) | xargs -r rm -f --
+            ls -1t -- ${pkg}_*.deb            2> /dev/null | tail -n +$((keep+1)) | xargs -r rm -f --
             )
       done
    fi
