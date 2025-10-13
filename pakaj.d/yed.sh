@@ -15,7 +15,7 @@ function oberpakaj_yed {
 
    mkdir -p "$HOME/upload/yed"
    [ -e "$HOME/upload/yed/version" ] || echo '0' > "$HOME/upload/yed/version"
-   cd "$HOME/upload/yed"
+   cd "$HOME/upload/yed" || return
    
    version_old=$(cat "$HOME/upload/yed/version")
    version=$(curl --silent https://www.yworks.com/products/yed/download -o - | sed -e 's#[[:space:]/_]#\n#g;' | grep -E '^yEd-[[:digit:]]' | head -1 | cut -f 2 -d '-')
@@ -32,14 +32,14 @@ function oberpakaj_yed {
       if [ -s "yEd-${version}.zip" ]
       then
          tmp_folder=$(mktemp --directory /tmp/yed-XXXXXX)
-         [ -n "${tmp_folder}" -a -d "${tmp_folder}" ] || exit 1
+         [ -n "${tmp_folder}" ] && [ -d "${tmp_folder}" ] || exit 1
 
          # Create future tree
          mkdir -p "${tmp_folder}/usr/bin"
          mkdir -p "${tmp_folder}/usr/lib"
          mkdir -p "${tmp_folder}/usr/share/applications"
 
-         (cd "${tmp_folder}/usr/lib"; unzip -q "$HOME/upload/yed/yEd-${version}.zip")
+         (cd "${tmp_folder}/usr/lib" || return; unzip -q "$HOME/upload/yed/yEd-${version}.zip")
          mv "${tmp_folder}/usr/lib/yed-${version}" "${tmp_folder}/usr/lib/yed-latest"
 
          cat << 'END_DESK' > "${tmp_folder}/usr/share/applications/yed.desktop"
@@ -63,7 +63,7 @@ END_EXEC
 
          # Data archive
          rm -f "${tmp_folder}/data.tar.gz"
-         (cd "${tmp_folder}"; tar --owner root --group root -czf data.tar.gz ./usr)
+         (cd "${tmp_folder}" || return; tar --owner root --group root -czf data.tar.gz ./usr)
 
          # Control file
          cat <<END > "${tmp_folder}/control"
@@ -91,7 +91,7 @@ END
 
          # Control archive
          rm -f "${tmp_folder}/control.tar.gz"
-         (cd "${tmp_folder}"; tar --owner root --group root -czf control.tar.gz control)
+         (cd "${tmp_folder}" || return; tar --owner root --group root -czf control.tar.gz control)
 
          # Format deb package
          echo 2.0 > "${tmp_folder}/debian-binary"
@@ -101,16 +101,20 @@ END
  
          # Clean
          rm -rf "${tmp_folder}"
-
-         # Upload package
-         # Upload package
-         for dist in ${distrib}
-         do
-            ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" "$HOME/upload/yed/${package}" )
-         done
-         ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) | grep '/yed'
       fi
    fi
+
+   if [ -s "${package}" ] && file "${package}" | grep -q 'Debian binary package'
+   then
+      # Upload package
+      for dist in ${distrib}
+      do
+         ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) 2> /dev/null | grep -q "^${dist}|.*/${package}" || \
+            ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" "$HOME/upload/yed/${package}" )
+      done
+      ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) | grep '/yed'
+   fi
+
    # Clean old package - kept last 4 (put 4+1=5)
    ls -1t -- ${PKG_NAME}_*.deb 2> /dev/null | tail -n +$((keep+1)) | xargs -r rm -f --
    ls -1t -- yEd-*.zip 2> /dev/null | tail -n +$((keep+1)) | xargs -r rm -f --
