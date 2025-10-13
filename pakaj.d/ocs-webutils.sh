@@ -27,19 +27,19 @@ function oberpakaj_ocs_webutils {
       PKG_VERSION=$(grep '^PKG_VERSION=' make-package-debian | cut -f 2 -d "=")
       package=${PKG_NAME}_${CODE_VERSION}-${PKG_VERSION}_all.deb
 
-      if [ ! -e "${PKG_NAME}_${CODE_VERSION}-${PKG_VERSION}_all.deb" ]
+      if [ ! -s "${package}" ]
       then
          ./make-package-debian
+      fi
 
-         if [ -s "${package}" ] && file "${package}" | grep -q 'Debian binary package'
-         then
-            for dist in ${distrib}
-            do
-               ( cd "${REPREPRO}" || return ; reprepro dumpreferences )  2> /dev/null | grep -q "^${dist}|.*/${package}" || \
-                  ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" "$HOME/upload/${PKG_NAME}/${package}" )
-            done
-            ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) | grep -i "/${PKG_NAME}"
-         fi
+      if [ -s "${package}" ] && file "${package}" | grep -q 'Debian binary package'
+      then
+         for dist in ${distrib}
+         do
+            ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) 2> /dev/null | grep -q "^${dist}|.*/${package}" || \
+               ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" "$HOME/upload/${PKG_NAME}/${package}" )
+         done
+         ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) | grep -i "/${PKG_NAME}"
       fi
    fi
 
