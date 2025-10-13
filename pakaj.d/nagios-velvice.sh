@@ -13,13 +13,13 @@ function oberpakaj_nagios_velvice {
 
    if [ ! -d "${HOME}/upload/nagios-velvice" ]
    then
-      cd "${HOME}/upload/"
+      cd "${HOME}/upload/" || return
       git clone https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/nagios-velvice.git
    fi
 
    if [ -d "${HOME}/upload/nagios-velvice/.git" ]
    then
-      cd "${HOME}/upload/nagios-velvice"
+      cd "${HOME}/upload/nagios-velvice" || return
       git pull
 
       PKG_NAME=$(grep '^PKG_NAME=' make-package-debian | cut -f 2 -d "=")
@@ -27,14 +27,18 @@ function oberpakaj_nagios_velvice {
       PKG_VERSION=$(grep '^PKG_VERSION=' make-package-debian | cut -f 2 -d "=")
       package=${PKG_NAME}_${CODE_VERSION}-${PKG_VERSION}_all.deb
 
-      if [ ! -e "${PKG_NAME}_${CODE_VERSION}-${PKG_VERSION}_all.deb" ]
+      if [ ! -s "${package}" ]
       then
          make
          make pkg
+      fi
 
+      if [ -s "${package}" ] && file "${package}" | grep -q 'Debian binary package'
+      then
          for dist in ${distrib}
          do
-           ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" "$HOME/upload/nagios-velvice/${package}" )
+            ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) 2> /dev/null | grep -q "^${dist}|.*/${package}" || \
+               ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" "$HOME/upload/${PKG_NAME}/${package}" )
          done
          ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) | grep -i "/${PKG_NAME}"
       fi
@@ -43,7 +47,7 @@ function oberpakaj_nagios_velvice {
    # Clean old package - keep last 4 (put 4+1=5)
    if [ -d "${HOME}/upload/nagios-velvice" ]
    then
-      cd "${HOME}/upload/nagios-velvice"
+      cd "${HOME}/upload/nagios-velvice" || return
       ls -1t -- nagios3-velvice_*.deb 2> /dev/null | tail -n +$((keep+1)) | xargs -r rm -f --
    fi
    }
