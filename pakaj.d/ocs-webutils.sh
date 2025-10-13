@@ -1,10 +1,10 @@
 #!/bin/bash
 #
-## Date: 2022/01/27
+## Date: 2025/08/14
 ## Pakaj: ocs-webutils
 ## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
 ## See-Also: https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/ocs-webutils
-## Description: DDT is a simple IP Address Management (IPAM) service
+## Description: Utilities for managing packages on an OCS Inventory server
 ## Binaries: ls tail xargs rm reprepro grep mkdir git cut make pod2man pod2html mktemp cp ln cat chmod tar ar
 
 function oberpakaj_ocs_webutils {
