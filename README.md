@@ -127,6 +127,7 @@ in the folder [pakaj.d](pakaj.d/):
   [project-meta](https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/project-meta),
   [protonmail](https://proton.me) [protonmail-bridge];
 * [qgis](http://qgis.org/) [libqgis python-qgis python3-qgis qgis],
+  [qrscan](https://github.com/sayanarijit/qrscan),
   [quarto](https://github.com/quarto-dev/quarto-cli);
 * [reaction](https://framagit.org/ppom),
   [rstudio](https://www.rstudio.com/);
