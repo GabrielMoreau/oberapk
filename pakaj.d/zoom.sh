@@ -13,7 +13,7 @@ function oberpakaj_zoom {
    local distrib=$*
 
    mkdir -p "$HOME/upload/zoom"
-   cd "$HOME/upload/zoom"
+   cd "$HOME/upload/zoom" || return
    [ -e "timestamp.sig" ] \
       || touch -t "$(date +%Y)01010000" timestamp.sig
 
@@ -29,7 +29,7 @@ function oberpakaj_zoom {
       package=$(basename ${url} _amd64.deb)
 
       tmp_folder=$(mktemp --directory /tmp/zoom-XXXXXX)
-      (cd "${tmp_folder}"
+      (cd "${tmp_folder}" || return
          ar -x "$HOME/upload/zoom/${package}_amd64.deb data.tar.xz control.tar.xz"
          tar --preserve-permissions -xJf data.tar.xz
          tar -xJf control.tar.xz
