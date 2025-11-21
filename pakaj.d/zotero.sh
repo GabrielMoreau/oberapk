@@ -14,7 +14,7 @@ function oberpakaj_zotero {
 
    mkdir -p "$HOME/upload/zotero"
    [ -e "$HOME/upload/zotero/version" ] || echo '0' > "$HOME/upload/zotero/version"
-   cd "$HOME/upload/zotero"
+   cd "$HOME/upload/zotero" || return
    
    version_old=$(cat "$HOME/upload/zotero/version")
    version=$(curl --silent https://www.zotero.org/download/ -o - | grep  'standaloneVersions' | sed -e 's/,/\n/g;' | grep 'linux-x86_64' | cut -f 4 -d '"' | grep '^[[:digit:]]' | head -1)
@@ -31,14 +31,17 @@ function oberpakaj_zotero {
       if [ -s "Zotero-${version}_linux-x86_64.tar.bz2" ]
       then
          tmp_folder=$(mktemp --directory /tmp/zotero-XXXXXX)
-         [ -n "${tmp_folder}" -a -d "${tmp_folder}" ] || exit 1
+         if [ -z "$tmp_folder" ] || [ ! -d "$tmp_folder" ]
+         then
+            return
+         fi
 
          # Create future tree
          mkdir -p "${tmp_folder}/usr/bin"
          mkdir -p "${tmp_folder}/usr/lib"
          mkdir -p "${tmp_folder}/usr/share/applications"
 
-         (cd "${tmp_folder}/usr/lib"; tar xjf "$HOME/upload/zotero/Zotero-${version}_linux-x86_64.tar.bz2")
+         (cd "${tmp_folder}/usr/lib" || return; tar xjf "$HOME/upload/zotero/Zotero-${version}_linux-x86_64.tar.bz2")
          mv "${tmp_folder}/usr/lib/Zotero_linux-x86_64" "${tmp_folder}/usr/lib/zotero-latest"
          mv "${tmp_folder}/usr/lib/zotero-latest/zotero.desktop" "${tmp_folder}/usr/share/applications/"
 
@@ -58,7 +61,7 @@ END_EXEC
 
          # Data archive
          rm -f "${tmp_folder}/data.tar.gz"
-         (cd "${tmp_folder}"; tar --owner root --group root -czf data.tar.gz ./usr)
+         (cd "${tmp_folder}" || return; tar --owner root --group root -czf data.tar.gz ./usr)
 
          # Control file
          cat <<END > "${tmp_folder}/control"
@@ -86,7 +89,7 @@ END
 
          # Control archive
          rm -f "${tmp_folder}/control.tar.gz"
-         (cd "${tmp_folder}"; tar --owner root --group root -czf control.tar.gz control)
+         (cd "${tmp_folder}" || return; tar --owner root --group root -czf control.tar.gz control)
 
          # Format deb package
          echo 2.0 > "${tmp_folder}/debian-binary"
