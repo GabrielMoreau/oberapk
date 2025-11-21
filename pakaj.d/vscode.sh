@@ -17,7 +17,7 @@ function oberpakaj_vscode {
    # Ticket 13897
 
    mkdir -p "$HOME/upload/vscode"
-   cd "$HOME/upload/vscode"
+   cd "$HOME/upload/vscode" || return
    PKG_VERSION=1
    if wget --timestamping "https://packages.microsoft.com/repos/vscode/dists/stable/main/binary-amd64/Packages.gz"
    then
@@ -31,7 +31,7 @@ function oberpakaj_vscode {
 
          # vscode
          tmp_folder=$(mktemp --directory /tmp/vscode-XXXXXX)
-         (cd "${tmp_folder}"
+         (cd "${tmp_folder}" || return
             ar -x "$HOME/upload/vscode/$(basename "${codeonly}")"
             tar -xJf control.tar.xz
             sed -i -e 's/^\(Version:.*\)$/\1.'${PKG_VERSION}'/;' control
@@ -50,7 +50,7 @@ END
 
          # codeinsiders
          tmp_folder=$(mktemp --directory /tmp/codeinsiders-XXXXXX)
-         (cd "${tmp_folder}"
+         (cd "${tmp_folder}" || return
             ar -x "$HOME/upload/vscode/$(basename "${codeinsiders}")"
             tar -xJf control.tar.xz 
             sed -i -e 's/^\(Version:.*\)$/\1.'${PKG_VERSION}'/;' control
@@ -67,7 +67,7 @@ END
          ar -r "$HOME/upload/vscode/$(basename "${codeinsiders}" _amd64.deb).${PKG_VERSION}_amd64.deb" "${tmp_folder}/debian-binary" "${tmp_folder}/control.tar.xz" "${tmp_folder}/data.tar.xz"
          rm -rf "${tmp_folder}"
 
-         if [ -e "$(basename "${codeonly}")" -a -e "$(basename "${codeinsiders}")" ]
+         if [ -e "$(basename "${codeonly}")" ] && [ -e "$(basename "${codeinsiders}")" ]
          then
             # Upload package
             for dist in ${distrib}
@@ -81,7 +81,7 @@ END
    fi
    
    # Clean old package - kept last 4 (put 4+1=5)
-   cd "$HOME/upload/vscode"
+   cd "$HOME/upload/vscode" || return
    ls -1t -- code-insiders_*.deb 2> /dev/null | tail -n +$((keep+1)) | xargs -r rm -f --
    ls -1t -- code_*.deb          2> /dev/null | tail -n +$((keep+1)) | xargs -r rm -f --
    }
