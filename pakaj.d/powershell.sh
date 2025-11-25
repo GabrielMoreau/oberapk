@@ -27,11 +27,11 @@ function oberpakaj_powershell {
             if [ -z "${url}" ] && [ "${dist}" = "trixie" ]
             then
                url=$(zgrep ^Filename ../bookworm/Packages.gz 2> /dev/null | grep '/powershell/' | head -1 | awk '{print $2}')
-               wget --timestamping "https://packages.microsoft.com/repos/microsoft-debian-bookworm-prod/${url}"
+               (mkdir -p ../bookworm; cd ../bookworm || return; wget --timestamping "https://packages.microsoft.com/repos/microsoft-debian-bookworm-prod/${url}")
                archive=$(basename "${url}")
                tmp_folder=$(mktemp --directory "/tmp/${pakajname}-XXXXXX")
                (cd "${tmp_folder}" || return
-                  ar -x "$HOME/upload/${pakajname}/${archive}"
+                  ar -x "$HOME/upload/${pakajname}/bookworm/${archive}"
                   tar xzf control.tar.gz
                   VERSION=$(grep '^Version:' control | awk '{print $2}' | sed -e 's/\.deb/-u13/;')
                   sed -i "s/^\(Version:[[:space:]]\).*/\1${VERSION}/; s/\(libicu74\)/libicu76|\1/;" control
