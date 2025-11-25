@@ -31,7 +31,7 @@ function oberpakaj_powershell {
                archive=$(basename "${url}")
                tmp_folder=$(mktemp --directory "/tmp/${pakajname}-XXXXXX")
                (cd "${tmp_folder}" || return
-                  ar -x "${archive}"
+                  ar -x "$HOME/upload/${pakajname}/${archive}"
                   tar xzf control.tar.gz
                   VERSION=$(grep '^Version:' control | awk '{print $2}' | sed -e 's/\.deb/-u13/;')
                   sed -i "s/^\(Version:[[:space:]]\).*/\1${VERSION}/; s/\(libicu74\)/libicu76|\1/;" control
@@ -41,24 +41,28 @@ function oberpakaj_powershell {
                      && echo "${pakajname}_${VERSION}_amd64.deb" > "$HOME/upload/${pakajname}/${dist}/timestamp.sig"
                )
 
-            # Clean
-            rm -rf "${tmp_folder}"
+               # Clean
+               rm -rf "${tmp_folder}"
 
             else
                wget --timestamping "https://packages.microsoft.com/repos/microsoft-debian-${dist}-prod/${url}"
                basename "${url}" > "$HOME/upload/${pakajname}/${dist}/timestamp.sig"
             fi
-
-            # Upload package
-            package="$(cat timestamp.sig)"
-            if [ -s "${package}" ] && file "${package}" | grep -q 'Debian binary package'
-            then
-               # Upload package
-               ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) 2> /dev/null | grep -q "^${dist}|.*/${package}" || \
-                  ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" "$HOME/upload/${pakajname}/${dist}/${package}" )
-               ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) 2> /dev/null | grep "^${dist}|.*/${package}"
-            fi
          fi
+      fi
+   done
+
+   # Upload package
+   for dist in ${distrib}
+   do
+      cd "$HOME/upload/${pakajname}/${dist}" || continue
+      package="$(cat timestamp.sig)"
+      if [ -s "${package}" ] && file "${package}" | grep -q 'Debian binary package'
+      then
+         # Upload package
+         ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) 2> /dev/null | grep -q "^${dist}|.*/${package}" || \
+            ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" "$HOME/upload/${pakajname}/${dist}/${package}" )
+         ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) 2> /dev/null | grep "^${dist}|.*/${package}"
       fi
    done
 
