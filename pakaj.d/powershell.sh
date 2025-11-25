@@ -24,13 +24,14 @@ function oberpakaj_powershell {
             url=$(zgrep ^Filename Packages.gz | grep '/powershell/' | head -1 | awk '{print $2}')
             if [ -z "${url}" ] && [ "${dist}" = "trixie" ]
             then
-                url=$(zgrep ^Filename ../bookworm/Packages.gz 2> /dev/null | grep '/powershell/' | head -1 | awk '{print $2}')
+               url=$(zgrep ^Filename ../bookworm/Packages.gz 2> /dev/null | grep '/powershell/' | head -1 | awk '{print $2}')
+               wget --timestamping "https://packages.microsoft.com/repos/microsoft-debian-bookworm-prod/${url}"
+            else
+               wget --timestamping "https://packages.microsoft.com/repos/microsoft-debian-${dist}-prod/${url}"
             fi
             package=$(basename "${url}")
 
-            wget --timestamping "https://packages.microsoft.com/repos/microsoft-debian-${dist}-prod/${url}"
-
-            if [ -s "${package}" ]
+            if [ -s "${package}" ] && file "${package}" | grep -q 'Debian binary package'
             then
                # Upload package
                ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) 2> /dev/null | grep -q "^${dist}|.*/${package}" || \
