@@ -12,10 +12,12 @@ function oberpakaj_powershell {
    local keep=$1; shift
    local distrib=$*
 
+   pakajname=$(echo "${FUNCNAME[0]}" | sed -e 's/^oberpakaj_//; s/_/-/g;')
+
    for dist in ${distrib}
    do
-      mkdir -p "$HOME/upload/powershell/${dist}"
-      cd "$HOME/upload/powershell/${dist}" || return
+      mkdir -p "$HOME/upload/${pakajname}/${dist}"
+      cd "$HOME/upload/${pakajname}/${dist}" || return
       #PKG_VERSION=1
       if wget --timestamping "https://packages.microsoft.com/repos/microsoft-debian-${dist}-prod/dists/${dist}/main/binary-amd64/Packages.gz"
       then
@@ -26,16 +28,34 @@ function oberpakaj_powershell {
             then
                url=$(zgrep ^Filename ../bookworm/Packages.gz 2> /dev/null | grep '/powershell/' | head -1 | awk '{print $2}')
                wget --timestamping "https://packages.microsoft.com/repos/microsoft-debian-bookworm-prod/${url}"
+               archive=$(basename "${url}")
+               tmp_folder=$(mktemp --directory "/tmp/${pakajname}-XXXXXX")
+               (cd "${tmp_folder}" || return
+                  ar -x "${archive}"
+                  tar xzf control.tar.gz
+                  VERSION=$(grep '^Version:' control | awk '{print $2}' | sed -e 's/\.deb/-u13/;')
+                  sed -i "s/^\(Version:[[:space:]]\).*/\1${VERSION}/; s/\(libicu74\)/libicu76|\1/;" control
+                  tar --owner root --group root -czf control.tar.gz ./control ./md5sums ./postinst ./postrm
+
+                  ar -r "$HOME/upload/${pakajname}/${pakajname}_${VERSION}_amd64.deb" "${tmp_folder}/debian-binary" "${tmp_folder}/control.tar.gz" "${tmp_folder}/data.tar.xz" \
+                     && echo "${pakajname}_${VERSION}_amd64.deb" > "$HOME/upload/${pakajname}/${dist}/timestamp.sig"
+               )
+
+            # Clean
+            rm -rf "${tmp_folder}"
+
             else
                wget --timestamping "https://packages.microsoft.com/repos/microsoft-debian-${dist}-prod/${url}"
+               basename "${url}" > "$HOME/upload/${pakajname}/${dist}/timestamp.sig"
             fi
-            package=$(basename "${url}")
 
+            # Upload package
+            package="$(cat timestamp.sig)"
             if [ -s "${package}" ] && file "${package}" | grep -q 'Debian binary package'
             then
                # Upload package
                ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) 2> /dev/null | grep -q "^${dist}|.*/${package}" || \
-                  ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" "$HOME/upload/powershell/${dist}/${package}" )
+                  ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" "$HOME/upload/${pakajname}/${dist}/${package}" )
                ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) 2> /dev/null | grep "^${dist}|.*/${package}"
             fi
          fi
@@ -45,7 +65,7 @@ function oberpakaj_powershell {
    for dist in ${distrib}
    do
       # Clean old package - kept last 4 (put 4+1=5)
-      cd "$HOME/upload/powershell/${dist}" || return
+      cd "$HOME/upload/${pakajname}/${dist}" || return
       ls -1t -- powershell_*.deb 2> /dev/null | tail -n +$((keep+1)) | xargs -r rm -f --
    done
    }
