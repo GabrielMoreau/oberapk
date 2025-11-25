@@ -11,12 +11,12 @@ function oberpakaj_qrscan {
    local keep=$1; shift
    local distrib=$*
 
-   name='qrscan'
-   mkdir -p "${HOME}/upload/${name}"
-   cd "${HOME}/upload/${name}" || return
+   pakajname=$(echo "${FUNCNAME[0]}" | sed -e 's/^oberpakaj_//; s/_/-/g;')
+   mkdir -p "${HOME}/upload/${pakajname}"
+   cd "${HOME}/upload/${pakajname}" || return
 
    VERSION=$(curl -s -L 'https://github.com/sayanarijit/qrscan/releases/latest' | sed 's/</\n/g;'| grep '^meta property.*og:title' | cut -f 5 -d ' ' | sed -e 's/^v//;')
-   echo "${name}: ${VERSION}"
+   echo "${pakajname}: ${VERSION}"
    package="qrscan"
    url="https://github.com/sayanarijit/qrscan/releases/download/v${VERSION}/qrscan-${VERSION}-x86_64-unknown-linux-gnu.tar.gz"
    package_file=$(basename "${url}")
@@ -27,12 +27,12 @@ function oberpakaj_qrscan {
    previous_package="$(cat timestamp.sig 2> /dev/null)"
    if [ "${after}" -gt "${before}" ] || [ ! -s "${previous_package}" ]
    then
-      tmp_folder=$(mktemp --directory /tmp/${name}-XXXXXX)
+      tmp_folder=$(mktemp --directory /tmp/${pakajname}-XXXXXX)
       (cd "${tmp_folder}"
 
-         if [ -s "${HOME}/upload/${name}/${package_file}" ]
+         if [ -s "${HOME}/upload/${pakajname}/${package_file}" ]
          then
-            tar xzf "${HOME}/upload/${name}/${package_file}"
+            tar xzf "${HOME}/upload/${pakajname}/${package_file}"
             [ -s "qrscan-${VERSION}/qrscan" ] || return
 
             mkdir -p usr/bin
@@ -67,8 +67,8 @@ END
             echo 2.0 > "${tmp_folder}/debian-binary"
 
             # Create package (control before data)
-            ar -r "$HOME/upload/${name}/${package}_${VERSION}_amd64.deb" "${tmp_folder}/debian-binary" "${tmp_folder}/control.tar.gz" "${tmp_folder}/data.tar.xz" \
-               && echo "${package}_${VERSION}_amd64.deb" > "$HOME/upload/${name}/timestamp.sig"
+            ar -r "$HOME/upload/${pakajname}/${package}_${VERSION}_amd64.deb" "${tmp_folder}/debian-binary" "${tmp_folder}/control.tar.gz" "${tmp_folder}/data.tar.xz" \
+               && echo "${package}_${VERSION}_amd64.deb" > "$HOME/upload/${pakajname}/timestamp.sig"
          fi
       )
 
@@ -84,7 +84,7 @@ END
       for dist in ${distrib}
       do
          ( cd "${REPREPRO}" || return ; reprepro dumpreferences )  2> /dev/null | grep -q "^${dist}|.*/${package}" || \
-            ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" "$HOME/upload/${name}/${package}" )
+            ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" "$HOME/upload/${pakajname}/${package}" )
          ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) | grep "^${dist}|.*/qrscan"
       done
    fi
