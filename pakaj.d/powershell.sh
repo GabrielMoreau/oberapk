@@ -37,7 +37,7 @@ function oberpakaj_powershell {
                   sed -i "s/^\(Version:[[:space:]]\).*/\1${VERSION}/; s/\(libicu74\)/libicu76|\1/;" control
                   tar --owner root --group root -czf control.tar.gz ./control ./md5sums ./postinst ./postrm
 
-                  ar -r "$HOME/upload/${pakajname}/${pakajname}_${VERSION}_amd64.deb" "${tmp_folder}/debian-binary" "${tmp_folder}/control.tar.gz" "${tmp_folder}/data.tar.xz" \
+                  ar -r "$HOME/upload/${pakajname}/${pakajname}_${VERSION}_amd64.deb" "${tmp_folder}/debian-binary" "${tmp_folder}/control.tar.gz" "${tmp_folder}/data.tar.gz" \
                      && echo "${pakajname}_${VERSION}_amd64.deb" > "$HOME/upload/${pakajname}/${dist}/timestamp.sig"
                )
 
