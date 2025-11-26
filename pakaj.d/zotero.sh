@@ -18,7 +18,7 @@ function oberpakaj_zotero {
    
    version_old=$(cat "$HOME/upload/zotero/version")
    version=$(curl --silent https://www.zotero.org/download/ -o - | grep  'standaloneVersions' | sed -e 's/,/\n/g;' | grep 'linux-x86_64' | cut -f 4 -d '"' | grep '^[[:digit:]]' | head -1)
-   PKG_VERSION=3
+   PKG_VERSION=4
    PKG_NAME=zotero-latest
    package=${PKG_NAME}_${version}-${PKG_VERSION}_amd64.deb
 
@@ -69,7 +69,7 @@ Package: zotero-latest
 Version: ${version}-${PKG_VERSION}
 Section: text
 Priority: optional
-Depends: firefox-esr | firefox, libegl1|libwayland-egl1, libegl-mesa0, libasound2, libatk1.0-0, libc6, libcairo-gobject2, libcairo2, libdbus-1-3, libdbus-glib-1-2, libfontconfig1, libfreetype6, libgdk-pixbuf2.0-0, libglib2.0-0, libgtk-3-0, libharfbuzz0b, libpango-1.0-0, libpangocairo-1.0-0, libstdc++6, libx11-6, libx11-xcb1, libxcb-shm0, libxcb1, libxcomposite1, libxcursor1, libxdamage1, libxext6, libxfixes3, libxi6, libxrandr2, libxrender1, libxtst6, gnupg
+Depends: firefox-esr | firefox, libegl1|libwayland-egl1, libegl-mesa0, libasound2, libatk1.0-0, libc6, libcairo-gobject2, libcairo2, libdbus-1-3, libdbus-glib-1-2, libfontconfig1, libfreetype6, libgdk-pixbuf2.0-0|libgdk-pixbuf-2.0-0, libglib2.0-0, libgtk-3-0, libharfbuzz0b, libpango-1.0-0, libpangocairo-1.0-0, libstdc++6, libx11-6, libx11-xcb1, libxcb-shm0, libxcb1, libxcomposite1, libxcursor1, libxdamage1, libxext6, libxfixes3, libxi6, libxrandr2, libxrender1, libxtst6, gnupg
 Architecture: amd64
 Installed-Size: $(du -ks "${tmp_folder}/usr"|cut -f 1)
 Maintainer: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
