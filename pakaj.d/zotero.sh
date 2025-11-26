@@ -12,11 +12,12 @@ function oberpakaj_zotero {
    local keep=$1; shift
    local distrib=$*
 
-   mkdir -p "$HOME/upload/zotero"
-   [ -e "$HOME/upload/zotero/version" ] || echo '0' > "$HOME/upload/zotero/version"
-   cd "$HOME/upload/zotero" || return
+   pakajname=$(echo "${FUNCNAME[0]}" | sed -e 's/^oberpakaj_//; s/_/-/g;')
+   mkdir -p "$HOME/upload/${pakajname}"
+   [ -e "$HOME/upload/${pakajname}/version" ] || echo '0' > "$HOME/upload/${pakajname}/version"
+   cd "$HOME/upload/${pakajname}" || return
    
-   version_old=$(cat "$HOME/upload/zotero/version")
+   version_old=$(cat "$HOME/upload/${pakajname}/version")
    version=$(curl --silent https://www.zotero.org/download/ -o - | grep  'standaloneVersions' | sed -e 's/,/\n/g;' | grep 'linux-x86_64' | cut -f 4 -d '"' | grep '^[[:digit:]]' | head -1)
    PKG_VERSION=4
    PKG_NAME=zotero-latest
@@ -24,7 +25,7 @@ function oberpakaj_zotero {
 
    if [ "${version}_${PKG_VERSION}" != "${version_old}" ]
    then
-      echo "${version}_${PKG_VERSION}" > "$HOME/upload/zotero/version"
+      echo "${version}_${PKG_VERSION}" > "$HOME/upload/${pakajname}/version"
 
       curl "https://download.zotero.org/client/release/${version}/Zotero-${version}_linux-x86_64.tar.bz2" -o "Zotero-${version}_linux-x86_64.tar.bz2"
 
@@ -41,7 +42,7 @@ function oberpakaj_zotero {
          mkdir -p "${tmp_folder}/usr/lib"
          mkdir -p "${tmp_folder}/usr/share/applications"
 
-         (cd "${tmp_folder}/usr/lib" || return; tar xjf "$HOME/upload/zotero/Zotero-${version}_linux-x86_64.tar.bz2")
+         (cd "${tmp_folder}/usr/lib" || return; tar xjf "$HOME/upload/${pakajname}/Zotero-${version}_linux-x86_64.tar.bz2")
          mv "${tmp_folder}/usr/lib/Zotero_linux-x86_64" "${tmp_folder}/usr/lib/zotero-latest"
          mv "${tmp_folder}/usr/lib/zotero-latest/zotero.desktop" "${tmp_folder}/usr/share/applications/"
 
@@ -108,7 +109,7 @@ END
       for dist in ${distrib}
       do
          ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) 2> /dev/null | grep -q "^${dist}|.*/${package}" || \
-            ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" "$HOME/upload/zotero/${package}" )
+            ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" "$HOME/upload/${pakajname}/${package}" )
          ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) 2> /dev/null | grep "^${dist}|.*/zotero"
       done
    fi
