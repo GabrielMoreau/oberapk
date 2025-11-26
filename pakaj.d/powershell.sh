@@ -13,7 +13,6 @@ function oberpakaj_powershell {
    local distrib=$*
 
    pakajname=$(echo "${FUNCNAME[0]}" | sed -e 's/^oberpakaj_//; s/_/-/g;')
-
    for dist in ${distrib}
    do
       mkdir -p "$HOME/upload/${pakajname}/${dist}"

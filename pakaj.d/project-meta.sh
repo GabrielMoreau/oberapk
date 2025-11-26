@@ -11,15 +11,16 @@ function oberpakaj_project_meta {
    local keep=$1; shift
    local distrib=$*
 
-   if [ ! -d "${HOME}/upload/project-meta" ]
+   pakajname=$(echo "${FUNCNAME[0]}" | sed -e 's/^oberpakaj_//; s/_/-/g;')
+   if [ ! -d "${HOME}/upload/${pakajname}" ]
    then
       cd "${HOME}/upload/" || return
       git clone https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/project-meta.git
    fi
 
-   if [ -d "${HOME}/upload/project-meta/.git" ]
+   if [ -d "${HOME}/upload/${pakajname}/.git" ]
    then
-      cd "${HOME}/upload/project-meta" || return
+      cd "${HOME}/upload/${pakajname}" || return
       git pull
 
       PKG_NAME=$(grep '^PKG_NAME=' make-package-debian | cut -f 2 -d "=")
@@ -38,16 +39,16 @@ function oberpakaj_project_meta {
          for dist in ${distrib}
          do
             ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) 2> /dev/null | grep -q "^${dist}|.*/${package}" || \
-               ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" "$HOME/upload/${PKG_NAME}/${package}" )
+               ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" "$HOME/upload/${pakajname}/${package}" )
          done
          ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) | grep -i "/${PKG_NAME}"
       fi
    fi
 
    # Clean old package - keep last 4 (put 4+1=5)
-   if [ -d "${HOME}/upload/project-meta" ]
+   if [ -d "${HOME}/upload/${pakajname}" ]
    then
-      cd "${HOME}/upload/project-meta" || return
+      cd "${HOME}/upload/${pakajname}" || return
       ls -1t -- project-meta_*.deb 2> /dev/null | tail -n +$((keep+1)) | xargs -r rm -f --
    fi
    }

@@ -11,15 +11,16 @@ function oberpakaj_gestex {
    local keep=$1; shift
    local distrib=$*
 
-   if [ ! -d "${HOME}/upload/gestex" ]
+   pakajname=$(echo "${FUNCNAME[0]}" | sed -e 's/^oberpakaj_//; s/_/-/g;')
+   if [ ! -d "${HOME}/upload/${pakajname}" ]
    then
       cd "${HOME}/upload/" || return
       git clone https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/gestex.git
    fi
 
-   if [ -d "${HOME}/upload/gestex/.git" ]
+   if [ -d "${HOME}/upload/${pakajname}/.git" ]
    then
-      cd "${HOME}/upload/gestex" || return
+      cd "${HOME}/upload/${pakajname}" || return
       git checkout master
       git pull
 
@@ -39,16 +40,16 @@ function oberpakaj_gestex {
          for dist in ${distrib}
          do
             ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) 2> /dev/null | grep -q "^${dist}|.*/${package}" || \
-               ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" "$HOME/upload/${PKG_NAME}/${package}" )
+               ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" "$HOME/upload/${pakajname}/${package}" )
          done
          ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) | grep -i "/${PKG_NAME}"
       fi
    fi
 
    # Clean old package - keep last 4 (put 4+1=5)
-   if [ -d "${HOME}/upload/gestex" ]
+   if [ -d "${HOME}/upload/${pakajname}" ]
    then
-      cd "${HOME}/upload/gestex" || return
+      cd "${HOME}/upload/${pakajname}" || return
       ls -1t -- gestex_*.deb 2> /dev/null | tail -n +$((keep+1)) | xargs -r rm -f --
    fi
    }
