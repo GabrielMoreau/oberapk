@@ -31,7 +31,7 @@ function oberpakaj_zotero {
 
       if [ -s "Zotero-${version}_linux-x86_64.tar.bz2" ]
       then
-         tmp_folder=$(mktemp --directory /tmp/zotero-XXXXXX)
+         tmp_folder=$(mktemp --directory /tmp/${pakajname}-XXXXXX)
          if [ -z "$tmp_folder" ] || [ ! -d "$tmp_folder" ]
          then
             return
