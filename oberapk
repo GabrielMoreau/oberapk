@@ -10,7 +10,7 @@
 export PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin
 export LANG=C
 
-VERSION='0.7.23'
+VERSION='0.7.24'
 
 # Global variables
 export CONF_FILE=/etc/oberapk/oberapk.conf
@@ -73,7 +73,7 @@ AUTHOR
  Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
 
 COPYRIGHT
- Copyright (C) 2017-2025, LEGI UMR 5519 / CNRS UGA G-INP, Grenoble, France
+ Copyright (C) 2017-2026, LEGI UMR 5519 / CNRS UGA G-INP, Grenoble, France
  Licence : GNU GPL version 2 or later
 END_USAGE
    }
