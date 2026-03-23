@@ -21,8 +21,12 @@ function oberpakaj_codium {
    if [ -e "releases" ]
    then
       codium=$(grep '/codium_.*_amd64.deb' releases | cut -f 2 -d '"' | head -1 | sed -e 's#^/##;')
+      if [[ "${codium}" != https://* ]]
+      then
+        codium="https://github.com/${codium}"
+      fi
 
-      if wget --timestamping "https://github.com/${codium}"
+      if wget --timestamping "${codium}"
       then
          if [ -e "$(basename "${codium}")" ]
          then
