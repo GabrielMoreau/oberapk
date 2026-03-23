@@ -27,9 +27,10 @@ function oberpakaj_zotero {
    then
       echo "${version}_${PKG_VERSION}" > "$HOME/upload/${pakajname}/version"
 
-      curl "https://download.zotero.org/client/release/${version}/Zotero-${version}_linux-x86_64.tar.bz2" -o "Zotero-${version}_linux-x86_64.tar.bz2"
+      # https://download.zotero.org/client/release/8.0.4/Zotero-8.0.4_linux-x86_64.tar.xz
+      curl "https://download.zotero.org/client/release/${version}/Zotero-${version}_linux-x86_64.tar.xz" -o "Zotero-${version}_linux-x86_64.tar.xz"
 
-      if [ -s "Zotero-${version}_linux-x86_64.tar.bz2" ]
+      if [ -s "Zotero-${version}_linux-x86_64.tar.xz" ]
       then
          tmp_folder=$(mktemp --directory /tmp/${pakajname}-XXXXXX)
          if [ -z "$tmp_folder" ] || [ ! -d "$tmp_folder" ]
@@ -42,7 +43,7 @@ function oberpakaj_zotero {
          mkdir -p "${tmp_folder}/usr/lib"
          mkdir -p "${tmp_folder}/usr/share/applications"
 
-         (cd "${tmp_folder}/usr/lib" || return; tar xjf "$HOME/upload/${pakajname}/Zotero-${version}_linux-x86_64.tar.bz2")
+         (cd "${tmp_folder}/usr/lib" || return; tar xJf "$HOME/upload/${pakajname}/Zotero-${version}_linux-x86_64.tar.xz")
          mv "${tmp_folder}/usr/lib/Zotero_linux-x86_64" "${tmp_folder}/usr/lib/zotero-latest"
          mv "${tmp_folder}/usr/lib/zotero-latest/zotero.desktop" "${tmp_folder}/usr/share/applications/"
 
@@ -61,8 +62,8 @@ END_EXEC
          chmod -R a+rX "${tmp_folder}/usr"
 
          # Data archive
-         rm -f "${tmp_folder}/data.tar.gz"
-         (cd "${tmp_folder}" || return; tar --owner root --group root -czf data.tar.gz ./usr)
+         rm -f "${tmp_folder}/data.tar.xz"
+         (cd "${tmp_folder}" || return; tar --owner root --group root -cJf data.tar.xz ./usr)
 
          # Control file
          cat <<END > "${tmp_folder}/control"
@@ -96,7 +97,7 @@ END
          echo 2.0 > "${tmp_folder}/debian-binary"
 
          # Create package (control before data)
-         ar -r "${package}" "${tmp_folder}/debian-binary" "${tmp_folder}/control.tar.gz" "${tmp_folder}/data.tar.gz"
+         ar -r "${package}" "${tmp_folder}/debian-binary" "${tmp_folder}/control.tar.gz" "${tmp_folder}/data.tar.xz"
  
          # Clean
          rm -rf "${tmp_folder}"
