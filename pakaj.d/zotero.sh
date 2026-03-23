@@ -19,7 +19,7 @@ function oberpakaj_zotero {
    
    version_old=$(cat "$HOME/upload/${pakajname}/version")
    version=$(curl --silent https://www.zotero.org/download/ -o - | grep  'standaloneVersions' | sed -e 's/,/\n/g;' | grep 'linux-x86_64' | cut -f 4 -d '"' | grep '^[[:digit:]]' | head -1)
-   PKG_VERSION=4
+   PKG_VERSION=5
    PKG_NAME=zotero-latest
    package=${PKG_NAME}_${version}-${PKG_VERSION}_amd64.deb
 
