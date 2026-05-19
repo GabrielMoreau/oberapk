@@ -1,10 +1,10 @@
 #!/bin/bash
 #
-## Date: 2022/01/27
+## Date: 2026/05/19
 ## Pakaj: toggle-screens
 ## Author: Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
 ## See-Also: https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/toggle-screens
-## Description: DDT is a simple IP Address Management (IPAM) service
+## Description: Switch all windows from screen 0 to screen 1 and vice versa
 ## Binaries: ls tail xargs rm reprepro grep mkdir git cut make pod2man pod2html mktemp cp ln cat chmod tar ar
 
 function oberpakaj_toggle_screens {
