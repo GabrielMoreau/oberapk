@@ -16,7 +16,7 @@ function oberpakaj_openfoam {
    for dist in ${distrib}
    do
       mkdir -p "$HOME/upload/openfoam/${dist}"
-      cd "$HOME/upload/openfoam/${dist}"
+      cd "$HOME/upload/openfoam/${dist}" || continue
       
       for arch in all amd64
       do
@@ -24,7 +24,7 @@ function oberpakaj_openfoam {
          curl -s --time-cond "Packages-${arch}" -o "Packages-${arch}" -L "https://dl.openfoam.com/repos/deb/dists/${dist}/main/binary-${arch}/Packages"
       done
       
-      if [ -s "Packages-all" -o -s "Packages-amd64" ]
+      if [ -s "Packages-all" ] || [ -s "Packages-amd64" ]
       then
          pkg_version=$(grep -E '^Filename: .*(openfoam).*.deb' Packages-all Packages-amd64 | cut -f 5 -d '/' | sort -uV | grep '^[[:digit:]][[:digit:]_]*$' | tail -1)
          #echo "${pkg_version}"
@@ -41,10 +41,16 @@ function oberpakaj_openfoam {
            ( cd "${REPREPRO}" || return ; reprepro dumpreferences ) 2> /dev/null | grep -q "^${dist}|.*/${package}" || \
                   ( cd "${REPREPRO}" || return ; reprepro includedeb "${dist}" "$HOME/upload/openfoam/${dist}/${package}" )
          fi
-
-         # Clean old package
-         basepkg=$(echo "${package}" | cut -f 1 -d '_')
-         ls -1t -- "${basepkg}"_*.deb 2> /dev/null | tail -n +$((keep+1)) | xargs -r rm -f --
       done < <(grep "^Filename: .*/${pkg_version}/.*openfoam.*.deb" Packages-all Packages-amd64 | cut -f 2 -d ' ' | sort -u)
+   done
+
+   for dist in ${distrib}
+   do
+      cd "$HOME/upload/openfoam/${dist}" || continue
+      while read -r version
+      do
+         # Clean old package
+         rm -f -- openfoam*"${version}"*.deb
+      done < <(ls -1 -- *.deb | cut -f 1 -d '_' | cut -f 1 -d '-' | sed 's/^openfoam//;' | sort -u | grep -E '^[[:digit:]]+$' | head -n -"${keep}")
    done
    }
