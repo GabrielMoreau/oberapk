@@ -24,7 +24,7 @@ function oberpakaj_tssh {
       git pull
 
       PKG_NAME=$(grep '^PKG_NAME=' make-package-debian | cut -f 2 -d "=")
-      CODE_VERSION=$(grep '^VERSION=' tssh | cut -f 2 -d "'")
+      CODE_VERSION=$(./get-version)
       PKG_VERSION=$(grep '^PKG_VERSION=' make-package-debian | cut -f 2 -d "=")
       package=${PKG_NAME}_${CODE_VERSION}-${PKG_VERSION}_all.deb
 
@@ -49,6 +49,6 @@ function oberpakaj_tssh {
    if [ -d "${HOME}/upload/${pakajname}" ]
    then
       cd "${HOME}/upload/${pakajname}" || return
-      ls -1t -- tssh_*.deb 2> /dev/null | tail -n +$((keep+1)) | xargs -r rm -f --
+      ls -1t -- "${pakajname}"_*.deb 2> /dev/null | tail -n +$((keep+1)) | xargs -r rm -f --
    fi
    }
