@@ -15,7 +15,7 @@ function oberpakaj_tssh {
    if [ ! -d "${HOME}/upload/${pakajname}" ]
    then
       cd "${HOME}/upload/" || return
-      git clone https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/tssh.git
+      git clone https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/${pakajname}.git
    fi
 
    if [ -d "${HOME}/upload/${pakajname}/.git" ]
@@ -30,7 +30,7 @@ function oberpakaj_tssh {
 
       if [ ! -s "${package}" ]
       then
-         make pkg
+         ./make-package-debian
       fi
 
       if [ -s "${package}" ] && file "${package}" | grep -q 'Debian binary package'
