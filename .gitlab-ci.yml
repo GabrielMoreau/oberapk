@@ -2,29 +2,28 @@
 image: amd64/debian:stable-slim
 
 cache:
-  key: package-cache-folder
+  key: cache-folder
   paths:
-    - pkg-cache/
+    - cache/
 
 before_script:
-  - mkdir -p pkg-cache/deb
+  - mkdir -p cache/deb
   - apt-get update -yqq
-  - apt-get -o dir::cache::archives='pkg-cache/deb' install -yqq perl make binutils findutils tar gzip wget
+  - apt-get -o dir::cache::archives='cache/deb' install -yqq perl make binutils findutils tar gzip wget file git
 
 pages:
   stage: build
   variables:
-    KEEP_PKG: 50
+    KEEP_PKG: 20
   script:
     - mkdir -p public/download
     - $(wget --no-check-certificate ${CI_PAGES_URL}/download.tar.gz -O download.tar.gz || exit 0)
-    - '[ -s download.tar.gz ] && { tar -xzf download.tar.gz public/download/ || echo "tar error" ; }'
-    - (cd public/download; ls -t oberapk_*.deb 2> /dev/null | tail -n +$((${KEEP_PKG} + 1)) | xargs -r rm -f)
-    - make pages
-    - (cd public/download; ../../only-keep-1pkg-day 'oberapk_*.deb' | tee >(cat 1>&2) | bash)
+    - 'file download.tar.gz | grep "gzip compressed data" && { tar -xzf download.tar.gz public/download/ || echo "untar error" ; }'
+    - make webpages
     - tar -czf public/download.tar.gz public/download/
   artifacts:
     paths:
       - public
-  only:
-    - main
+    expire_in: 3 day
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
