@@ -131,7 +131,8 @@ in the folder [pakaj.d](pakaj.d/):
   [quarto](https://github.com/quarto-dev/quarto-cli);
 * [reaction](https://framagit.org/ppom),
   [rstudio](https://www.rstudio.com/);
-* [signal](https://signal.org/) [signal-desktop],
+* [sat](https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/sat),
+  [signal](https://signal.org/) [signal-desktop],
   [skype](https://www.skype.com/) [skypeforlinux] (obsolete since 2025/05),
   [slack](https://slack.com/intl/fr-fr/downloads/linux) [slack-desktop],
   [spideroak](https://spideroak.com/) [spideroakone];
@@ -139,6 +140,7 @@ in the folder [pakaj.d](pakaj.d/):
   [teams](https://teams.com/),
   [teamviewer](https://www.teamviewer.com/),
   [tixeoclient](https://www.tixeo.com/),
+  [toggle-screens](https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/toggle-screens),
   [tssh](https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/tssh);
 * [udsclient3](http://www.udsenterprise.com);
 * [veracrypt](https://www.veracrypt.fr/) [veracrypt veracrypt-console],
