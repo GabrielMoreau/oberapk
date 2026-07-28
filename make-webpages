@@ -1,0 +1,54 @@
+#!/bin/bash
+#
+# 2026/07/26 Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
+
+set -euo pipefail
+
+export PATH=/bin:/sbin:/usr/bin:/usr/sbin
+export LANG=C
+
+KEEP_PKG=20
+CODE_VERSION=$(./get-version)
+
+# Temporary folder
+tmp_folder=$(mktemp --directory /tmp/oberapk-XXXXXX)
+[ -n "${tmp_folder}" ] && [ -d "${tmp_folder}" ] || exit 1
+
+# Clean at end of script in all case
+trap 'rm -rf "${tmp_folder:-}"' EXIT INT TERM
+
+mkdir -p "${tmp_folder}" public/download
+
+# Transform version
+for f in *.pod
+do
+  sed "s/@VERSION@/${CODE_VERSION}/g;" "${f}" > "${tmp_folder}/${f}"
+  (cd "${tmp_folder}" || continue; pod2html --css podstyle.css --index --header "${f}") > public/"${f/%pod/html}"
+done
+
+cp -p podstyle.css public/
+cp -p LICENSE.md   public/
+
+cp -p --no-clobber oberapk_*_all.deb public/download/
+
+(
+  cd public/download
+  ../../only-keep-1pkg-day oberapk_%.deb | tee >(cat 1>&2) | bash
+  ls -t -- oberapk_*.deb 2> /dev/null | tail -n +$((KEEP_PKG + 1)) | xargs -r rm -f --
+)
+
+(
+  cd public
+  ln -sf oberapk.html index.html
+)
+
+PKG_VERSION=$(grep '^PKG_VERSION=' make-package-debian | cut -f 2 -d '=')
+echo '<html><body><h1>Oberapk Debian Package (Latest version: '"${CODE_VERSION}-${PKG_VERSION}"')</h1><ul>' > public/download/index.html
+(
+  cd public/download
+  while read -r file
+  do
+    printf '<li><a href="%s">%s</a> (%s)</li>\n' "${file}" "${file}" "$(stat -c %y "${file}" | cut -f 1 -d ' ')"
+  done < <(ls -1t -- *.deb) >> index.html
+)
+echo '</ul></body></html>' >> public/download/index.html
