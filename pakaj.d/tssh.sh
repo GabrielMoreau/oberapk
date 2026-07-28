@@ -30,7 +30,6 @@ function oberpakaj_tssh {
 
       if [ ! -s "${package}" ]
       then
-         make
          make pkg
       fi
 
