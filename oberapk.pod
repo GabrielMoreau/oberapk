@@ -203,6 +203,11 @@ Own project ressources:
 =back
 
 
+=head1 VERSION
+
+Oberapk version @VERSION@
+
+
 =head1 AUTHORS
 
 Written by Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>, Grenoble - France
